@@ -1301,7 +1301,7 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 			("clock_diff_"++(u)).asSymbol.envirPut(("clock_diff_"++(u)).asSymbol.envirGet.round.asInteger;);
 		});
 
-		~intv_weights = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"_interval_weights/"++(
+		~intv_weights = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"_interval_weights/"++(
 			case
 			{~number_of_instruments == 1}{(~clock_diff_0.asString)}
 			{~number_of_instruments == 2}{(~clock_diff_0.asString)++"__"++(~clock_diff_1.asString)}
@@ -1343,7 +1343,7 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 		("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_place").asSymbol.envirGet
 		*/
 
-		~time_weights = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(~inst_num-1))++"_time_weights/"++(
+		~time_weights = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(~inst_num-1))++"_time_weights/"++(
 			case
 			{~number_of_instruments == 1}{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)}
 			{~number_of_instruments == 2}{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("dna_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)}
@@ -1917,15 +1917,15 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 
 						((~interval_diff1-1).asString++" - "++(~player_array.wrapAt(r-1))++"__"++(interv_inst_case.value)).postln;
 
-						/*("/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(r-1))++"_interval_weights/"++(interv_inst_case.value)++"_weights.scd").asString.postln;
+						/*("/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(r-1))++"_interval_weights/"++(interv_inst_case.value)++"_weights.scd").asString.postln;
 						*/
-						h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(r-1))++"_interval_weights/"++(interv_inst_case.value)++"_weights.scd", false, true);
+						h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(r-1))++"_interval_weights/"++(interv_inst_case.value)++"_weights.scd", false, true);
 						h = h.flatten.asFloat;
 						/*("interval_diff_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++" "++(inst_case.value)), h]);
 						~interval_diff_revert_1.postln;*/
 						h.put(~interval_diff1-1, (h.at(~interval_diff1-1) + (~net_change*~net_change_mult)));
 						h = h.normalizeSum;
-						g = File(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(r-1))++"_interval_weights/"++(interv_inst_case.value)++"_weights.scd", "w");
+						g = File(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(r-1))++"_interval_weights/"++(interv_inst_case.value)++"_weights.scd", "w");
 						~interval_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
 						g.close;
 					});
@@ -2075,14 +2075,14 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 
 						((~lengthplace1).asString++" - "++(~player_array.wrapAt(r-1))++" "++(time_inst_case.value)).postln;
 
-						/*("/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(r-1))++"_time_weights/"++(time_inst_case.value)++"_time_weights.scd").asString.postln;
+						/*("/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(r-1))++"_time_weights/"++(time_inst_case.value)++"_time_weights.scd").asString.postln;
 						*/
-						h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(r-1))++"_time_weights/"++(time_inst_case.value)++"_time_weights.scd", false, true);
+						h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(r-1))++"_time_weights/"++(time_inst_case.value)++"_time_weights.scd", false, true);
 						h = h.flatten.asFloat;
 						("lengthplace_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++"__"++(time_inst_case.value), h]);
 						h.put(~lengthplace1, (h.at(~lengthplace1) + (~net_change*~net_change_mult)));
 						h = h.normalizeSum;
-						g = File(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(r-1))++"_time_weights/"++(time_inst_case.value)++"_time_weights.scd", "w");
+						g = File(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(r-1))++"_time_weights/"++(time_inst_case.value)++"_time_weights.scd", "w");
 						~dna_choice_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
 						g.close;
 
@@ -2132,13 +2132,13 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 
 		/*~savenum_interval.do(r = 0; {
 		r = r+1;
-		h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", false, true);
+		h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", false, true);
 		h = h.flatten.asFloat;
 		("interval_diff_revert2_"++(r)).asSymbol.envirPut([(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0)), h]);
 		});
 		~savenum_time.do(r = 0; {
 		r = r+1;
-		h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", false, true);
+		h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", false, true);
 		h = h.flatten.asFloat;
 		("lengthplace_revert2_"++(r)).asSymbol.envirPut([(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0)), h]);
 		});
@@ -2146,27 +2146,27 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 		~savenum_interval.do(r = 0; {
 		r = r+1;
 		h = ("interval_diff_revert_"++(r)).asSymbol.envirGet.at(1);
-		g = File(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", "w");
+		g = File(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", "w");
 		~interval_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
 		g.close;
 		});
 		~savenum_time.do(r = 0; {
 		r = r+1;
 		h = ("lengthplace_revert_"++(r)).asSymbol.envirGet.at(1);
-		g = File(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", "w");
+		g = File(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", "w");
 		~dna_choice_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
 		g.close;
 		});
 
 		~savenum_interval.do(r = 0; {
 		r = r+1;
-		h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", false, true);
+		h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", false, true);
 		h = h.flatten.asFloat;
 		("interval_diff_revert_"++(r)).asSymbol.envirPut([(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0)), (("interval_diff_revert2_"++(r)).asSymbol.envirGet.at(1))]);
 		});
 		~savenum_time.do(r = 0; {
 		r = r+1;
-		h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", false, true);
+		h = FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", false, true);
 		h = h.flatten.asFloat;
 		("lengthplace_revert_"++(r)).asSymbol.envirPut([(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0)), (("lengthplace_revert2_"++(r)).asSymbol.envirGet.at(1))]);
 		});
@@ -2652,7 +2652,7 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 
 };
 
-if(FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/zdummyfile.scd", false, true) != nil,
+if(FileReader.read(Document.current.dir++"/other_program_files/ddbot_training_data_folder/ddbot_training_data/zdummyfile.scd", false, true) != nil,
 	{if(Server.default.serverRunning == false, {s.boot; s.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});},
 	{
 		w = Window("DuranDuranbot",
