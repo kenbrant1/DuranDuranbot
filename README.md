@@ -17,5 +17,5 @@ Inside the extracted folder, go to the "/other_program_files/ddbot_training_data
 
 Then download and install SuperCollider, the IDE application which runs DuranDuranbot, from this website - https://supercollider.github.io/download
 
-Once SuperCollider is installed, open the SuperCollider application, and from within SuperCollider, open the "duranduranbot_RUN.scd" file.... and press "ctrl -Enter" or "cmd - Return" to run the application.
+Once SuperCollider is installed, open the SuperCollider application, and from within SuperCollider, open the "duranduranbot_RUN.scd" file.... and press "ctrl -Enter" or "cmd - Return" or go to the "Language" tab and click "Evaluate File" to run the application.
 
