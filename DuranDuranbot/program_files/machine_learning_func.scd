@@ -231,72 +231,72 @@
 /*
 ~ml_revert_func = {
 
-	/*~randseed_1_backup2 = ~randseed_1;
-	~randseed_2_backup2 = ~randseed_2;
-	~randseed_3_backup2 = ~randseed_3;
-	~randseed_1 =  ~randseed_1_backup;
-	~randseed_2 =  ~randseed_2_backup;
-	~randseed_3 =  ~randseed_3_backup;
-	~randseed_1_backup = ~randseed_1_backup2;
-	~randseed_2_backup = ~randseed_2_backup2;
-	~randseed_3_backup = ~randseed_3_backup2;*/
+/*~randseed_1_backup2 = ~randseed_1;
+~randseed_2_backup2 = ~randseed_2;
+~randseed_3_backup2 = ~randseed_3;
+~randseed_1 =  ~randseed_1_backup;
+~randseed_2 =  ~randseed_2_backup;
+~randseed_3 =  ~randseed_3_backup;
+~randseed_1_backup = ~randseed_1_backup2;
+~randseed_2_backup = ~randseed_2_backup2;
+~randseed_3_backup = ~randseed_3_backup2;*/
 
-	if(~duranduranbot_routine.isPlaying == true, {if(~pause_piece == 0, {~playbutton.valueAction = 0});});
+if(~duranduranbot_routine.isPlaying == true, {if(~pause_piece == 0, {~playbutton.valueAction = 0});});
 
-	/*~savenum_interval.do(r = 0; {
-	r = r+1;
-	h = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", false, true);
-	h = h.flatten.asFloat;
-	("interval_diff_revert2_"++(r)).asSymbol.envirPut([(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0)), h]);
-	});
-	~savenum_time.do(r = 0; {
-	r = r+1;
-	h = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", false, true);
-	h = h.flatten.asFloat;
-	("lengthplace_revert2_"++(r)).asSymbol.envirPut([(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0)), h]);
-	});
+/*~savenum_interval.do(r = 0; {
+r = r+1;
+h = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", false, true);
+h = h.flatten.asFloat;
+("interval_diff_revert2_"++(r)).asSymbol.envirPut([(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0)), h]);
+});
+~savenum_time.do(r = 0; {
+r = r+1;
+h = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", false, true);
+h = h.flatten.asFloat;
+("lengthplace_revert2_"++(r)).asSymbol.envirPut([(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0)), h]);
+});
 
-	~savenum_interval.do(r = 0; {
-	r = r+1;
-	h = ("interval_diff_revert_"++(r)).asSymbol.envirGet.at(1);
-	g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", "w");
-	~interval_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
-	g.close;
-	});
-	~savenum_time.do(r = 0; {
-	r = r+1;
-	h = ("lengthplace_revert_"++(r)).asSymbol.envirGet.at(1);
-	g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", "w");
-	~dna_choice_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
-	g.close;
-	});
+~savenum_interval.do(r = 0; {
+r = r+1;
+h = ("interval_diff_revert_"++(r)).asSymbol.envirGet.at(1);
+g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", "w");
+~interval_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
+g.close;
+});
+~savenum_time.do(r = 0; {
+r = r+1;
+h = ("lengthplace_revert_"++(r)).asSymbol.envirGet.at(1);
+g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", "w");
+~dna_choice_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
+g.close;
+});
 
-	~savenum_interval.do(r = 0; {
-	r = r+1;
-	h = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", false, true);
-	h = h.flatten.asFloat;
-	("interval_diff_revert_"++(r)).asSymbol.envirPut([(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0)), (("interval_diff_revert2_"++(r)).asSymbol.envirGet.at(1))]);
-	});
-	~savenum_time.do(r = 0; {
-	r = r+1;
-	h = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", false, true);
-	h = h.flatten.asFloat;
-	("lengthplace_revert_"++(r)).asSymbol.envirPut([(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0)), (("lengthplace_revert2_"++(r)).asSymbol.envirGet.at(1))]);
-	});
+~savenum_interval.do(r = 0; {
+r = r+1;
+h = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0))++"_weights.scd", false, true);
+h = h.flatten.asFloat;
+("interval_diff_revert_"++(r)).asSymbol.envirPut([(("interval_diff_revert_"++(r)).asSymbol.envirGet.at(0)), (("interval_diff_revert2_"++(r)).asSymbol.envirGet.at(1))]);
+});
+~savenum_time.do(r = 0; {
+r = r+1;
+h = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", false, true);
+h = h.flatten.asFloat;
+("lengthplace_revert_"++(r)).asSymbol.envirPut([(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0)), (("lengthplace_revert2_"++(r)).asSymbol.envirGet.at(1))]);
+});
 
-	if(~rate_revert == 0, {"Rates Reverted".postln; ~rate_revert = 1;}, {"Rates Reverted To Last Rated".postln; ~rate_revert = 0;});
-	*/
-	AppClock.sched(0.25, {
-		if(~duranduranbot_routine.isPlaying == true, {if(~pause_piece == 1, {~playbutton.valueAction = 1});});
+if(~rate_revert == 0, {"Rates Reverted".postln; ~rate_revert = 1;}, {"Rates Reverted To Last Rated".postln; ~rate_revert = 0;});
+*/
+AppClock.sched(0.25, {
+if(~duranduranbot_routine.isPlaying == true, {if(~pause_piece == 1, {~playbutton.valueAction = 1});});
 
-		if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});
-		~ratedonetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.063829787234, ~firstviewboundsHEIGHT/4.228571428571, ~firstviewboundsWIDTH/4.04545454545, ~firstviewboundsHEIGHT/21));
-		~ratedonetext.background=~stringcolor;
-		~ratedonetext.stringColor_(~backgroundcolor);
-		~ratedonetext.string = "RATES REVERTED";
-		~ratedonetext.font = Font(size: ~firstviewboundsWIDTH/55);
+if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});
+~ratedonetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.063829787234, ~firstviewboundsHEIGHT/4.228571428571, ~firstviewboundsWIDTH/4.04545454545, ~firstviewboundsHEIGHT/21));
+~ratedonetext.background=~stringcolor;
+~ratedonetext.stringColor_(~backgroundcolor);
+~ratedonetext.string = "RATES REVERTED";
+~ratedonetext.font = Font(size: ~firstviewboundsWIDTH/55);
 
-		AppClock.sched(3, {if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});});
-	});
+AppClock.sched(3, {if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});});
+});
 };
 */

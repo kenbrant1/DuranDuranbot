@@ -1,6 +1,6 @@
 ~synthdefs_func = {
 
-if(~buffer == nil, {~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Promenade-C3-loop5.wav");});
+	if(~buffer == nil, {~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Promenade-C3-loop5.wav");});
 
 	~vd_midi = 73; //middle note for equalizing volume/amplitude. default is 73.
 
