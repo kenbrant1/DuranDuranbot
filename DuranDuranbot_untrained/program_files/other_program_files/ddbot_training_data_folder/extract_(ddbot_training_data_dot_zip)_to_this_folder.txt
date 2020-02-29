@@ -1,1 +1,0 @@
-extract_(ddbot_training_data_dot_zip)_to_this_folder
