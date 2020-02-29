@@ -1,5 +1,0 @@
-DO_NOT_REMOVE_PROGRAM_FILES_FROM_THIS_FOLDER
-
-
-
-All of the files in this folder need to be in the same folder in order to work properly.
