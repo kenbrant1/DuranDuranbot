@@ -120,7 +120,7 @@ if(FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_trai
 
 		a = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/3.4774535809019));
 		a.background = ~stringcolor;
-		a.string = "Some program files were not detected. Please make sure that the -entire- DuranDuranbot.zip file has been -fully- extracted to a location on your computer... and then open the "++"duranduranbot_RUN.scd".quote++" from within that extracted DuranDuranbot folder.";
+		a.string = "DDbot training data files were not detected. Please make sure that the -entire- DuranDuranbot.zip file has been extracted to a location on your computer, including the .zip file in the following location - "++(((~ddbot_root)++"/program_files/other_program_files/ddbot_training_data_folder").quote)++" ... and then open the "++"duranduranbot_RUN.scd".quote++" and run it.";
 		a.align = \topLeft;
 		a.font = Font(size: ~firstviewboundsWIDTH/48);
 
