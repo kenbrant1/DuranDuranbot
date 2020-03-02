@@ -45,7 +45,7 @@
 						{~number_of_instruments == 3}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)++" "++(~instrument_3_full_midi.at(~piece_position).asString)};
 					)
 				);
-				~timeslider.valueAction = ~timeslider.value+1;
+				~timeslider.valueAction = ~piece_position;
 			});
 
 			// old timer function
@@ -77,7 +77,7 @@
 			1.do({
 
 				if(~will_record == 1, {
-					thisProcess.platform.recordingsDir = ((~ddbot_root)++"/program_files/other_stuff_(recordings_etc)/duranduranbot_recordings");
+					thisProcess.platform.recordingsDir = ((~ddbot_root)++"/program_files/duranduranbot_recordings");
 					Server.default.record;
 					1.wait;
 				});

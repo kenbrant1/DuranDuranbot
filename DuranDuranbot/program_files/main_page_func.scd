@@ -172,10 +172,7 @@
 	~rate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Rate",~backgroundcolor,Color.green]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {
-			q = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_machine_learning_on_off.scd");
-			2.do({q = q.at(0)});
-			q = q.asInteger;
-			if(q == 1, {~machine_learning_func.value;});
+			~machine_learning_func.value;
 			("\nlast "++(~rate_time_range)++" secs rated:\nx"++(~net_change_mult)++" points\n").postln;
 		}, {
 			"pice must be running to rate".postln;
@@ -256,8 +253,8 @@
 	});
 	~timeslider.setColors(~stringcolor,~stringcolor);
 
-	if(~pause_piece != nil, {if(~pause_piece != 1, {~timeslider.valueAction = 0;/*rangeslider.valueAction = [0, if(~piecedur_secs != nil, {~piecedur_secs}, {0});]*/nil});});
-
+	/*if(~pause_piece != nil, {if(~pause_piece != 1, {~timeslider.valueAction = 0;/*rangeslider.valueAction = [0, if(~piecedur_secs != nil, {~piecedur_secs}, {0});]*/nil});});
+*/
 	/*if(~pause_piece == 0, {~piece_position = 0});*/
 
 	~timeslidertext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.84, ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/22.55));
@@ -276,7 +273,7 @@
 		quicknewpiecewait.font = Font(size: ~firstviewboundsWIDTH/55);
 		"please wait".postln;
 		if(~piecegenerated != nil, {~piecegenerated.close});
-		~quicknewpiecebutton = 1;
+		~quicknewpiecebutton_num = 1;
 		{if(~duranduranbot_routine.isPlaying == true, {~stop_func.value});}.value;
 		AppClock.sched(0, {
 			if(~seedscheck == 1, {~newrandomseedsbutton.valueAction = 0}, {~seedscheck = 1});
@@ -295,7 +292,7 @@
 		if(~piecegenerated != nil, {~piecegenerated.close});
 		quicknewpiecewait.font = Font(size: ~firstviewboundsWIDTH/55);
 		"please wait".postln;
-		~quicknewpiecebutton = 1;
+		~quicknewpiecebutton_num = 1;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 
@@ -470,7 +467,7 @@
 		z = "Current random seeds:\n"++
 		"randseed 1 - "++~randseed_1++"\n"++
 		"randseed 2 - "++~randseed_2++"\n"++
-		"randseed 3 - "++~randseed_3.asString++(if(~quicknewpiecebutton != 1, {
+		"randseed 3 - "++~randseed_3.asString++(if(~quicknewpiecebutton_num != 1, {
 			"\n(also posted in post window)"++"\n"++
 			"*make sure to hit "++"generate piece".quote++" to generate a new piece based on the new seeds"}, {""}));
 		z.postln;
@@ -495,7 +492,7 @@
 		z = "Current random seeds:\n"++
 		"randseed 1 - "++~randseed_1++"\n"++
 		"randseed 2 - "++~randseed_2++"\n"++
-		"randseed 3 - "++~randseed_3.asString++(if(~quicknewpiecebutton != 1, {
+		"randseed 3 - "++~randseed_3.asString++(if(~quicknewpiecebutton_num != 1, {
 			"\n(also posted in post window)"++"\n"++
 			"*make sure to hit "++"generate piece".quote++" to generate a new piece based on the new seeds"}, {""}));
 		z.postln;
@@ -510,7 +507,7 @@
 	~currentrandomseedstrext.string ="Current random seeds:\n"++
 	"randseed 1 - "++~randseed_1++"\n"++
 	"randseed 2 - "++~randseed_2++"\n"++
-	"randseed 3 - "++~randseed_3.asString++(if(~quicknewpiecebutton != 1, {
+	"randseed 3 - "++~randseed_3.asString++(if(~quicknewpiecebutton_num != 1, {
 		"\n(also posted in post window)"++"\n"++
 		"*make sure to hit "++"generate piece".quote++" to generate a new piece based on the new seeds"}, {""}));
 	/*currentrandomseedstrext.align = \topLeft;*/
@@ -549,44 +546,19 @@
 	}, {~newpieceautobutton.value = 1; ~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is OFF";});
 	~newpieceautotext.font = Font(size: ~firstviewboundsWIDTH/55);
 
-	~machinelearningbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.08, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["ML Training Is ON",~stringcolor,~backgroundcolor],["ML Training Is OFF",~stringcolor,~backgroundcolor]]).action_({arg button;
-		if(button.value == 1, {
-			g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_machine_learning_on_off.scd", "w");
-			g.write("0");
-			g.close;
-		}, {
-			g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_machine_learning_on_off.scd", "w");
-			g.write("1");
-			g.close;
-		});
-
-	});
-	~machinelearningbutton.font = Font(size: ~firstviewboundsWIDTH/48);
-
-	~machinelearningtext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/1.08, ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21));
-	~machinelearningtext.background=~backgroundcolor;
-	~machinelearningtext.stringColor=~stringcolor;
-	~machinelearningtext.string = "More info about machine learning on "++"instructions".quote++" page";
-	~machinelearningtext.font = Font(size: ~firstviewboundsWIDTH/55);
-
-	q = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ddbot_machine_learning_on_off.scd");
-	2.do({q = q.at(0)});
-	q = q.asInteger;
-	if(q == 1, {~machinelearningbutton.value = 0;});
-
 	~loadscorebuttonbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.16, ~firstviewboundsWIDTH/5.8, ~firstviewboundsHEIGHT/21)).states_([["Load Saved Score",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		if(~loaded_score.value == nil, {
-			~loadscoretext.string = "Paste score in top of "++"duranduranbot_RUN.scd".quote++" file in "++"~loaded_score".quote++" function.";
-			AppClock.sched(5, {~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";});
-		}, {
-			~saved_piece_loaded = 1;
-			~loaded_score.value;
-			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-			~generatepiecebutton.valueAction = 1;
-			~loadscoretext.string = "Score has been loaded. Press "++"Play Piece".quote++" to run.";
-			AppClock.sched(5, {~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";});
-		});
+		FileDialog.new(
+			{arg path;
+				File.readAllString(path, r).interpret.value;
+				~saved_piece_loaded = 1;
+				if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+				~generatepiecebutton.valueAction = 1;
+				~loadscoretext.string = "Score has been loaded. Press "++"Play Piece".quote++" to run.";
+				AppClock.sched(5, {~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";});
+		}, {}, 0, 0, stripResult: true);
+
+
 
 	});
 	~loadscorebuttonbutton.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -596,6 +568,12 @@
 	~loadscoretext.stringColor=~stringcolor;
 	~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";
 	~loadscoretext.font = Font(size: ~firstviewboundsWIDTH/55);
+
+	~loadscoretext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.08, ~firstviewboundsWIDTH/1.6, ~firstviewboundsHEIGHT/21));
+	~loadscoretext2.background=~backgroundcolor;
+	~loadscoretext2.stringColor=~stringcolor;
+	~loadscoretext2.string = "Saved scores are in "++"/DuranDuranbot/program_files/ddbot_saved_scores".quote;
+	~loadscoretext2.font = Font(size: ~firstviewboundsWIDTH/55);
 
 	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.45, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~player_settings_page_func.value;

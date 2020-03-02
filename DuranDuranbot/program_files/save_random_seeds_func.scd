@@ -6,7 +6,7 @@
 
 	/*Document.open((~ddbot_root)++"/program_files/duranduranbot_saved_random_seeds.scd").close;*/
 
-	h = File.new((~ddbot_root)++"/program_files/duranduranbot_saved_random_seeds.scd", "a+");
+	h = File.new((~ddbot_root)++"/program_files/other_program_files/duranduranbot_saved_random_seeds.scd", "a+");
 
 	h.write("\n\n"++a.asString++
 		"\nrandom seed 1 - "++~randseed_1.asString++
