@@ -9,7 +9,7 @@ Download and extract DuranDuranbot zip file to a location on your computer.
 
 ............
 
-Inside the extracted folder, go to the "/program_files/other_program_files/ddbot_training_data_folder" folder and extract the entire "ddbot_training_data.zip" file to that same folder it's in.
+Inside the extracted folder, go to the "/program_files/ddbot_training_data_folder" folder and extract the entire "ddbot_training_data.zip" file to that same folder it's in.
 
 ^DuranDuranbot will also not run unless this is done.
 
