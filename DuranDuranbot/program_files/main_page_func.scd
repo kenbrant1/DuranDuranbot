@@ -516,7 +516,7 @@
 
 	~see_saved_seeds_file_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.6, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["See Saved Random Seeds",~stringcolor,~backgroundcolor],["See Saved Random Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		h = Document.open((~ddbot_root)++"/program_files/duranduranbot_saved_random_seeds.scd");
+		h = Document.open((~ddbot_root)++"/program_files/other_program_files/duranduranbot_saved_random_seeds.scd");
 
 
 	});
@@ -635,24 +635,24 @@
 	~save_current_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.23, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["Save Current Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		"please wait".postln;
-		g = File((~ddbot_root)++"/program_files/other_program_files/saved_scores/score_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++".scd", "w");
+		g = File((~ddbot_root)++"/program_files/saved_scores/score_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++".scd", "w");
 		g.write("// Copy and paste the all lines below in the "++"Load Saved Score".quote++" section in the top of the "++"duranduranbot_RUN.scd".quote++" file");
 		g.close;
 		~re = Routine({
 			~number_of_instruments.do(x = 0; {
-				g = File((~ddbot_root)++"/program_files/other_program_files/saved_scores/score_"++(z)++".scd", "a");
+				g = File((~ddbot_root)++"/program_files/saved_scores/score_"++(z)++".scd", "a");
 				g.write("\n~instrument_"++(x=x+1)++"_full_midi = [ ");
 				g.close;
 				0.25.wait;
 				y = (-1);
-				g = File((~ddbot_root)++"/program_files/other_program_files/saved_scores/score_"++(z)++".scd", "a");
+				g = File((~ddbot_root)++"/program_files/saved_scores/score_"++(z)++".scd", "a");
 				(("instrument_"++(x)++"_full_midi").asSymbol.envirGet.size-1).do({
 					g.write((("instrument_"++(x)++"_full_midi").asSymbol.envirGet.at(y=y+1)).asString++", ");
 
 				});
 				g.close;
 				0.25.wait;
-				g = File((~ddbot_root)++"/program_files/other_program_files/saved_scores/score_"++(z)++".scd", "a");
+				g = File((~ddbot_root)++"/program_files/saved_scores/score_"++(z)++".scd", "a");
 				g.write((("instrument_"++(x)++"_full_midi").asSymbol.envirGet.at(y=y+1)).asString++" ];");
 				g.close;
 			});
