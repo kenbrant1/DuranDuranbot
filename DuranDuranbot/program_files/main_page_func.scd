@@ -569,7 +569,7 @@
 	~loadscoretext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.08, ~firstviewboundsWIDTH/1.6, ~firstviewboundsHEIGHT/21));
 	~loadscoretext2.background=~backgroundcolor;
 	~loadscoretext2.stringColor=~stringcolor;
-	~loadscoretext2.string = "Saved scores are in "++"/DuranDuranbot/program_files/ddbot_saved_scores".quote;
+	~loadscoretext2.string = "Saved scores are in "++"/DuranDuranbot/program_files/saved_scores".quote;
 	~loadscoretext2.font = Font(size: ~firstviewboundsWIDTH/55);
 
 	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.45, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
@@ -635,24 +635,24 @@
 	~save_current_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.23, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["Save Current Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		"please wait".postln;
-		g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_saved_scores/score_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++".scd", "w");
+		g = File((~ddbot_root)++"/program_files/other_program_files/saved_scores/score_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++".scd", "w");
 		g.write("// Copy and paste the all lines below in the "++"Load Saved Score".quote++" section in the top of the "++"duranduranbot_RUN.scd".quote++" file");
 		g.close;
 		~re = Routine({
 			~number_of_instruments.do(x = 0; {
-				g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_saved_scores/score_"++(z)++".scd", "a");
+				g = File((~ddbot_root)++"/program_files/other_program_files/saved_scores/score_"++(z)++".scd", "a");
 				g.write("\n~instrument_"++(x=x+1)++"_full_midi = [ ");
 				g.close;
 				0.25.wait;
 				y = (-1);
-				g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_saved_scores/score_"++(z)++".scd", "a");
+				g = File((~ddbot_root)++"/program_files/other_program_files/saved_scores/score_"++(z)++".scd", "a");
 				(("instrument_"++(x)++"_full_midi").asSymbol.envirGet.size-1).do({
 					g.write((("instrument_"++(x)++"_full_midi").asSymbol.envirGet.at(y=y+1)).asString++", ");
 
 				});
 				g.close;
 				0.25.wait;
-				g = File((~ddbot_root)++"/program_files/other_program_files/ddbot_saved_scores/score_"++(z)++".scd", "a");
+				g = File((~ddbot_root)++"/program_files/other_program_files/saved_scores/score_"++(z)++".scd", "a");
 				g.write((("instrument_"++(x)++"_full_midi").asSymbol.envirGet.at(y=y+1)).asString++" ];");
 				g.close;
 			});

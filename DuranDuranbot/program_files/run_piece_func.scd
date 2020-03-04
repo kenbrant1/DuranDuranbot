@@ -77,7 +77,7 @@
 			1.do({
 
 				if(~will_record == 1, {
-					thisProcess.platform.recordingsDir = ((~ddbot_root)++"/program_files/duranduranbot_recordings");
+					thisProcess.platform.recordingsDir = ((~ddbot_root)++"/program_files/recordings");
 					Server.default.record;
 					1.wait;
 				});
