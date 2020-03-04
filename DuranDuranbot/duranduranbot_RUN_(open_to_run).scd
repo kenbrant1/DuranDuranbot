@@ -80,7 +80,7 @@ File.readAllString((~ddbot_root)++"/program_files/synthdefs_func.scd", r).interp
 File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interpret;
 
 
-if(FileReader.read((~ddbot_root)++"/program_files/ddbot_training_data_folder/ddbot_training_data/zdummyfile.scd", false, true) != nil,
+if(FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/zdummyfile.scd", false, true) != nil,
 	{if(Server.default.serverRunning == false, {s.boot; s.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});},
 	{
 		w = Window("DuranDuranbot",

@@ -33,7 +33,7 @@
 		("clock_diff_"++(u)).asSymbol.envirPut(("clock_diff_"++(u)).asSymbol.envirGet.round.asInteger;);
 	});
 
-	~intv_weights = FileReader.read((~ddbot_root)++"/program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"_interval_weights/"++(
+	~intv_weights = FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
 		case
 		{~number_of_instruments == 1}{(~clock_diff_0.asString)}
 		{~number_of_instruments == 2}{(~clock_diff_0.asString)++"__"++(~clock_diff_1.asString)}
@@ -75,7 +75,7 @@
 	("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_place").asSymbol.envirGet
 	*/
 
-	~time_weights = FileReader.read((~ddbot_root)++"/program_files/ddbot_training_data_folder/ddbot_training_data/ddbot_training_data_current_"++(~number_of_instruments.asString)++"_inst/ddbot_time_weights/"++(~player_array.wrapAt(~inst_num-1))++"_time_weights/"++(
+	~time_weights = FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
 		case
 		{~number_of_instruments == 1}{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)}
 		{~number_of_instruments == 2}{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("dna_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)}
