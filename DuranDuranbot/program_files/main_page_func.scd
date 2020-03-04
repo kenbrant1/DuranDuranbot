@@ -557,9 +557,6 @@
 				~loadscoretext.string = "Score has been loaded. Press "++"Play Piece".quote++" to run.";
 				AppClock.sched(5, {~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";});
 		}, {}, 0, 0, stripResult: true);
-
-
-
 	});
 	~loadscorebuttonbutton.font = Font(size: ~firstviewboundsWIDTH/48);
 
