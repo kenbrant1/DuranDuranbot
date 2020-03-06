@@ -577,10 +577,10 @@
 	});
 	~training_settings_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~playerchoicetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/12, ~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/21));
+	~playerchoicetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/12, ~firstviewboundsWIDTH/2.6, ~firstviewboundsHEIGHT/21));
 	~playerchoicetext.background=~backgroundcolor;
 	~playerchoicetext.stringColor=~stringcolor;
-	~playerchoicetext.string = "Current Player(s) - "++(
+	~playerchoicetext.string = "Settings - "++(
 		case
 		{FileReader.read((~ddbot_root)++"/program_files/other_program_files/which_players.scd", false, true).flatten.at(0) == 0.asString}{"All Players"}
 		{FileReader.read((~ddbot_root)++"/program_files/other_program_files/which_players.scd", false, true).flatten.at(0) == 1.asString}{"Player 1"}
@@ -591,7 +591,7 @@
 		{FileReader.read((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", false, true).flatten.at(0) == 1.asString}{"1 voice"}
 		{FileReader.read((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", false, true).flatten.at(0) == 2.asString}{"2 voices"}
 		{FileReader.read((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", false, true).flatten.at(0) == 3.asString}{"3 voices"};
-	);
+	)++", A4 "++(~tuning_frequency)++" hz";
 	~playerchoicetext.align = \topLeft;
 	~playerchoicetext.font = Font(size: ~firstviewboundsWIDTH/55);
 

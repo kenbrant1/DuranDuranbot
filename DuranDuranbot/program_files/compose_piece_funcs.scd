@@ -114,7 +114,6 @@
 
 ~midi_low_limit = 45;
 ~midi_high_limit = 81;
-~tuning_frequency = 440; //default 440 hz
 ~freqmap = (i = ~tuning_frequency / (2 ** (69 / 12)); a = (-1); b = (-1); Array.fill(128, {i * (2 ** (((a=a+1) / 12).trunc)) * ( (2 ** (12.reciprocal)) ** ((b=b+1)  % 12));}));/*~freqmap = (i = 8.0271480262684/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(128, { i = i*~stepratio;}));*/
 ~freqmap = ~freqmap.cpsmidi;
 /*~freqmap2 = (i = ~freqmap.at(58)/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(24, { i = i*~stepratio;}));*/
@@ -207,6 +206,8 @@
 					^ The reason for doing this is to provide "relation" between every part in the entire piece of music.
 
 					*/
+
+					// HAS BEEN TESTED TO WORK
 
 					~number_of_instruments.do(x = 0; {
 						x=x+1;
@@ -458,6 +459,14 @@
 
 						h = 0.midicps;
 
+						if(~tuning_frequency != 440, {
+							s = 440.cpsmidi - ~tuning_frequency.cpsmidi;
+							if(s.isNegative == true, {s = s.neg});
+							case
+							{440.cpsmidi > ~tuning_frequency.cpsmidi}{~midi_shift = s.neg}
+							{440.cpsmidi < ~tuning_frequency.cpsmidi}{~midi_shift = s};
+						});
+
 						1.do({
 							/*
 							~number_of_instruments.do(x = 0; {("instrument_"++(x=x+1)++"_full").asSymbol.envirPut([]);});*/
@@ -473,13 +482,16 @@
 									/*~number_of_parts_in_piece.do(y = 0; {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.add(("instrument_"++(x)++"_array_part_"++(y=y+1)).asSymbol.envirGet););});
 									*/("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.flatten);
 									("instrument_"++(x)++"_full_midi").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet);
+									if(~tuning_frequency != 440, {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet + ~midi_shift)});
 									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.midicps);
 									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.replace(h, 0));
 								});
 							}, {
 								~number_of_instruments.do(x = 0; {
 									x=x+1;
-									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full_midi").asSymbol.envirGet.midicps);
+									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full_midi").asSymbol.envirGet);
+									if(~tuning_frequency != 440, {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet + ~midi_shift)});
+									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.midicps);
 									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.replace(h, 0));
 								});
 								~saved_piece_loaded = 0;
