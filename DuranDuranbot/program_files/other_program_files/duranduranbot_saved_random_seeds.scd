@@ -55,3 +55,28 @@ Fri Mar  6 06:13:00 2020
 random seed 1 - 90634418
 random seed 2 - 68096175
 random seed 3 - 36024414
+
+Fri Mar  6 06:19:37 2020
+random seed 1 - 276540
+random seed 2 - 29898811
+random seed 3 - 85983156
+
+Mon Mar  9 05:42:45 2020
+random seed 1 - 52720143
+random seed 2 - 83782936
+random seed 3 - 27322145
+
+Mon Mar  9 05:47:21 2020
+random seed 1 - 40014711
+random seed 2 - 81254806
+random seed 3 - 37835095
+
+Mon Mar  9 06:31:51 2020
+random seed 1 - 49678882
+random seed 2 - 49846862
+random seed 3 - 16224592
+
+Mon Mar  9 06:38:00 2020
+random seed 1 - 73501444
+random seed 2 - 99052589
+random seed 3 - 70730005

@@ -121,6 +121,9 @@
 
 	~rate_button_1 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/5.29, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x1 pts",~stringcolor,~backgroundcolor], ["x1 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(0);
+		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
+		g.write(~net_change_mult.asString);
+		g.close;
 		~rate_button_1.value = 1;
 		~rate_button_2.value = 0;
 		~rate_button_3.value = 0;
@@ -131,6 +134,9 @@
 
 	~rate_button_2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/3.62, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x2 pts",~stringcolor,~backgroundcolor], ["x2 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(1);
+		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
+		g.write(~net_change_mult.asString);
+		g.close;
 		~rate_button_1.value = 0;
 		~rate_button_2.value = 1;
 		~rate_button_3.value = 0;
@@ -141,6 +147,9 @@
 
 	~rate_button_3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.75, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x4 pts",~stringcolor,~backgroundcolor], ["x4 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(2);
+		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
+		g.write(~net_change_mult.asString);
+		g.close;
 		~rate_button_1.value = 0;
 		~rate_button_2.value = 0;
 		~rate_button_3.value = 1;
@@ -151,6 +160,9 @@
 
 	~rate_button_4 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.22, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x8 pts",~stringcolor,~backgroundcolor], ["x8 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(3);
+		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
+		g.write(~net_change_mult.asString);
+		g.close;
 		~rate_button_1.value = 0;
 		~rate_button_2.value = 0;
 		~rate_button_3.value = 0;
@@ -161,6 +173,9 @@
 
 	~rate_button_5 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.855, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x16 pts",~stringcolor,~backgroundcolor], ["x16 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(4);
+		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
+		g.write(~net_change_mult.asString);
+		g.close;
 		~rate_button_1.value = 0;
 		~rate_button_2.value = 0;
 		~rate_button_3.value = 0;
