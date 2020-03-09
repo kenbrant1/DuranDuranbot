@@ -6,8 +6,8 @@
 
 	~interval_array = (1..12);
 	~time_array = [0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8];
-	~dna_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
-	~dna_choice_array_num = (1..~dna_choice_array.size);
+	~bit_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
+	~bit_choice_array_num = (1..~bit_choice_array.size);
 	~net_change = 0.048;
 
 
@@ -194,7 +194,7 @@
 					h.put(~lengthplace1, (h.at(~lengthplace1) + (~net_change*~net_change_mult)));
 					h = h.normalizeSum;
 					g = File((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(r-1))++"/"++(time_inst_case.value)++"_time_weights.scd", "w");
-					~dna_choice_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
+					~bit_choice_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
 					g.close;
 
 					~rate_revert = 0;
@@ -267,7 +267,7 @@ g.close;
 r = r+1;
 h = ("lengthplace_revert_"++(r)).asSymbol.envirGet.at(1);
 g = File((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(("lengthplace_revert_"++(r)).asSymbol.envirGet.at(0))++"_time_weights.scd", "w");
-~dna_choice_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
+~bit_choice_array.size.do(s = (-1); {g.write(h.at(s=s+1).asString++" ");});
 g.close;
 });
 

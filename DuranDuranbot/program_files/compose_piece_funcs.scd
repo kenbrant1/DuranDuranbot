@@ -59,45 +59,45 @@
 	(~number_of_instruments).do(e = 0; {
 		e=e+1;
 		case
-		{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(0)) and: (("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(1))}{if((("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(0)+~time_array.at(1)/2)), {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(0)}, {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(1)})}
-		{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(1)) and: (("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(2))}{if((("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(1)+~time_array.at(2)/2)), {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(1)}, {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(2)})}
-		{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(2)) and: (("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(3))}{if((("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(2)+~time_array.at(3)/2)), {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(2)}, {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(3)})}
-		{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(3)) and: (("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(4))}{if((("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(3)+~time_array.at(4)/2)), {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(3)}, {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(4)})}
-		{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(4)) and: (("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(5))}{if((("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(4)+~time_array.at(5)/2)), {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(4)}, {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(5)})}
-		{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(5)) and: (("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(6))}{if((("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(5)+~time_array.at(6)/2)), {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(5)}, {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(6)})}
-		{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(6)) and: (("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(7))}{if((("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(6)+~time_array.at(7)/2)), {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(6)}, {("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(7)})}
-		{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(7))}{("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(7)};
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(0)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(1))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(0)+~time_array.at(1)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(0)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(1)})}
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(1)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(2))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(1)+~time_array.at(2)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(1)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(2)})}
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(2)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(3))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(2)+~time_array.at(3)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(2)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(3)})}
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(3)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(4))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(3)+~time_array.at(4)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(3)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(4)})}
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(4)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(5))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(4)+~time_array.at(5)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(4)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(5)})}
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(5)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(6))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(5)+~time_array.at(6)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(5)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(6)})}
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(6)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(7))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(6)+~time_array.at(7)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(6)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(7)})}
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(7))}{("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(7)};
 	});
 
 
 	/*
-	("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_choice").asSymbol.envirGet
-	("dna_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_place").asSymbol.envirGet
+	("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_choice").asSymbol.envirGet
+	("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_place").asSymbol.envirGet
 	*/
 
 	~time_weights = FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
 		case
-		{~number_of_instruments == 1}{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)}
-		{~number_of_instruments == 2}{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("dna_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)}
-		{~number_of_instruments == 3}{(("dna_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("dna_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)++"_"++(("dna_clock_"++(~inst_array.wrapAt(~inst_num+1))++"_place").asSymbol.envirGet.asString)};
+		{~number_of_instruments == 1}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)}
+		{~number_of_instruments == 2}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)}
+		{~number_of_instruments == 3}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num+1))++"_place").asSymbol.envirGet.asString)};
 	)++"_time_weights.scd", false, true);
 	~time_weights = ~time_weights.flatten.asFloat;
 	~time_weights = ~time_weights.normalizeSum;
-	~new_time = ~dna_choice_array.wchoose(~time_weights);
+	~new_time = ~bit_choice_array.wchoose(~time_weights);
 
-	("dna_clock_"++(~inst_num)++"_choice").asSymbol.envirPut(~new_time);
+	("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirPut(~new_time);
 };
 
 ~inst_clock_func = {
 
-	~number_of_instruments.do(n = 0; {("dna_clock_"++(n=n+1)).asSymbol.envirPut(("dna_clock_"++(n)).asSymbol.envirGet+1);});
+	~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut(("bit_clock_"++(n)).asSymbol.envirGet+1);});
 	~number_of_instruments.do(n = 0; {
 		n=n+1;
 		~inst_num = n;
 		("instrument_"++(~inst_num)++"_array").asSymbol.envirPut(
 			("instrument_"++(~inst_num)++"_array").asSymbol.envirGet.add(
-				if(("dna_clock_"++(~inst_num)).asSymbol.envirGet == ("dna_clock_"++(~inst_num)++"_choice").asSymbol.envirGet, {
-					("dna_clock_"++(~inst_num)).asSymbol.envirPut((-1));
+				if(("bit_clock_"++(~inst_num)).asSymbol.envirGet == ("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirGet, {
+					("bit_clock_"++(~inst_num)).asSymbol.envirPut((-1));
 					("instrument_"++(~inst_num)++"_if_zero").asSymbol.envirPut("false");
 					~note_generator_func.value; //find new interval for current instrument
 					~time_generator_func.value; //find new bit duration for current instrument
@@ -141,10 +141,10 @@
 			~player_array = ~player_array.scramble;
 			~number_of_instruments.do(x = 0; {("inst_"++(x=x+1)).asSymbol.envirPut(~player_array.at(x-1));});
 
-			/*~dna_choice_array = (1..64);*/
+			/*~bit_choice_array = (1..64);*/
 			~time_array = [0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8];
-			~dna_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
-			~dna_choice_array_num = (1..~dna_choice_array.size);
+			~bit_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
+			~bit_choice_array_num = (1..~bit_choice_array.size);
 
 			x = 0;
 			~inst_array = Array.fill(~number_of_instruments, {x=x+1});
@@ -292,8 +292,8 @@
 
 					thisThread.randSeed = ~randseed_3;
 
-					~number_of_instruments.do(n = 0; {("dna_clock_"++(n=n+1)).asSymbol.envirPut((-1));});
-					~number_of_instruments.do(n = 0; {("dna_clock_"++(n=n+1)++"_choice").asSymbol.envirPut(~dna_choice_array.choose)});
+					~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut((-1));});
+					~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)++"_choice").asSymbol.envirPut(~bit_choice_array.choose)});
 					~number_of_instruments.do(x = 0; {("instrument_"++(x=x+1)++"_if_zero").asSymbol.envirPut("false");});
 					/*~number_of_instruments.do(n = 0; {("bottom_level_notes_"++(n=n+1)).asSymbol.envirPut([])});*/
 
@@ -405,7 +405,7 @@
 
 					thisThread.randSeed = ~randseed_3;
 
-					~number_of_instruments.do(y = 0; {("dna_clock_"++(y=y+1)).asSymbol.envirPut(0);});
+					~number_of_instruments.do(y = 0; {("bit_clock_"++(y=y+1)).asSymbol.envirPut(0);});
 
 
 					//generation of piece
@@ -417,24 +417,24 @@
 						("instrument_"++(x)++"_array").asSymbol.envirPut(
 							("instrument_"++(x)++"_array").asSymbol.envirGet.add((("instrument_"++(x)++"_freq").asSymbol.envirPut(~freqmap2.choose)).value)
 						);
-						("dna_clock_"++(x)++"_choice").asSymbol.envirPut(~dna_choice_array.choose);
+						("bit_clock_"++(x)++"_choice").asSymbol.envirPut(~bit_choice_array.choose);
 					});
 
 					~number_of_instruments.do(s = 0; {("old_instrument_"++(s=s+1)++"_freq").asSymbol.envirPut(("instrument_"++(s)++"_array").asSymbol.envirGet.at(0).asInteger + 12)});
 
 					/*
-					("dna_clock_"++(3)++"_choice").asSymbol.envirGet*/
+					("bit_clock_"++(3)++"_choice").asSymbol.envirGet*/
 
 					/*(~number_of_instruments-1).do(x = 1; {
 					("instrument_"++(x=x+1)++"_freq").asSymbol.envirPut(0);
-					("dna_clock_"++(x)++"_choice").asSymbol.envirPut(0);/*
-					("dna_clock_"++(2)++"_choice").asSymbol.envirGet <~time_array.at(0)           (0);*/
+					("bit_clock_"++(x)++"_choice").asSymbol.envirPut(0);/*
+					("bit_clock_"++(2)++"_choice").asSymbol.envirGet <~time_array.at(0)           (0);*/
 					});*/
 
-					/*(~number_of_instruments-1).do(s = 0; {("dna_clock_"++(s=s+1)).asSymbol.envirPut(("dna_clock_"++(s)).asSymbol.envirGet+1);});
+					/*(~number_of_instruments-1).do(s = 0; {("bit_clock_"++(s=s+1)).asSymbol.envirPut(("bit_clock_"++(s)).asSymbol.envirGet+1);});
 					(~number_of_instruments-1).do(s = 1; {
 					s=s+1;
-					~dna_clock = ("dna_clock_"++(s)).asSymbol.envirGet;
+					~bit_clock = ("bit_clock_"++(s)).asSymbol.envirGet;
 					~inst_num = s;
 					~inst_clock_func.value;
 					});*/
