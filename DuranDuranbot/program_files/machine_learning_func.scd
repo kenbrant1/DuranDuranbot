@@ -25,6 +25,9 @@
 			e = 12;
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
 		});
+	}, {
+		e = 0;
+		("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
 	});
 
 };
@@ -96,6 +99,9 @@
 							{~number_of_instruments == 3}{0};).do({
 							q=q-1;
 							~interv_older_notes_func.value;
+						}, {
+							e = 0;
+							("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
 						});
 					});
 
@@ -105,12 +111,15 @@
 
 					// other stuff
 
-					(~number_of_instruments+1).do(u = (-1); {
+					(case
+						{~number_of_instruments == 1}{3}
+						{~number_of_instruments == 2}{3}
+						{~number_of_instruments == 3}{4};).do(u = (-1); {
 						u=u+1;
 						("interval_diff"++(u)).asSymbol.envirPut(("interval_diff"++(u)).asSymbol.envirGet.round.asInteger;);
 					});
 
-					((~interval_diff0).asString++" - "++(~player_array.wrapAt(r-1))++"__"++(~interv_inst_case.value)).postln;
+					((~interval_diff2).asString++" - "++(~player_array.wrapAt(r-1))++"__"++(~interv_inst_case.value)).postln;
 
 					// write new training data to disk
 
@@ -145,6 +154,8 @@
 			b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 			k = k + 1;
 		});
+		("length"++(u=u+1)).asSymbol.envirPut(k);
+	}, {
 		("length"++(u=u+1)).asSymbol.envirPut(k);
 	});
 
@@ -226,6 +237,8 @@
 							q=q-1;
 							~older_times_ml_func.value;
 						});
+					}, {
+						("length"++(u=u+1)).asSymbol.envirPut(("length"++(u-1)).asSymbol.envirGet);
 					});
 
 					// find bit lengths of other notes
@@ -234,12 +247,18 @@
 
 					// other stuff
 
-					(~number_of_instruments+1).do(u = (-1); {
+					(case
+						{~number_of_instruments == 1}{3}
+						{~number_of_instruments == 2}{3}
+						{~number_of_instruments == 3}{4};).do(u = (-1); {
 						u=u+1;
 						("length"++(u)).asSymbol.envirPut(("length"++(u)).asSymbol.envirGet.round.asInteger;);
 					});
 
-					(~number_of_instruments+1).do(u = (-1); {
+					(case
+						{~number_of_instruments == 1}{3}
+						{~number_of_instruments == 2}{3}
+						{~number_of_instruments == 3}{4};).do(u = (-1); {
 						u=u+1;
 						case
 						{(("length"++(u)).asSymbol.envirGet*~bit_duration >= ~time_array.at(0)) and: (("length"++(u)).asSymbol.envirGet*~bit_duration <= ~time_array.at(1))}{if((("length"++(u)).asSymbol.envirGet*~bit_duration < (~time_array.at(0)+~time_array.at(1)/2)), {("lengthplace"++(u)).asSymbol.envirPut(0)}, {("lengthplace"++(u)).asSymbol.envirPut(1)})}
@@ -253,7 +272,10 @@
 
 					});
 
-					(~number_of_instruments+1).do(u = (-1); {
+					(case
+						{~number_of_instruments == 1}{3}
+						{~number_of_instruments == 2}{3}
+						{~number_of_instruments == 3}{4};).do(u = (-1); {
 						u=u+1;
 						("lengthplace"++(u)).asSymbol.envirPut(("lengthplace"++(u)).asSymbol.envirGet.round.asInteger;);
 					});
