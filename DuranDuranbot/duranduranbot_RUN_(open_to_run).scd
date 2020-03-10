@@ -82,7 +82,7 @@ File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interp
 
 
 if(FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/zdummyfile.scd", false, true) != nil,
-	{if(Server.default.serverRunning == false, {s.boot; s.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});},
+	{if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});},
 	{
 		w = Window("DuranDuranbot",
 			Rect(Window.availableBounds.width/4, Window.availableBounds.height/4, Window.availableBounds.width/2, Window.availableBounds.height/2),

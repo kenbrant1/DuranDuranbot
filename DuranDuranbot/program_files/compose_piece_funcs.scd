@@ -1,46 +1,88 @@
 // BUILD/GENERATE/COMPOSE PIECE
 
-~clock_diff_0_func = {
-	~clock_diff_0 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet - ("old_instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
-	if(~clock_diff_0.isFloat == true, {~clock_diff_0 = ~clock_diff_0.round});
-	if(~clock_diff_0.isNegative == true, {~clock_diff_0 = ~clock_diff_0.neg});
-	while({~clock_diff_0 > 12}, {~clock_diff_0 = ~clock_diff_0 - 12});
-};
 
-~clock_diff_1_func = {
-	~clock_diff_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet - ("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet;
-	if(~clock_diff_1.isFloat == true, {~clock_diff_1 = ~clock_diff_1.round});
-	if(~clock_diff_1.isNegative == true, {~clock_diff_1 = ~clock_diff_1.neg});
-	while({~clock_diff_1 > 12}, {~clock_diff_1 = ~clock_diff_1 - 12});
-};
+~interval_array = (1..12);
+~bit_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
+s = ~bit_duration;
+~time_array = Array.fill(8, {s = s * 2});
+~bit_choice_array_num = (1..~bit_choice_array.size);
 
-~clock_diff_2_func = {
-	~clock_diff_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet - ("instrument_"++(~inst_array.wrapAt(~inst_num+1))++"_freq").asSymbol.envirGet;
-	if(~clock_diff_2.isFloat == true, {~clock_diff_2 = ~clock_diff_2.round});
-	if(~clock_diff_2.isNegative == true, {~clock_diff_2 = ~clock_diff_2.neg});
-	while({~clock_diff_2 > 12}, {~clock_diff_2 = ~clock_diff_2 - 12});
+
+~clock_diff_func = {
+
+	~clock_diff = ~clock_diff_var_1 - ~clock_diff_var_2;
+	if(~clock_diff.isFloat == true, {~clock_diff = ~clock_diff.round});
+	if(~clock_diff.isNegative == true, {~clock_diff = ~clock_diff.neg});
+	while({~clock_diff > 12}, {~clock_diff = ~clock_diff - 12});
+	~clock_diff.value;
+
 };
 
 ~note_generator_func = {
 
-	case
-	{~number_of_instruments == 1}{1.do(s = (-1); {("clock_diff_"++(s=s+1)++"_func").asSymbol.envirGet.value;});}
-	{~number_of_instruments == 2}{2.do(s = (-1); {("clock_diff_"++(s=s+1)++"_func").asSymbol.envirGet.value;});}
-	{~number_of_instruments == 3}{3.do(s = (-1); {("clock_diff_"++(s=s+1)++"_func").asSymbol.envirGet.value;});};
-
-	(~number_of_instruments-1).do(u = (-1); {
-		u=u+1;
-		("clock_diff_"++(u)).asSymbol.envirPut(("clock_diff_"++(u)).asSymbol.envirGet.round.asInteger;);
+	if(~number_of_instruments == 1, {
+		if(("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet != nil, {
+			("old_instrument_"++(~inst_num)++"_freq_2").asSymbol.envirPut(("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet);
+		}, {
+			("old_instrument_"++(~inst_num)++"_freq_2").asSymbol.envirPut(("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet);
+		});
 	});
 
-	~intv_weights = FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
+	("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirPut(("instrument_"++(~inst_num)++"_freq").asSymbol.envirGet);
+
+	/*case
+	{~number_of_instruments == 1}{1.do(s = (-1); {("clock_diff_"++(s=s+1)++"_func").asSymbol.envirGet.value;});}
+	{~number_of_instruments == 2}{2.do(s = (-1); {("clock_diff_"++(s=s+1)++"_func").asSymbol.envirGet.value;});}
+	{~number_of_instruments == 3}{3.do(s = (-1); {("clock_diff_"++(s=s+1)++"_func").asSymbol.envirGet.value;});};*/
+
+	/*	(~number_of_instruments-1).do(u = (-1); {
+	u=u+1;
+	("clock_diff_"++(u)).asSymbol.envirPut(("clock_diff_"++(u)).asSymbol.envirGet.round.asInteger;);
+	});*/
+
+	~intv_weights = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
 		case
-		{~number_of_instruments == 1}{(~clock_diff_0.asString)}
-		{~number_of_instruments == 2}{(~clock_diff_0.asString)++"__"++(~clock_diff_1.asString)}
-		{~number_of_instruments == 3}{(~clock_diff_0.asString)++"__"++(~clock_diff_1.asString)++"_"++(~clock_diff_2.asString)};
-	)++"_weights.scd", false, true);
-	~intv_weights = ~intv_weights.flatten.asFloat;
-	~intv_weights = ~intv_weights.normalizeSum;
+		{~number_of_instruments == 1}{(
+			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+			~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
+			~clock_diff_func.value;
+			~clock_diff.value.asString;
+		)++"__"++(
+			~clock_diff_var_1 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
+			~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_2").asSymbol.envirGet;
+			~clock_diff_func.value;
+			~clock_diff.value.asString;
+		)}
+		{~number_of_instruments == 2}{(
+			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+			~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
+			~clock_diff_func.value;
+			~clock_diff.value.asString;
+		)++"__"++(
+			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+			~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet;
+			~clock_diff_func.value;
+			~clock_diff.value.asString;
+		)}
+		{~number_of_instruments == 3}{(
+			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+			~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
+			~clock_diff_func.value;
+			~clock_diff.value.asString;
+		)++"__"++(
+			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+			~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet;
+			~clock_diff_func.value;
+			~clock_diff.value.asString;
+		)++"_"++(
+			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+			~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num+1))++"_freq").asSymbol.envirGet;
+			~clock_diff_func.value;
+			~clock_diff.value.asString;
+		)};
+
+	)++"_weights.scd", r).interpret.normalizeSum;
+
 	~new_interval = ~interval_array.wchoose(~intv_weights);
 	~new_interval = [~new_interval, ~new_interval.neg].choose;
 
@@ -69,21 +111,39 @@
 		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(7))}{("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(7)};
 	});
 
+	if(~number_of_instruments == 1, {
+		(~number_of_instruments).do(e = 0; {
+			e=e+1;
+			case
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(0)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(1))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(0)+~time_array.at(1)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(0)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(1)})}
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(1)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(2))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(1)+~time_array.at(2)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(1)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(2)})}
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(2)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(3))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(2)+~time_array.at(3)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(2)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(3)})}
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(3)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(4))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(3)+~time_array.at(4)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(3)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(4)})}
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(4)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(5))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(4)+~time_array.at(5)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(4)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(5)})}
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(5)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(6))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(5)+~time_array.at(6)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(5)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(6)})}
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(6)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(7))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(6)+~time_array.at(7)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(6)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(7)})}
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(7))}{("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(7)};
+		});
+	});
+
 
 	/*
 	("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_choice").asSymbol.envirGet
 	("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_place").asSymbol.envirGet
 	*/
 
-	~time_weights = FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
+	~time_weights = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
 		case
-		{~number_of_instruments == 1}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)}
+		{~number_of_instruments == 1}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("old_bit_clock_"++(~inst_num)++"_place_1").asSymbol.envirGet.asString)}
 		{~number_of_instruments == 2}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)}
 		{~number_of_instruments == 3}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num+1))++"_place").asSymbol.envirGet.asString)};
-	)++"_time_weights.scd", false, true);
-	~time_weights = ~time_weights.flatten.asFloat;
-	~time_weights = ~time_weights.normalizeSum;
+	)++"_time_weights.scd", r).interpret.normalizeSum;
+
 	~new_time = ~bit_choice_array.wchoose(~time_weights);
+
+	if(~number_of_instruments == 1, {
+		("old_bit_clock_"++(~inst_num)++"_choice_1").asSymbol.envirPut(("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirGet);
+	});
 
 	("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirPut(~new_time);
 };
@@ -141,10 +201,6 @@
 			~player_array = ~player_array.scramble;
 			~number_of_instruments.do(x = 0; {("inst_"++(x=x+1)).asSymbol.envirPut(~player_array.at(x-1));});
 
-			/*~bit_choice_array = (1..64);*/
-			~time_array = [0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8];
-			~bit_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
-			~bit_choice_array_num = (1..~bit_choice_array.size);
 
 			x = 0;
 			~inst_array = Array.fill(~number_of_instruments, {x=x+1});
@@ -224,8 +280,6 @@
 						("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirPut(("top_level_notes_"++(~inst_array.wrapAt(~inst_num-1))).asSymbol.envirGet.at(0).asInteger);
 					});
 
-					~number_of_instruments.do(s = 0; {("old_instrument_"++(s=s+1)++"_freq").asSymbol.envirPut(("top_level_notes_"++(s)).asSymbol.envirGet.at(0).asInteger + 12)});
-
 					/*n = 3; x = Array.fill(13, {n=n+1});
 					y = Array.fill(x.size, {1/x.size}).normalizeSum;
 					z = (x.wchoose(y.value)-1);
@@ -294,6 +348,7 @@
 
 					~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut((-1));});
 					~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)++"_choice").asSymbol.envirPut(~bit_choice_array.choose)});
+					~number_of_instruments.do(n = 0; {("old_bit_clock_"++(n=n+1)++"_choice_1").asSymbol.envirPut(("bit_clock_"++(n)++"_choice").asSymbol.envirGet)});
 					~number_of_instruments.do(x = 0; {("instrument_"++(x=x+1)++"_if_zero").asSymbol.envirPut("false");});
 					/*~number_of_instruments.do(n = 0; {("bottom_level_notes_"++(n=n+1)).asSymbol.envirPut([])});*/
 
@@ -420,7 +475,7 @@
 						("bit_clock_"++(x)++"_choice").asSymbol.envirPut(~bit_choice_array.choose);
 					});
 
-					~number_of_instruments.do(s = 0; {("old_instrument_"++(s=s+1)++"_freq").asSymbol.envirPut(("instrument_"++(s)++"_array").asSymbol.envirGet.at(0).asInteger + 12)});
+					~number_of_instruments.do(s = 0; {("old_instrument_"++(s=s+1)++"_freq_1").asSymbol.envirPut(("instrument_"++(s)++"_array").asSymbol.envirGet.at(0).asInteger + 12)});
 
 					/*
 					("bit_clock_"++(3)++"_choice").asSymbol.envirGet*/
@@ -497,6 +552,13 @@
 								~saved_piece_loaded = 0;
 							});
 
+							~number_of_instruments.do(x = 0; {
+								x=x+1;
+								2.do(s = 0; {
+									s=s+1;
+									("old_instrument_"++(x)++"_freq_"++(s)).asSymbol.envirPut(nil);
+								});
+							});
 
 							"Piece Creation Is Finsihed".postln;
 
