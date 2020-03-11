@@ -4,7 +4,29 @@
 
 	~synthdefs_func.value;
 
+	/*~low_pass_filter_on = 1;
+	~gsine.value;*/
+
 	(
+
+		/*~init_start_func = {
+
+			Server.default.makeBundle(Server.default.latency, {
+
+				~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
+				~synthopen.value;
+			});
+		};
+
+		~init_func = {
+
+			Server.default.makeBundle(Server.default.latency, {
+
+				~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
+				~synthflow.value;
+			});
+
+		};*/
 
 		~init_start_func = {
 
@@ -25,10 +47,7 @@
 					\freq, ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position);
 
 				);});
-
-
 			});
-
 		};
 
 		~bit_timer_func = {

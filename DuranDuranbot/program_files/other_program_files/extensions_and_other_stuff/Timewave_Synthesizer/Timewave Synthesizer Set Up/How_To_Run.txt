@@ -1,0 +1,12 @@
+Set up Instructions:
+
+1. Download and install the Supercollider IDE from the following web address - http://supercollider.github.io/download.html 
+
+2. Once Supercollider and its IDE are installed, within the Supercollider IDE, open the "timewavesynth.scd" file and follow the instructions on the top of the page.
+
+
+Please feel free to let me know of any questions, bugs, or otherwise - ken_brant@ymail.com or kenbrant7@gmail.com
+
+Thank you
+
+ 
