@@ -26,7 +26,7 @@
 //e-mail: ken_brant@ymail.com
 
 
-s.options.memSize = 2097152/2;
+Server.default.options.memSize = 2097152/2;
 MIDIIn.connectAll;
 
 ~timewavesynthapp = {
@@ -6075,8 +6075,8 @@ MIDIIn.connectAll;
 	/* e-mail: ken_brant@ymail.com */
 
 };
-s.boot;
-s.waitForBoot({~timewavesynthapp.value;});
+Server.default.boot;
+Server.default.waitForBoot({~timewavesynthapp.value;});
 );
 
 

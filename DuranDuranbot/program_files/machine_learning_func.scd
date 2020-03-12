@@ -26,7 +26,7 @@
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
 		});
 	}, {
-		e = 0;
+		e = 12;
 		("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
 	});
 
@@ -100,8 +100,8 @@
 							q=q-1;
 							~interv_older_notes_func.value;
 						}, {
-							e = 0;
-							("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
+							e = 12;
+							("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value);
 						});
 					});
 
@@ -156,7 +156,7 @@
 		});
 		("length"++(u=u+1)).asSymbol.envirPut(k);
 	}, {
-		("length"++(u=u+1)).asSymbol.envirPut(k);
+		("length"++(u=u+1)).asSymbol.envirPut((("length"++(u-1)).asSymbol.envirGet));
 	});
 
 };

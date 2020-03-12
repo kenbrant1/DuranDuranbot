@@ -7,8 +7,8 @@ s = ~bit_duration;
 ~time_array = Array.fill(8, {s = s * 2});
 ~bit_choice_array_num = (1..~bit_choice_array.size);
 
-~midi_low_limit = 45;
-~midi_high_limit = 81;
+~midi_low_limit = 36;
+~midi_high_limit = 60;
 ~freqmap = (i = ~tuning_frequency / (2 ** (69 / 12)); a = (-1); b = (-1); Array.fill(128, {i * (2 ** (((a=a+1) / 12).trunc)) * ( (2 ** (12.reciprocal)) ** ((b=b+1)  % 12));}));/*~freqmap = (i = 8.0271480262684/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(128, { i = i*~stepratio;}));*/
 ~freqmap = ~freqmap.cpsmidi;
 /*~freqmap2 = (i = ~freqmap.at(58)/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(24, { i = i*~stepratio;}));*/

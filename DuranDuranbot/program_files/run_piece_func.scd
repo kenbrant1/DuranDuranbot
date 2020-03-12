@@ -1,10 +1,9 @@
 // RUN/PLAY PIECE
 
 ~run_piece_func = {
-
-	~synthdefs_func.value;
-
-	/*~low_pass_filter_on = 1;
+~synthdefs_func.value;
+/*
+	~low_pass_filter_on = 1;
 	~gsine.value;*/
 
 	(
@@ -28,12 +27,17 @@
 
 		};*/
 
+		~fr_func = {(~amp - (~freq_r.cpsmidi-45*(0.7/36)))};
+
 		~init_start_func = {
 
 			Server.default.makeBundle(Server.default.latency, {
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirPut(
-					Synth("synth"++(~x), [freq: ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position)]);
+					Synth("synth"++(~x), [
+						\freq, (~freq_r = ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position)),
+						\amp, ~fr_func.value
+					]);
 
 				);});
 			});
@@ -44,7 +48,8 @@
 			Server.default.makeBundle(Server.default.latency, {
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
-					\freq, ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position);
+					\freq, (~freq_r = ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position)),
+					\amp, ~fr_func.value
 
 				);});
 			});
@@ -129,15 +134,15 @@
 
 				if((~piece_position >= (~instrument_1_full.size-1)) or: (numberofloops >= ~num_loops), {
 					var amp = ~amp;
-					100.do({~number_of_instruments.do({
+					150.do({~number_of_instruments.do({
 
-						~amp = ~amp - (~amp/25);
+						~amp = ~amp - (~amp/40);
 						Server.default.makeBundle(Server.default.latency, {
 							~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
 								\amp, ~amp
 							);});
 						});
-						0.01.wait;});});
+						0.005.wait;});});
 					Server.default.makeBundle(Server.default.latency, {
 						~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
 							\amp, 0
