@@ -4,7 +4,7 @@
 ~interval_array = (1..12);
 ~bit_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
 s = ~bit_duration;
-~time_array = Array.fill(8, {s = s * 2});
+~time_array = [~bit_duration.value]++Array.fill(~bit_choice_array.size - 1, {s = s * 2});
 ~bit_choice_array_num = (1..~bit_choice_array.size);
 
 ~midi_low_limit = 36;
