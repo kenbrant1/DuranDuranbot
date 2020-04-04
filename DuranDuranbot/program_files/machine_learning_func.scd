@@ -45,7 +45,12 @@
 
 };
 
-
+~interv_inst_case = {
+	case
+	{~number_of_instruments == 1}{(~interval_diff1.asString)++"__"++(~interval_diff2.asString)}
+	{~number_of_instruments == 2}{(~interval_diff1.asString)++"__"++(~interval_diff2.asString)}
+	{~number_of_instruments == 3}{(~interval_diff1.asString)++"__"++(~interval_diff2.asString)++"_"++(~interval_diff3.asString)};
+};
 
 
 
@@ -56,13 +61,6 @@
 	(
 
 		~savenum = 0;
-
-		~interv_inst_case = {
-			case
-			{~number_of_instruments == 1}{(~interval_diff1.asString)++"__"++(~interval_diff2.asString)}
-			{~number_of_instruments == 2}{(~interval_diff1.asString)++"__"++(~interval_diff2.asString)}
-			{~number_of_instruments == 3}{(~interval_diff1.asString)++"__"++(~interval_diff2.asString)++"_"++(~interval_diff3.asString)};
-		};
 
 		// Machine learning for musical intervals
 
@@ -99,10 +97,10 @@
 							{~number_of_instruments == 3}{0};).do({
 							q=q-1;
 							~interv_older_notes_func.value;
-						}, {
-							e = 12;
-							("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value);
 						});
+					}, {
+						e = 12;
+						("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value);
 					});
 
 					// find interval between intruments
@@ -187,19 +185,19 @@
 
 };
 
+~time_inst_case = {
+	case
+	{~number_of_instruments == 1}{(~lengthplace1.asString)++"_"++(~lengthplace2.asString)}
+	{~number_of_instruments == 2}{(~lengthplace1.asString)++"_"++(~lengthplace2.asString)}
+	{~number_of_instruments == 3}{(~lengthplace1.asString)++"_"++(~lengthplace2.asString)++"_"++(~lengthplace3.asString)};
+};
+
 // Machine learning function for note times
 
 ~time_machine_learning_func = {
 
 	(
 		~savenum = 0;
-
-		~time_inst_case = {
-			case
-			{~number_of_instruments == 1}{(~lengthplace1.asString)++"_"++(~lengthplace2.asString)}
-			{~number_of_instruments == 2}{(~lengthplace1.asString)++"_"++(~lengthplace2.asString)}
-			{~number_of_instruments == 3}{(~lengthplace1.asString)++"_"++(~lengthplace2.asString)++"_"++(~lengthplace3.asString)};
-		};
 
 		("\n").post;
 		("bit durations written -").post;
