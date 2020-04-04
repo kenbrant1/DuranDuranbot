@@ -1145,3 +1145,28 @@ Fri Apr  3 17:36:12 2020
 random seed 1 - 51883774
 random seed 2 - 95164951
 random seed 3 - 31704396
+
+Fri Apr  3 18:13:33 2020
+random seed 1 - 64110382
+random seed 2 - 71899539
+random seed 3 - 61242262
+
+Fri Apr  3 18:13:35 2020
+random seed 1 - 45012308
+random seed 2 - 97870136
+random seed 3 - 21313381
+
+Fri Apr  3 18:13:36 2020
+random seed 1 - 44268598
+random seed 2 - 47180010
+random seed 3 - 92635314
+
+Fri Apr  3 18:13:38 2020
+random seed 1 - 92654133
+random seed 2 - 32152358
+random seed 3 - 72100209
+
+Fri Apr  3 18:14:49 2020
+random seed 1 - 30783075
+random seed 2 - 37370210
+random seed 3 - 55291790
