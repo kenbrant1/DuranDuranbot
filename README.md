@@ -1,4 +1,4 @@
-DuranDuranbot is a teachable/trainable artificial intelligence music bot losely inspired by how the new wave band Duran Duran composes music. It uses machine learning to learn how to compose music that you prefer.
+DuranDuranbot is a teachable/trainable artificial intelligence music bot partially inspired by how the new wave band Duran Duran composes music. It uses machine learning to learn how to compose music that you prefer.
 
 
 
