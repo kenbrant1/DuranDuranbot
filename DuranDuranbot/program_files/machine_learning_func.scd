@@ -302,6 +302,114 @@
 
 };
 
+
+// Machine learning function for composition process
+
+~comp_interv_older_notes_func = {
+
+	c = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+	b = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+	if(((b != 0) and: (b != nil) and: (c != 0) and: (c != nil)), {
+		while({c == b}, {
+			q=q-1;
+			c = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+			b = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+		});
+		if(((b != 0) and: (b != nil)), {
+			("interval_diff"++(u=u+1)).asSymbol.envirPut(b.value;);
+		}, {
+			("interval_diff"++(u=u+1)).asSymbol.envirPut(0);
+		});
+	}, {
+		("interval_diff"++(u=u+1)).asSymbol.envirPut(0);
+	});
+
+};
+
+~comp_interv_save_func = {
+
+	((~interval_diff0).asString++" - "++(~interval_diff1)++"__"++(~interval_diff2)).postln;
+
+	// write new training data to disk
+
+	h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/compose_ml_data/"++(~interval_diff1)++"__"++(~interval_diff2)++".scd", r).interpret.normalizeSum;
+	/*("interval_diff_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++" "++(inst_case.value)), h]);
+	~interval_diff_revert_1.postln;*/
+	h.put(~interval_diff0+(~blend_choice_array.at(0).neg), (h.at(~interval_diff0+(~blend_choice_array.at(0).neg)) + (~net_change*~net_change_mult)));
+	h = h.normalizeSum;
+	g = File((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/compose_ml_data/"++(~interval_diff1)++"__"++(~interval_diff2)++".scd", "w");
+	g.write(h.asString);
+	g.close;
+};
+
+
+~comp_interval_machine_learning_func = {
+
+	(
+
+		~savenum = 0;
+
+		// Machine learning for composition process intervals
+
+		("\n").post;
+		("comp intervals written -").post;
+		("\n").post;
+
+		~number_of_instruments.do(r = 0; {
+			r=r+1;
+			~inst_num = r;
+
+			u = 0;
+
+			// comp choice of current note
+			("interval_diff"++(u)).asSymbol.envirPut(
+				("instrument_"++(~inst_num)++"comp_choice_array").asSymbol.envirGet.at(~rate_selection_start);
+
+			);
+
+			// find interval of current note
+			("interval_diff"++(u=u+1)).asSymbol.envirPut(
+				("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start);
+			);
+
+			// find interval of "older" notes
+			q = 0;
+			~comp_interv_older_notes_func.value;
+
+			// write new training data to disk
+			~comp_interv_save_func.value;
+
+			(~rate_selection_end-~rate_selection_start).do(x = 0; {
+				x=x+1;
+				j = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+				v = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+x);
+				if(((v != j) and: (v != 0) and: (j != 0) and: (j != nil)), {
+
+					u = 0;
+
+					// comp choice of current note
+					("interval_diff"++(u)).asSymbol.envirPut(
+						("instrument_"++(~inst_num)++"comp_choice_array").asSymbol.envirGet.at(~rate_selection_start+(x));
+
+						);
+
+					// find interval of current note
+					("interval_diff"++(u=u+1)).asSymbol.envirPut(v.value;);
+
+					// find interval of "older" notes
+					("interval_diff"++(u=u+1)).asSymbol.envirPut(j.value;);
+
+					// write new training data to disk
+					~comp_interv_save_func.value;
+				});
+			});
+		});
+
+		~savenum_interval = ~savenum;
+	);
+
+};
+
 // Main machine learning function
 
 ~machine_learning_func = {
@@ -310,6 +418,7 @@
 
 	~interval_machine_learning_func.value;
 	~time_machine_learning_func.value;
+	if(~comp_machine_learning == 1, {~comp_interval_machine_learning_func.value;});
 
 	AppClock.sched(0.1, {
 		if(~duranduranbot_routine.isPlaying == false, {~playbutton.valueAction = 1; "pause".postln;});
