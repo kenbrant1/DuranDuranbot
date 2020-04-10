@@ -42,6 +42,9 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 */
 
 ~ddbot_root = Document.current.dir;
+case
+{FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/zdummyfile.scd", false, true) != nil}{~ddbot_training_data_location = "ddbot_training_data";}
+{FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/ddbot_training_data/zdummyfile.scd", false, true) != nil}{~ddbot_training_data_location = "ddbot_training_data/ddbot_training_data";};
 
 if(~tuning_frequency == nil, {~tuning_frequency_default = 440; ~tuning_frequency = FileReader.read((~ddbot_root)++"/program_files/other_program_files/tuning_frequency.scd", false, true).flatten.at(0).asString.asFloat;}); // note A tuneing frequency - default 440 hz
 if(~amp == nil, {~amp = 1;});
@@ -81,7 +84,7 @@ File.readAllString((~ddbot_root)++"/program_files/synthdefs_func.scd", r).interp
 File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interpret;
 
 
-if(FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/zdummyfile.scd", false, true) != nil,
+if(FileReader.read((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/zdummyfile.scd", false, true) != nil,
 	{if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});},
 	{
 		w = Window("DuranDuranbot",
