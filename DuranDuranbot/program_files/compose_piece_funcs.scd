@@ -54,7 +54,7 @@ s = ~bit_duration;
 	("clock_diff_"++(u)).asSymbol.envirPut(("clock_diff_"++(u)).asSymbol.envirGet.round.asInteger;);
 	});*/
 
-	~intv_weights = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
+	~intv_weights = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
 		case
 		{~number_of_instruments == 1}{(
 			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
@@ -146,7 +146,7 @@ s = ~bit_duration;
 	("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_place").asSymbol.envirGet
 	*/
 
-	~time_weights = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
+	~time_weights = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
 		case
 		{~number_of_instruments == 1}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("old_bit_clock_"++(~inst_num)++"_place_1").asSymbol.envirGet.asString)}
 		{~number_of_instruments == 2}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)}
@@ -450,7 +450,7 @@ s = ~bit_duration;
 										("comp_int_1_inst_"++(n)).asSymbol.envirPut(("note_1_inst_"++(n)).asSymbol.envirGet - ("note_2_inst_"++(n)).asSymbol.envirGet);
 										if(("comp_int_1_inst_"++(n)).asSymbol.envirGet.isNegative == true, {("comp_int_1_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet.neg)});
 										while({("comp_int_1_inst_"++(n)).asSymbol.envirGet >= 12}, {("comp_int_1_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet - 12)});
-										~comp_choice = ~blend_choice_array.wchoose(File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/compose_ml_data/"++(("comp_int_1_inst_"++(n)).asSymbol.envirGet.value)++"__"++(("comp_int_2_inst_"++(n)).asSymbol.envirGet.value)++".scd", r).interpret.normalizeSum);
+										~comp_choice = ~blend_choice_array.wchoose(File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/compose_ml_data/"++(("comp_int_1_inst_"++(n)).asSymbol.envirGet.value)++"__"++(("comp_int_2_inst_"++(n)).asSymbol.envirGet.value)++".scd", r).interpret.normalizeSum);
 										("comp_result_"++(n)).asSymbol.envirPut(("comp_result_"++(n)).asSymbol.envirGet + ~comp_choice.value);
 										("comp_int_2_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet);
 									});
