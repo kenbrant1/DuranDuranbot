@@ -307,16 +307,19 @@
 
 ~comp_interv_older_notes_func = {
 
-	c = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-	b = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+	c = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+	b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 	if(((b != 0) and: (b != nil) and: (c != 0) and: (c != nil)), {
 		while({c == b}, {
 			q=q-1;
-			c = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-			b = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+			c = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+			b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 		});
 		if(((b != 0) and: (b != nil)), {
-			("interval_diff"++(u=u+1)).asSymbol.envirPut(b.value;);
+			("interval_diff"++(u=u+1)).asSymbol.envirPut(
+				("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+
+			);
 		}, {
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(0);
 		});
@@ -350,6 +353,8 @@
 		~savenum = 0;
 
 		// Machine learning for composition process intervals
+		// It has 2 more ml instances than other ml's due to the others only analyzing interval and time ***changes***,
+		// ... while this one analyzes the value itself - being the "comp_choice"... and not the change in "comp_choice".
 
 		("\n").post;
 		("comp intervals written -").post;
@@ -381,23 +386,29 @@
 
 			(~rate_selection_end-~rate_selection_start).do(x = 0; {
 				x=x+1;
-				j = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(x-1));
-				v = ("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+x);
+				j = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+				v = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+x);
 				if(((v != j) and: (v != 0) and: (j != 0) and: (j != nil)), {
 
 					u = 0;
 
 					// comp choice of current note
 					("interval_diff"++(u)).asSymbol.envirPut(
-						("instrument_"++(~inst_num)++"comp_choice_array").asSymbol.envirGet.at(~rate_selection_start+(x));
+						("instrument_"++(~inst_num)++"comp_choice_array").asSymbol.envirGet.at(~rate_selection_start+x);
 
-						);
+					);
 
 					// find interval of current note
-					("interval_diff"++(u=u+1)).asSymbol.envirPut(v.value;);
+					("interval_diff"++(u=u+1)).asSymbol.envirPut(
+						("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+x);
+
+					);
 
 					// find interval of "older" notes
-					("interval_diff"++(u=u+1)).asSymbol.envirPut(j.value;);
+					("interval_diff"++(u=u+1)).asSymbol.envirPut(
+						("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+
+					);
 
 					// write new training data to disk
 					~comp_interv_save_func.value;
