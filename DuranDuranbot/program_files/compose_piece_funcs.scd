@@ -3,6 +3,7 @@
 ~comp_machine_learning = 1; //composition process machine learning is on (default)
 
 
+~ml_0to12_array = (0..12);
 ~interval_array = (1..12);
 ~comp_process_interval_array = (0..11);
 ~bit_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
@@ -54,48 +55,51 @@ s = ~bit_duration;
 	("clock_diff_"++(u)).asSymbol.envirPut(("clock_diff_"++(u)).asSymbol.envirGet.round.asInteger;);
 	});*/
 
-	~intv_weights = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
-		case
-		{~number_of_instruments == 1}{(
-			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
-			~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
-			~clock_diff_func.value;
-			~clock_diff.value.asString;
-		)++"__"++(
-			~clock_diff_var_1 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
-			~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_2").asSymbol.envirGet;
-			~clock_diff_func.value;
-			~clock_diff.value.asString;
-		)}
-		{~number_of_instruments == 2}{(
-			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
-			~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
-			~clock_diff_func.value;
-			~clock_diff.value.asString;
-		)++"__"++(
-			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
-			~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet;
-			~clock_diff_func.value;
-			~clock_diff.value.asString;
-		)}
-		{~number_of_instruments == 3}{(
-			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
-			~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
-			~clock_diff_func.value;
-			~clock_diff.value.asString;
-		)++"__"++(
-			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
-			~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet;
-			~clock_diff_func.value;
-			~clock_diff.value.asString;
-		)++"_"++(
-			~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
-			~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num+1))++"_freq").asSymbol.envirGet;
-			~clock_diff_func.value;
-			~clock_diff.value.asString;
-		)};
+	case
+	{~number_of_instruments == 1}{
+		~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+		~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
+		~clock_diff_func.value;
+		~clock_diff_1 = ~clock_diff.value;
 
-	)++"_weights.scd", r).interpret.normalizeSum;
+		~clock_diff_var_1 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
+		~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_2").asSymbol.envirGet;
+		~clock_diff_func.value;
+		~clock_diff_2 = ~clock_diff.value;
+	}
+	{~number_of_instruments == 2}{
+		~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+		~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
+		~clock_diff_func.value;
+		~clock_diff_1 = ~clock_diff.value;
+
+		~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+		~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet;
+		~clock_diff_func.value;
+		~clock_diff_2 = ~clock_diff.value;
+	}
+	{~number_of_instruments == 3}{
+		~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+		~clock_diff_var_2 = ("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet;
+		~clock_diff_func.value;
+		~clock_diff_1 = ~clock_diff.value;
+
+		~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+		~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet;
+		~clock_diff_func.value;
+		~clock_diff_2 = ~clock_diff.value;
+
+		~clock_diff_var_1 = ("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet;
+		~clock_diff_var_2 = ("instrument_"++(~inst_array.wrapAt(~inst_num+1))++"_freq").asSymbol.envirGet;
+		~clock_diff_func.value;
+		~clock_diff_3 = ~clock_diff.value;
+	};
+
+	~intv_weights = ("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.at(
+		~ml_data_array_num = case
+		{~number_of_instruments <= 2}{~clock_diff_1*(~interval_array.size+1)+~clock_diff_2}
+		{~number_of_instruments == 3}{~clock_diff_1*(~interval_array.size+1)*(~interval_array.size+1)+(~clock_diff_2*(~interval_array.size+1))+~clock_diff_3};
+	).normalizeSum;
 
 	~new_interval = ~interval_array.wchoose(~intv_weights);
 	~new_interval = [~new_interval, ~new_interval.neg].choose;
@@ -146,12 +150,29 @@ s = ~bit_duration;
 	("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+2))++"_place").asSymbol.envirGet
 	*/
 
-	~time_weights = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(~inst_num-1))++"/"++(
-		case
-		{~number_of_instruments == 1}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("old_bit_clock_"++(~inst_num)++"_place_1").asSymbol.envirGet.asString)}
-		{~number_of_instruments == 2}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)}
-		{~number_of_instruments == 3}{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet.asString)++"_"++(("bit_clock_"++(~inst_array.wrapAt(~inst_num+1))++"_place").asSymbol.envirGet.asString)};
-	)++"_time_weights.scd", r).interpret.normalizeSum;
+	case
+	{~number_of_instruments == 1}{
+		~length_comp_1 = ("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet;
+		~length_comp_2 = ("old_bit_clock_"++(~inst_num)++"_place_1").asSymbol.envirGet;
+
+	}
+	{~number_of_instruments == 2}{
+		~length_comp_1 = ("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet;
+		~length_comp_2 = ("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet;
+
+	}
+	{~number_of_instruments == 3}{
+		~length_comp_1 = ("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirGet;
+		~length_comp_2 = ("bit_clock_"++(~inst_array.wrapAt(~inst_num))++"_place").asSymbol.envirGet;
+		~length_comp_3 = ("bit_clock_"++(~inst_array.wrapAt(~inst_num+1))++"_place").asSymbol.envirGet;
+
+	};
+
+	~time_weights = ("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.at(
+		~ml_data_array_num = case
+		{~number_of_instruments <= 2}{~length_comp_1*(~time_array.size+1)+~length_comp_2}
+		{~number_of_instruments == 3}{~length_comp_1*(~time_array.size+1)*(~time_array.size+1)+(~length_comp_2*(~time_array.size+1))+~length_comp_3};
+	).normalizeSum;
 
 	~new_time = ~bit_choice_array.wchoose(~time_weights);
 
@@ -227,6 +248,18 @@ s = ~bit_duration;
 		(
 
 			~create_piece_function = {
+
+				// get ml data arrays
+
+				~player_array.size.do(~inst_num = 0; {
+					~inst_num=~inst_num+1;
+					("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirPut(File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/"++(~number_of_instruments.asString)++"_inst_"++(~player_array.wrapAt(~inst_num-1))++"_interval_weights.scd", r).interpret);
+				});
+				~player_array.size.do(~inst_num = 0; {
+					~inst_num=~inst_num+1;
+					("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirPut(File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/"++(~number_of_instruments.asString)++"_inst_"++(~player_array.wrapAt(~inst_num-1))++"_time_weights.scd", r).interpret);
+				});
+				~ml_data_array = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/compose_ml_data.scd", r).interpret;
 
 				~number_of_instruments.do(x = 0; {
 					x=x+1;
@@ -450,7 +483,7 @@ s = ~bit_duration;
 										("comp_int_1_inst_"++(n)).asSymbol.envirPut(("note_1_inst_"++(n)).asSymbol.envirGet - ("note_2_inst_"++(n)).asSymbol.envirGet);
 										if(("comp_int_1_inst_"++(n)).asSymbol.envirGet.isNegative == true, {("comp_int_1_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet.neg)});
 										while({("comp_int_1_inst_"++(n)).asSymbol.envirGet >= 12}, {("comp_int_1_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet - 12)});
-										~comp_choice = ~blend_choice_array.wchoose(File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/compose_ml_data/"++(("comp_int_1_inst_"++(n)).asSymbol.envirGet.value)++"__"++(("comp_int_2_inst_"++(n)).asSymbol.envirGet.value)++".scd", r).interpret.normalizeSum);
+										~comp_choice = ~blend_choice_array.wchoose(~ml_data_array.at(("comp_int_1_inst_"++(n)).asSymbol.envirGet.value*(~blend_choice_array.size-1)+("comp_int_2_inst_"++(n)).asSymbol.envirGet.value;).normalizeSum;);
 										("comp_result_"++(n)).asSymbol.envirPut(("comp_result_"++(n)).asSymbol.envirGet + ~comp_choice.value);
 										("comp_int_2_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet);
 									});

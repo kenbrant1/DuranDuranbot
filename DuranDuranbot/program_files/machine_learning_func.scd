@@ -68,6 +68,11 @@
 		("intervals written -").post;
 		("\n").post;
 
+		~player_array.size.do(~inst_num = 0; {
+			~inst_num=~inst_num+1;
+			("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirPut(File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/"++(~number_of_instruments.asString)++"_inst_"++(~player_array.wrapAt(~inst_num-1))++"_interval_weights.scd", r).interpret);
+		});
+
 		~number_of_instruments.do(r = 0; {
 			r=r+1;
 			~inst_num = r;
@@ -117,20 +122,40 @@
 						("interval_diff"++(u)).asSymbol.envirPut(("interval_diff"++(u)).asSymbol.envirGet.round.asInteger;);
 					});
 
-					((~interval_diff2).asString++" - "++(~player_array.wrapAt(r-1))++"__"++(~interv_inst_case.value)).postln;
-
 					// write new training data to disk
 
-					h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(r-1))++"/"++(~interv_inst_case.value)++"_weights.scd", r).interpret.normalizeSum;
-					/*("interval_diff_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++" "++(inst_case.value)), h]);
+					/*h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(r-1))++"/"++(~interv_inst_case.value)++"_weights.scd", r).interpret.normalizeSum;
+					*//*("interval_diff_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++" "++(inst_case.value)), h]);
 					~interval_diff_revert_1.postln;*/
+					h = ("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.at(
+						~ml_data_array_num = case
+						{~number_of_instruments <= 2}{~interval_diff1*(~interval_array.size+1)+~interval_diff2}
+						{~number_of_instruments == 3}{~interval_diff1*(~interval_array.size+1)*(~interval_array.size+1)+(~interval_diff2*(~interval_array.size+1))+~interval_diff3};
+					).normalizeSum;
 					h.put(~interval_diff0-1, (h.at(~interval_diff0-1) + (~net_change*~net_change_mult)));
 					h = h.normalizeSum;
-					g = File((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/interval_weights/"++(~player_array.wrapAt(r-1))++"/"++(~interv_inst_case.value)++"_weights.scd", "w");
-					g.write(h.asString);
-					g.close;
+					("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.put(~ml_data_array_num, h);
+
+					((~interval_diff0).asString++" - "++(~player_array.wrapAt(r-1))++"__"++(~interv_inst_case.value)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
 				});
 			});
+		});
+
+		~player_array.size.do(~inst_num = 0; {
+			~inst_num=~inst_num+1;
+			g = File((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/"++(~number_of_instruments.asString)++"_inst_"++(~player_array.wrapAt(~inst_num-1))++"_interval_weights.scd", "w");
+			g.write("[\n");
+			("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.size.do(s=(-1); {
+				s=s+1;
+				g.write(
+					/*"/*"++(~interv_inst_case.value)++"*/ "++*/(
+						("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.at(s).asString;
+
+					)++",\n";
+				);
+			});
+			g.write("]");
+			g.close;
 		});
 
 		~savenum_interval = ~savenum;
@@ -202,6 +227,11 @@
 		("\n").post;
 		("bit durations written -").post;
 		("\n").post;
+
+		~player_array.size.do(~inst_num = 0; {
+			~inst_num=~inst_num+1;
+			("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirPut(File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/"++(~number_of_instruments.asString)++"_inst_"++(~player_array.wrapAt(~inst_num-1))++"_time_weights.scd", r).interpret);
+		});
 
 		~number_of_instruments.do(r = 0; {
 			r=r+1;
@@ -280,21 +310,43 @@
 
 					// don't think ~lengthplace matters with players. doesn't work like that in inst_clock_func.
 
-					((~lengthplace0).asString++" - "++(~player_array.wrapAt(r-1))++" "++(~time_inst_case.value)).postln;
 
 					// write new training data to disk
 
-					h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(r-1))++"/"++(~time_inst_case.value)++"_time_weights.scd", r).interpret.normalizeSum;
+					/*h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(r-1))++"/"++(~time_inst_case.value)++"_time_weights.scd", r).interpret.normalizeSum;
 					("lengthplace_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++"__"++(~time_inst_case.value), h]);
+					*/
+					h = ("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.at(
+						~ml_data_array_num = case
+						{~number_of_instruments <= 2}{~lengthplace1*(~time_array.size+1)+~lengthplace2}
+						{~number_of_instruments == 3}{~lengthplace1*(~time_array.size+1)*(~time_array.size+1)+(~lengthplace2*(~time_array.size+1))+~lengthplace3};
+					).normalizeSum;
 					h.put(~lengthplace0, (h.at(~lengthplace0) + (~net_change*~net_change_mult)));
 					h = h.normalizeSum;
-					g = File((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_"++(~number_of_instruments.asString)++"_inst/time_weights/"++(~player_array.wrapAt(r-1))++"/"++(~time_inst_case.value)++"_time_weights.scd", "w");
-					g.write(h.asString);
-					g.close;
+					("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.put(~ml_data_array_num, h);
+
+					((~lengthplace0).asString++" - "++(~player_array.wrapAt(r-1))++" "++(~time_inst_case.value)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
 
 					~rate_revert = 0;
 				});
 			});
+		});
+
+		~player_array.size.do(~inst_num = 0; {
+			~inst_num=~inst_num+1;
+			g = File((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/"++(~number_of_instruments.asString)++"_inst_"++(~player_array.wrapAt(~inst_num-1))++"_time_weights.scd", "w");
+			g.write("[\n");
+			("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.size.do(s=(-1); {
+				s=s+1;
+				g.write(
+					/*"/*"++(~interv_inst_case.value)++"*/ "++*/(
+						("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.at(s).asString;
+
+					)++",\n";
+				);
+			});
+			g.write("]");
+			g.close;
 		});
 
 		~savenum_time = ~savenum;
@@ -331,18 +383,19 @@
 
 ~comp_interv_save_func = {
 
-	((~interval_diff0).asString++" - "++(~interval_diff1)++"__"++(~interval_diff2)).postln;
-
 	// write new training data to disk
 
-	h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/compose_ml_data/"++(~interval_diff1)++"__"++(~interval_diff2)++".scd", r).interpret.normalizeSum;
-	/*("interval_diff_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++" "++(inst_case.value)), h]);
+	/*h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/compose_ml_data/"++(~interval_diff1)++"__"++(~interval_diff2)++".scd", r).interpret.normalizeSum;
+	*//*("interval_diff_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++" "++(inst_case.value)), h]);
 	~interval_diff_revert_1.postln;*/
+	h = ~ml_data_array.at(
+		~ml_data_array_num = ~interval_diff1*(~blend_choice_array.size-1)+~interval_diff2;
+	).normalizeSum;
 	h.put(~interval_diff0+(~blend_choice_array.at(0).neg), (h.at(~interval_diff0+(~blend_choice_array.at(0).neg)) + (~net_change*~net_change_mult)));
 	h = h.normalizeSum;
-	g = File((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/compose_ml_data/"++(~interval_diff1)++"__"++(~interval_diff2)++".scd", "w");
-	g.write(h.asString);
-	g.close;
+	~ml_data_array.put(~ml_data_array_num, h);
+
+	((~interval_diff0).asString++" - "++(~interval_diff1)++"__"++(~interval_diff2)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
 };
 
 
@@ -359,6 +412,8 @@
 		("\n").post;
 		("comp intervals written -").post;
 		("\n").post;
+
+		~ml_data_array = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/compose_ml_data.scd", r).interpret;
 
 		~number_of_instruments.do(r = 0; {
 			r=r+1;
@@ -414,6 +469,23 @@
 					~comp_interv_save_func.value;
 				});
 			});
+		});
+
+		~player_array.size.do(~inst_num = 0; {
+			~inst_num=~inst_num+1;
+			g = File((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/compose_ml_data.scd", "w");
+			g.write("[\n");
+			~ml_data_array.size.do(s=(-1); {
+				s=s+1;
+				g.write(
+					/*"/*"++(~interv_inst_case.value)++"*/ "++*/(
+						~ml_data_array.at(s).asString;
+
+					)++",\n";
+				);
+			});
+			g.write("]");
+			g.close;
 		});
 
 		~savenum_interval = ~savenum;
