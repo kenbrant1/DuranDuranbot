@@ -26,7 +26,7 @@ and pressing "ctrl - enter"/"cmd - return". Doing this is also beneficial as a r
 
 ...
 
-As of SuperCollider version 3.10.2 this program has been tested to work.
+As of SuperCollider version 3.11.0 this program has been tested to work.
 If this program doesn't work for some reason or has bugs, you can try an older version of SuperCollider,
 .. or you can try to fix the issue(s) :) <3
 
@@ -42,9 +42,6 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 */
 
 ~ddbot_root = Document.current.dir;
-case
-{FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/zdummyfile.scd", false, true) != nil}{~ddbot_training_data_location = "ddbot_training_data";}
-{FileReader.read((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/ddbot_training_data/zdummyfile.scd", false, true) != nil}{~ddbot_training_data_location = "ddbot_training_data/ddbot_training_data";};
 
 if(~tuning_frequency == nil, {~tuning_frequency_default = 440; ~tuning_frequency = FileReader.read((~ddbot_root)++"/program_files/other_program_files/tuning_frequency.scd", false, true).flatten.at(0).asString.asFloat;}); // note A tuneing frequency - default 440 hz
 if(~amp == nil, {~amp = 1;});
@@ -84,26 +81,7 @@ File.readAllString((~ddbot_root)++"/program_files/synthdefs_func.scd", r).interp
 File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interpret;
 
 
-if(FileReader.read((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/zdummyfile.scd", false, true) != nil,
-	{if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});},
-	{
-		w = Window("DuranDuranbot",
-			Rect(Window.availableBounds.width/4, Window.availableBounds.height/4, Window.availableBounds.width/2, Window.availableBounds.height/2),
-			resizable: true, border:true);
+if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});
 
-		~firstview = View(w, Rect(0, 0, w.bounds.width, w.bounds.height));
-		/*view.clearOnRefresh = false;*/
-		~firstview.background = ~stringcolor;
-		~firstviewboundsWIDTH = ~firstview.bounds.width;
-		~firstviewboundsHEIGHT = ~firstview.bounds.height;
-
-		a = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/3.4774535809019));
-		a.background = ~stringcolor;
-		a.string = "DDbot training data files were not detected. Please make sure that the -entire- DuranDuranbot.zip file has been extracted to a location on your computer, including the .zip file in the following location - "++(((~ddbot_root)++"/program_files/ddbot_training_data_folder").quote)++" ... and then open the "++"duranduranbot_RUN_(open_to_rune).scd".quote++" and run it.";
-		a.align = \topLeft;
-		a.font = Font(size: ~firstviewboundsWIDTH/48);
-
-		w.front;
-});
 
 );
