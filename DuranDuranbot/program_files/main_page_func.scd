@@ -2,8 +2,6 @@
 
 	var arrow, newrandomseedsbutton, reversenewrandomseedsbutton, currentrandomseedstrext, playnil, see_saved_seeds_file_button;
 
-	~firstview.close;
-
 	~firstview = View(w, Rect(0, 0, w.bounds.width, w.bounds.height));
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;
@@ -16,14 +14,6 @@
 	~firstviewtext1.string = "Main Page";
 	~firstviewtext1.align = \topLeft;
 	~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
-
-	~firstviewtext2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/16, ~firstviewboundsHEIGHT/21)).states_([["Back",~stringcolor,~backgroundcolor],["Back",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~firstview.close;
-		~front_page_func.value;
-	});
-
-	~firstviewtext2.string = "Back";
-	~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~firstviewtext3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.3584905660377, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Click Here For Instructions",~stringcolor,~backgroundcolor],["Click Here For Instructions",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~instructions_page_func.value;
@@ -359,7 +349,13 @@
 	if(~pos_1 == nil, {~pos_1 = 0});
 	if(~pos_2 == nil, {~pos_2 = 0});
 
-	~looptextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8.5, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_1.background_(~backgroundcolor);
+	~loopstatictext_1.stringColor_(~stringcolor);
+	~loopstatictext_1.string = "Bit pos. 1";
+	~loopstatictext_1.font = Font(size: ~firstviewboundsWIDTH/55);
+
+	~looptextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/4.9, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~looptextfield_1.string = ~pos_1.asString;
 	~looptextfield_1.background_(~backgroundcolor);
 	~looptextfield_1.stringColor_(~stringcolor);
@@ -371,7 +367,13 @@
 		~looptextfield_1.string = ~pos_1.asString;
 	};
 
-	~looptextfield_2 = TextField(~firstview, Rect(~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.2, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_2.background_(~backgroundcolor);
+	~loopstatictext_2.stringColor_(~stringcolor);
+	~loopstatictext_2.string = "Bit pos. 2";
+	~loopstatictext_2.font = Font(size: ~firstviewboundsWIDTH/55);
+
+	~looptextfield_2 = TextField(~firstview, Rect(~firstviewboundsWIDTH/2.5, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~looptextfield_2.string = ~pos_2.asString;
 	~looptextfield_2.background_(~backgroundcolor);
 	~looptextfield_2.stringColor_(~stringcolor);
@@ -443,7 +445,7 @@
 
 	if(~loop_on == nil, {~loop_on = 0});
 
-	~loopsetbutton =  Button.new(~firstview, Rect(~firstviewboundsWIDTH/4.3, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/8.5, ~firstviewboundsHEIGHT/21)).states_([["Loop is OFF",~stringcolor,~backgroundcolor],["Loop is ON",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~loopsetbutton =  Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/11, ~firstviewboundsHEIGHT/21)).states_([["Loop is OFF",~stringcolor,~backgroundcolor],["Loop is ON",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(button.value == 1, {~loop_on = 1;}, {~loop_on = 0;});
 		/*if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
@@ -454,7 +456,13 @@
 
 	if(~num_loops == nil, {~num_loops = 24});
 
-	~looptextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.95, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_2.background_(~backgroundcolor);
+	~loopstatictext_2.stringColor_(~stringcolor);
+	~loopstatictext_2.string = "# loops";
+	~loopstatictext_2.font = Font(size: ~firstviewboundsWIDTH/55);
+
+	~looptextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/1.72, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~looptextfield_3.string = ~num_loops.asString;
 	~looptextfield_3.background_(~backgroundcolor);
 	~looptextfield_3.stringColor_(~stringcolor);
@@ -471,7 +479,7 @@
 	ctrlperiodtext.align = \topLeft;
 	ctrlperiodtext.font = Font(size: ~firstviewboundsWIDTH/70.454545454545);*/
 
-	~newrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/5.1428571428571, ~firstviewboundsHEIGHT/21)).states_([["New Random Seeds",~stringcolor,~backgroundcolor],["New Random Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~newrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Seeds",~stringcolor,~backgroundcolor],["New Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~randseed_1_backup = ~randseed_1;
 		~randseed_2_backup = ~randseed_2;
 		~randseed_3_backup = ~randseed_3;
@@ -491,9 +499,9 @@
 		~currentrandomseedstrext.stringColor=~stringcolor;
 
 	});
-	~newrandomseedsbutton.font = Font(size: ~firstviewboundsWIDTH/48);
+	~newrandomseedsbutton.font = Font(size: ~firstviewboundsWIDTH/55);
 
-	~reversenewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.1059907834101, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Revert",~stringcolor,~backgroundcolor],["Revert",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~reversenewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.209907834101, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Revert",~stringcolor,~backgroundcolor],["Revert",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~randseed_1_backup2 = ~randseed_1;
 		~randseed_2_backup2 = ~randseed_2;
 		~randseed_3_backup2 = ~randseed_3;
@@ -515,7 +523,13 @@
 		~currentrandomseedstrext.background=~backgroundcolor;
 		~currentrandomseedstrext.stringColor=~stringcolor;
 	});
-	~reversenewrandomseedsbutton.font = Font(size: ~firstviewboundsWIDTH/48);
+	~reversenewrandomseedsbutton.font = Font(size: ~firstviewboundsWIDTH/55);
+
+	~setnewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.1059907834101, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Set Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~firstview.close;
+		~set_seeds_page_func.value;
+	});
+	~setnewrandomseedsbutton.font = Font(size: ~firstviewboundsWIDTH/55);
 
 	~currentrandomseedstrext = TextView(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.6, ~firstviewboundsWIDTH/3.56, ~firstviewboundsHEIGHT/2.6));
 	~currentrandomseedstrext.background=~backgroundcolor;

@@ -4,10 +4,14 @@
 		Rect(Window.availableBounds.width*(1/4.4), Window.availableBounds.height*(1/4.5), Window.availableBounds.width*((4.5-2)/4.5), Window.availableBounds.height*((4.5-2)/4.5)),
 		resizable: true, border:true);
 
-
-
 	w.front;
 
-	~front_page_func.value;
+	if(~randseed_1 == nil, {~randseed_1 =  99999999.rand;});
+	if(~randseed_2 == nil, {~randseed_2 =  99999999.rand;});
+	if(~randseed_3 == nil, {~randseed_3 =  99999999.rand;});
+
+	if(~startprogram == nil, {~save_random_seeds_func.value; ~startprogram = 1;});
+
+	~main_page_func.value;
 
 };
