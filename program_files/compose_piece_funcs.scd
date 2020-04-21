@@ -466,11 +466,6 @@ s = ~bit_duration;
 						~number_of_instruments.do(n = 0; {n=n+1; ("instrument_"++(n)++"_array_blended").asSymbol.envirPut([]);});
 
 
-						// STUFF TO DO -
-						// - currently, comp interval process does it for EVERY SINGLE BIT. May want to change that. - fixed
-						// - put in comp interval array - done
-						// - do machine learning
-
 						// blend, and use ml data
 						// ~comp_int2 equals 0 at very beginning of composition process
 						~number_of_instruments.do(n = 0; {var comp_choice;
@@ -478,20 +473,68 @@ s = ~bit_duration;
 							o.do(i = (-1); {
 								i=i+1;
 								if(~comp_machine_learning == 1, {
+
 									if(((("instrument_"++(n)++"_array_1").asSymbol.envirGet.at(i) != ("note_1_inst_"++(n)).asSymbol.envirGet) or: (("instrument_"++(n)++"_array_2").asSymbol.envirGet.at(i) != ("note_2_inst_"++(n)).asSymbol.envirGet)), {
-										("comp_result_"++(n)).asSymbol.envirPut((((("note_1_inst_"++(n)).asSymbol.envirPut(("instrument_"++(n)++"_array_1").asSymbol.envirGet.at(i)).value) + (("note_2_inst_"++(n)).asSymbol.envirPut(("instrument_"++(n)++"_array_2").asSymbol.envirGet.at(i)).value)) / 2).round);
-										("comp_int_1_inst_"++(n)).asSymbol.envirPut(("note_1_inst_"++(n)).asSymbol.envirGet - ("note_2_inst_"++(n)).asSymbol.envirGet);
-										if(("comp_int_1_inst_"++(n)).asSymbol.envirGet.isNegative == true, {("comp_int_1_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet.neg)});
-										while({("comp_int_1_inst_"++(n)).asSymbol.envirGet >= 12}, {("comp_int_1_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet - 12)});
-										~comp_choice = ~blend_choice_array.wchoose(~ml_data_array.at(("comp_int_1_inst_"++(n)).asSymbol.envirGet.value*(~blend_choice_array.size-1)+("comp_int_2_inst_"++(n)).asSymbol.envirGet.value;).normalizeSum;);
-										("comp_result_"++(n)).asSymbol.envirPut(("comp_result_"++(n)).asSymbol.envirGet + ~comp_choice.value);
-										("comp_int_2_inst_"++(n)).asSymbol.envirPut(("comp_int_1_inst_"++(n)).asSymbol.envirGet);
+
+										("comp_result_"++(n)).asSymbol.envirPut(
+											(((("note_1_inst_"++(n)).asSymbol.envirPut(
+												("instrument_"++(n)++"_array_1").asSymbol.envirGet.at(i)
+											).value
+
+											)
+											+ (("note_2_inst_"++(n)).asSymbol.envirPut(
+												("instrument_"++(n)++"_array_2").asSymbol.envirGet.at(i)
+											).value)) / 2).round;
+
+										);
+
+										("comp_int_1_inst_"++(n)).asSymbol.envirPut(
+											("note_1_inst_"++(n)).asSymbol.envirGet - ("note_2_inst_"++(n)).asSymbol.envirGet
+
+										);
+
+										if(("comp_int_1_inst_"++(n)).asSymbol.envirGet.isNegative == true, {
+											("comp_int_1_inst_"++(n)).asSymbol.envirPut(
+												("comp_int_1_inst_"++(n)).asSymbol.envirGet.neg
+
+											)
+										});
+
+										while({("comp_int_1_inst_"++(n)).asSymbol.envirGet >= 12}, {
+											("comp_int_1_inst_"++(n)).asSymbol.envirPut(
+												("comp_int_1_inst_"++(n)).asSymbol.envirGet - 12
+
+											)
+										});
+
+										~comp_choice = ~blend_choice_array.wchoose(
+											~ml_data_array.at(
+												("comp_int_1_inst_"++(n)).asSymbol.envirGet.value*(~blend_choice_array.size-1)+("comp_int_2_inst_"++(n)).asSymbol.envirGet.value;
+
+										).normalizeSum;
+
+										);
+
+										("comp_result_"++(n)).asSymbol.envirPut(
+											("comp_result_"++(n)).asSymbol.envirGet + ~comp_choice.value
+
+										);
+
+										("comp_int_2_inst_"++(n)).asSymbol.envirPut(
+											("comp_int_1_inst_"++(n)).asSymbol.envirGet
+
+										);
 									});
+
 									("instrument_"++(n)++"_array_blended").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet.add(("comp_result_"++(n)).asSymbol.envirGet.value));
+
 									("instrument_"++(n)++"comp_interval_array").asSymbol.envirPut(("instrument_"++(n)++"comp_interval_array").asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet));
+
 									("instrument_"++(n)++"comp_choice_array").asSymbol.envirPut(("instrument_"++(n)++"comp_choice_array").asSymbol.envirGet.add(~comp_choice.value));
+
 								}, {
 									u = ((("instrument_"++(n)++"_array_1").asSymbol.envirGet.at(i) + ("instrument_"++(n)++"_array_2").asSymbol.envirGet.at(i)) / 2).round;
+
 									("instrument_"++(n)++"_array_blended").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet.add(u.value));
 
 								});
