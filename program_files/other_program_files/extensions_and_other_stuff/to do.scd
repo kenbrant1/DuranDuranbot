@@ -1,0 +1,3 @@
+- create ways to "blend" training data
+- test stuff.
+- add more synths
