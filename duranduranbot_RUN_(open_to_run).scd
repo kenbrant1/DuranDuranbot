@@ -32,11 +32,6 @@ If this program doesn't work for some reason or has bugs, you can try an older v
 
 ...
 
-DuranDuranbot, and any file packaged with it, is in the public domain.
-Anyone is able to use or edit them in any way, for any purpose.
-
-...
-
 contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 
 */
