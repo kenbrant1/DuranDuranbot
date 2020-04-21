@@ -466,6 +466,11 @@ s = ~bit_duration;
 						~number_of_instruments.do(n = 0; {n=n+1; ("instrument_"++(n)++"_array_blended").asSymbol.envirPut([]);});
 
 
+						// DEVELOP WAY TO FOR AI TO HELP COMPOSE.
+						// LET HUMAN USER EXPERIMENT WITH EACH COMPOSING SECTION.
+						//
+
+
 						// blend, and use ml data
 						// ~comp_int2 equals 0 at very beginning of composition process
 						~number_of_instruments.do(n = 0; {var comp_choice;
