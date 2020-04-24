@@ -38,8 +38,7 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 
 ~ddbot_root = Document.current.dir;
 
-~number_of_instruments = File.readAllString((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", r).interpret;
-
+if(~number_of_instruments == nil, {~number_of_instruments = File.readAllString((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", r).interpret;});
 if(~tuning_frequency == nil, {~tuning_frequency_default = 440; ~tuning_frequency = FileReader.read((~ddbot_root)++"/program_files/other_program_files/tuning_frequency.scd", false, true).flatten.at(0).asString.asFloat;}); // note A tuneing frequency - default 440 hz
 if(~amp == nil, {~amp = 1;});
 if(~bit_duration == nil, {~bit_duration_default = 8; ~bit_duration = FileReader.read((~ddbot_root)++"/program_files/other_program_files/bit_speed.scd", false, true).flatten.at(0).asString.asFloat;});
