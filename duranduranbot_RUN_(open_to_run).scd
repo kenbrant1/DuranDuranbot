@@ -38,16 +38,13 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 
 ~ddbot_root = Document.current.dir;
 
+~number_of_instruments = File.readAllString((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", r).interpret;
+
 if(~tuning_frequency == nil, {~tuning_frequency_default = 440; ~tuning_frequency = FileReader.read((~ddbot_root)++"/program_files/other_program_files/tuning_frequency.scd", false, true).flatten.at(0).asString.asFloat;}); // note A tuneing frequency - default 440 hz
 if(~amp == nil, {~amp = 1;});
 if(~bit_duration == nil, {~bit_duration_default = 8; ~bit_duration = FileReader.read((~ddbot_root)++"/program_files/other_program_files/bit_speed.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~rate_time_range == nil, {~rate_time_range_default = 7; ~rate_time_range = FileReader.read((~ddbot_root)++"/program_files/other_program_files/rate_time_range.scd", false, true).flatten.at(0).asString.asFloat;}); // range in number of seconds to rate a piece from current time backwards. defualt is 8.
 if(~net_change_mult == nil, {~rate_button_default = 4; ~net_change_mult = FileReader.read((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", false, true).flatten.at(0).asString.asFloat;}); // note A tuneing frequency - default 440 hz // set default point rating at boot. Available point numbers - 1, 2, 4, 8, or 16
-
-case
-{FileReader.read((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", false, true).flatten.at(0) == 1.asString}{~number_of_instruments = 1}
-{FileReader.read((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", false, true).flatten.at(0) == 2.asString}{~number_of_instruments = 2}
-{FileReader.read((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", false, true).flatten.at(0) == 3.asString}{~number_of_instruments = 3};
 
 if(FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true) != nil, {
 	case
