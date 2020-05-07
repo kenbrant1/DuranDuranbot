@@ -13,3 +13,5 @@
 - use arrays ~assist_number arrays for buttons - maybe not
 - allow for duplicating riffs... as well as other things like pattern alterations, etc
 - create two "views" different scrolling
+
+- create controllable setting for amplitude

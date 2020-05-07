@@ -136,20 +136,63 @@
 	~firstviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~save_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Save Project",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~assist_compose_page_func.value;
 
+		"please wait".postln;
+		g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++".scd", "w");
+		g.write("~num_assist_parts = "++(~num_assist_parts.asString)++";");
+		~num_assist_parts.do(j = 0; {
+			j=j+1;
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				g.write("\n~assisted_inst_"++(s)++"_array_part_"++(j)++" = [ ");
+				("assisted_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirGet.size.do(q = (-1); {
+					q=q+1;
+					g.write((("assisted_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirGet.at(q).asString)++", ");
+				});
+				g.write("];");
+			});
+		});
+		g.write("\n
+if(~firstview != nil, {~firstview.close;});
+if(~firstview2 != nil, {~firstview2.close;});
+~assist_compose_page_func.value;
+~firstview.refresh;
+~firstview2.refresh;"++
+			"project loaded".quote++".postln;
+");
+		g.close;
+		"project saved".postln;
 	});
 	~save_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~load_saved_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21*2), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Saved Project",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~assist_compose_page_func.value;
 
+		FileDialog.new(
+			{arg path;
+				File.readAllString(path, r).interpret.value;
+		}, {}, 0, 0, stripResult: true);
 	});
 	~load_saved_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~new_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21*3), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["New Proj. (will save curr.)",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~assist_compose_page_func.value;
 
+		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+		~save_assist_project_button.valueAction = 0;
+		~num_assist_parts.do(j = 0; {
+			j=j+1;
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				("assisted_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirPut(nil);
+			});
+		});
+		~num_assist_parts = nil;
+		~line_multiple1 = nil;
+		~line_multiple2 = nil;
+		if(~firstview != nil, {~firstview.close;});
+		if(~firstview2 != nil, {~firstview2.close;});
+		~assist_compose_page_func.value;
+		~firstview.refresh;
+		~firstview2.refresh;
 	});
 	~new_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -231,6 +274,9 @@
 	});
 	~new_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
+	if(~line_multiple1 == nil, {~line_multiple1 = 1});
+	if(~line_multiple2 == nil, {~line_multiple2 = 0});
+
 	if(~num_assist_parts == nil, {~num_assist_parts = 0}, {
 		~num_assist_parts_backup = ~num_assist_parts;
 		~line_multiple1_back_up = ~line_multiple1;
@@ -243,8 +289,6 @@
 		~line_multiple1 = ~line_multiple1_back_up;
 		~line_multiple2 = ~line_multiple2_back_up;
 	});
-	if(~line_multiple1 == nil, {~line_multiple1 = 1});
-	if(~line_multiple2 == nil, {~line_multiple2 = 0});
 
 	/*~num_assist_parts = 0;
 	~line_multiple1 = 0;

@@ -1,0 +1,1 @@
+// Copy and paste the all lines below in the "Load Saved Score" section in the top of the "duranduranbot_RUN.scd" file
