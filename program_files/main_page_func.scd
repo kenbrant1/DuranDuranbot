@@ -679,7 +679,7 @@
 
 		"please wait".postln;
 		g = File((~ddbot_root)++"/program_files/saved_scores/score_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++".scd", "w");
-		g.write("// Copy and paste the all lines below in the "++"Load Saved Score".quote++" section in the top of the "++"duranduranbot_RUN.scd".quote++" file");
+		g.write("//");
 		g.close;
 		~re = Routine({
 			~number_of_instruments.do(x = 0; {

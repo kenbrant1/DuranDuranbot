@@ -296,19 +296,44 @@ if(~firstview2 != nil, {~firstview2.close;});
 	~part_limit_counter = 0;*/
 
 	~delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/9), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Delete Part",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~assist_compose_page_func.value;
+
 
 	});
 	~delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/5.8, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Part",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~assist_compose_page_func.value;
+
 
 	});
 	~undo_delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~load_piece_to_main_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/5.8), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Piece To Main Page",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~assist_compose_page_func.value;
+
+		~number_of_instruments.do(s = 0; {
+				s=s+1;
+			("instrument_"++(s)++"_full").asSymbol.envirPut([]);
+		});
+		~num_assist_parts.do(j = 0; {
+			j=j+1;
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				if(("assisted_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirGet != nil, {
+					("instrument_"++(s)++"_full").asSymbol.envirPut(
+						("instrument_"++(s)++"_full").asSymbol.envirGet.add(
+							("assisted_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirGet;
+						);
+					);
+				});
+			});
+		});
+		~number_of_instruments.do(s = 0; {
+			s=s+1;
+			("instrument_"++(s)++"_full").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.flatten);
+			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.cpsmidi);
+			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full_midi").asSymbol.envirGet.round);
+		});
+		~create_pseq_arrays_func.value;
+		"full piece loaded to main page".postln;
 
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);

@@ -657,6 +657,8 @@ s = ~bit_duration;
 							("instrument_"++(1)++"_full").asSymbol.envirGet.at(5800).size
 							*/
 
+							case
+							{~ai_assist_compose != 1}{
 							if(~saved_piece_loaded != 1, {
 
 								~number_of_instruments.do(x = 0; {
@@ -678,6 +680,11 @@ s = ~bit_duration;
 								});
 								~saved_piece_loaded = 0;
 							});
+							}
+							{~ai_assist_compose == 1}{
+								nil
+							};
+
 
 							~number_of_instruments.do(x = 0; {
 								x=x+1;

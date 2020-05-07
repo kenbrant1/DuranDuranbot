@@ -34,7 +34,7 @@
     ~firstviewtext4.background=~backgroundcolor;
 	~firstviewtext4.string = "(Scroll down for more)\n\n\n\n
 What works currently -
-\n\n New Part, Generate New, and all duplicate functions";
+\n\nsave project, load project, new project, New Part, Generate New, and all duplicate functions";
     ~firstviewtext4.stringColor=~stringcolor;
     ~firstviewtext4.font = Font(size: ~firstviewboundsWIDTH/48);
 
