@@ -32,7 +32,7 @@
 	});
 	~firstviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor],["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		var piecegenerated;
 		~piecegenerated = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695652174, ~firstviewboundsWIDTH/36));
 		~piecegenerated.background=~backgroundcolor;
@@ -70,7 +70,7 @@
 				Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
 				~duranduranbot_routine.pause;
 				/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.set(\freq, 0);});});
-				*/"Piece Paused".postln;
+				*/if(~ai_assist_compose != 1, {"Piece Paused".postln;});
 				if(~will_record == 1, {s.pauseRecording;});
 				~pause_piece = 1;
 				~playbutton.string = "Resume";
@@ -92,11 +92,11 @@
 	if(~piece_created == nil, {~playbutton.close; ~arrow.close;});
 
 	~stop_func = {
-		~playbutton.valueAction = 0;
 		~duranduranbot_routine.pause;
+		~playbutton.valueAction = 0;
 		~playbutton.value = 0;
 		~timeslider.valueAction = 0;
-		"piece stopped".postln;
+		if(~ai_assist_compose != 1, {"piece stopped".postln;});
 		~fullpiecedur2 = ~fullpiecedur;
 		if(~stopbutton != nil, {~stopbutton.close});
 		~pause_piece = 0;

@@ -1,7 +1,10 @@
 // RUN/PLAY PIECE
 
 ~assisted_ai_run_piece_func = {
-~synthdefs_func.value;
+
+	~size_val = (("assisted_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1);
+
+	~synthdefs_func.value;
 /*
 	~low_pass_filter_on = 1;
 	~gsine.value;*/
@@ -93,7 +96,6 @@
 			/*});*/
 		};
 
-
 		~duranduranbot_routine = Task({var bit_timer, numberofloops = 0;
 
 			/*if(~loop_on == 1, {~piece_position = ~pos_1}, {~piece_position = 0});*/
@@ -114,7 +116,7 @@
 
 			});
 
-			inf.do({
+			~size_val.do({
 
 				~piece_position = ~piece_position + 1;
 
@@ -126,7 +128,7 @@
 
 				~bit_duration.wait;
 
-				if((~piece_position >= (("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1)) /*or: (numberofloops >= ~num_loops)*/, {
+				if((~piece_position >= ~size_val) /*or: (numberofloops >= ~num_loops)*/, {
 					/*var amp = ~amp;
 					150.do({~number_of_instruments.do({
 

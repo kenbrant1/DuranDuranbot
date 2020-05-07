@@ -9,7 +9,7 @@
 	~number_of_instruments.do(x = 0; {
 		SynthDef("synth"++(x=x+1), {arg out = 0, bufnum = 0, freq = 1, amp = ~amp;
 			var sig;
-			sig = PlayBuf.ar(1, ~buffer, freq/~vd_midi.midicps, startPos: 0, loop: 1);
+			sig = PlayBuf.ar(2, ~buffer, freq/~vd_midi.midicps, startPos: 0, loop: 1);
 			/*sig = BBandPass.ar(sig, freq: ((((~midi_high_limit-~midi_low_limit)/2).roundUp + ~midi_low_limit).midicps), bw: /*MouseX.kr(0.01, 8).poll*/0.028, mul: 1, add: 0);
 			*//*sig = BPeakEQ.ar(sig, freq: ~vd_midi.midicps, rq: 1, db: 1, mul: 1, add: 0);
 			*//*sig = BPF.ar(sig, freq: freq, rq: 1.6, mul: 1, add: 0);*/
@@ -21,6 +21,7 @@
 			/*Normalizer.ar(in: sig, level: 0.01, dur: 0.01);*/
 			/*Limiter.ar(in: sig, level: 0.0001, dur: 0.01);*/
 			sig = Compander.ar(in: sig, control: sig, thresh: /*MouseY.kr(0.01, 1).poll*/ 0.1, slopeBelow: /*MouseY.kr(0.0001, 3.0).poll*/ 1, slopeAbove: /*MouseX.kr(0.0000001, 1).poll*/ 0.31, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);
+			sig = sig * EnvGen.kr(Env.asr(0.1, 1, 0.1), doneAction: Done.freeSelf);
 			/*sig = Limiter.ar(in: sig, level: MouseX.kr(0.01, 1).poll, dur: MouseY.kr(0.01, 1).poll);*/
 			OffsetOut.ar(0, sig.dup*amp);
 		}).add;

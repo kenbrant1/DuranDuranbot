@@ -1,7 +1,10 @@
 // RUN/PLAY PIECE
 
 ~run_piece_func = {
-~synthdefs_func.value;
+
+	~size_val = ~instrument_1_full.size-1;
+
+	~synthdefs_func.value;
 /*
 	~low_pass_filter_on = 1;
 	~gsine.value;*/
@@ -48,7 +51,7 @@
 			Server.default.makeBundle(Server.default.latency, {
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
-					\freq, (~freq_r = ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position)),
+					\freq, (~freq_r = ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));,
 					\amp, ~fr_func.value
 
 				);});
@@ -108,6 +111,8 @@
 
 				"piece currently running".postln;
 
+				0.5.wait;
+
 				~init_start_func.value;
 
 				~bit_timer_func.value;
@@ -118,7 +123,7 @@
 
 			});
 
-			inf.do({
+			~size_val.do({
 
 				~piece_position = ~piece_position + 1;
 
@@ -132,7 +137,7 @@
 
 				~bit_duration.wait;
 
-				if((~piece_position >= (~instrument_1_full.size-1)) or: (numberofloops >= ~num_loops), {
+				if((~piece_position >= (~size_val)) or: (numberofloops >= ~num_loops), {
 					var amp = ~amp;
 					150.do({~number_of_instruments.do({
 

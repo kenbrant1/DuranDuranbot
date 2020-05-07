@@ -98,7 +98,7 @@
 
 				~duranduranbot_routine.pause;
 				/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.set(\freq, 0);});});
-				*/"Piece Paused".postln;
+				*/if(~ai_assist_compose != 1, {"Piece Paused".postln;});
 				if(~will_record == 1, {s.pauseRecording;});
 				~pause_piece = 1;
 				~playbutton.string = "Resume";
@@ -223,7 +223,7 @@
 					});
 				});
 				if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-				AppClock.sched(0.25, {~playbutton.valueAction = 1;});
+				if(("assisted_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet != nil, {AppClock.sched(0.25, {~playbutton.valueAction = 1;});});
 			});
 		);
 		("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -289,9 +289,9 @@
 
 	~set_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Set Duplicate",~stringcolor,~backgroundcolor],["Set Duplicate",~backgroundcolor,Color.green]]).action_({arg button;
 
+		if(~dup_1_part_num != nil, {("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;});
+		if(~dup_2_part_num != nil, {("assist_comp_part_"++(~dup_2_part_num)++"_button").asSymbol.envirGet.value = 0;});
 		if(button.value == 1, {~duplicate_on = 1}, {
-			if(~dup_1_part_num != nil, {("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;});
-			if(~dup_2_part_num != nil, {("assist_comp_part_"++(~dup_2_part_num)++"_button").asSymbol.envirGet.value = 0;});
 			~duplicate_on = 0;
 			~dup_1_part_num = nil;
 		});
