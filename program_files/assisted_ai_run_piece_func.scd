@@ -1,6 +1,6 @@
 // RUN/PLAY PIECE
 
-~run_piece_func = {
+~assisted_ai_run_piece_func = {
 ~synthdefs_func.value;
 /*
 	~low_pass_filter_on = 1;
@@ -35,7 +35,7 @@
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirPut(
 					Synth("synth"++(~x), [
-						\freq, (~freq_r = ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position)),
+						\freq, (~freq_r = ("assisted_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position)),
 						\amp, ~fr_func.value
 					]);
 
@@ -48,7 +48,7 @@
 			Server.default.makeBundle(Server.default.latency, {
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
-					\freq, (~freq_r = ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position)),
+					\freq, (~freq_r = ("assisted_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position)),
 					\amp, ~fr_func.value
 
 				);});
@@ -96,21 +96,17 @@
 
 		~duranduranbot_routine = Task({var bit_timer, numberofloops = 0;
 
-			if(~loop_on == 1, {~piece_position = ~pos_1}, {~piece_position = 0});
+			/*if(~loop_on == 1, {~piece_position = ~pos_1}, {~piece_position = 0});*/
+
+			~piece_position = 0;
 
 			1.do({
 
-				if(~will_record == 1, {
-					thisProcess.platform.recordingsDir = ((~ddbot_root)++"/program_files/recordings");
-					Server.default.record;
-					1.wait;
-				});
 
-				"piece currently running".postln;
 
 				~init_start_func.value;
 
-				~bit_timer_func.value;
+			/*	~bit_timer_func.value;*/
 
 				/*if(~will_record != 1, {~bit_timer_func.value;});*/
 
@@ -123,17 +119,15 @@
 				~piece_position = ~piece_position + 1;
 
 				~init_func.value;
-
-				~bit_timer_func.value;
+/*
+				~bit_timer_func.value;*/
 
 				/*if(~will_record != 1, {~bit_timer_func.value;});*/
 
-				if(~loop_on == 1, {if(~piece_position == ~pos_2, {~piece_position = ~pos_1; numberofloops = numberofloops + 1; AppClock.sched(0, {~timeslider.valueAction = ~pos_1;});});});
-
 				~bit_duration.wait;
 
-				if((~piece_position >= (~instrument_1_full.size-1)) or: (numberofloops >= ~num_loops), {
-					var amp = ~amp;
+				if((~piece_position >= (("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1)) /*or: (numberofloops >= ~num_loops)*/, {
+					/*var amp = ~amp;
 					150.do({~number_of_instruments.do({
 
 						~amp = ~amp - (~amp/40);
@@ -149,11 +143,11 @@
 						);});
 					});
 					~amp = 1;
+					1.wait; */
 					AppClock.sched(0, {~stop_func.value;});
-					1.wait; if(~will_record == 1, {Server.default.stopRecording;});
-					"piece finished".postln;
-					if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {AppClock.sched(0, {~quicknewpiecebutton.valueAction = 0;});});
-				});
+					/*if(~will_record == 1, {Server.default.stopRecording;});*/
+					/*if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {AppClock.sched(0, {~quicknewpiecebutton.valueAction = 0;});});
+				*/});
 
 			});
 

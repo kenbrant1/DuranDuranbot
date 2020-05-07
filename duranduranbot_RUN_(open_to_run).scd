@@ -60,13 +60,17 @@ if(FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.
 	~stringcolor = Color.white;
 });
 
+File.readAllString((~ddbot_root)++"/program_files/compose_piece_funcs.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/duranduranbot_GUI_func.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/main_page_func.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/instructions_page_func.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/player_settings_page_func.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/set_seeds_page_func.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/save_random_seeds_func.scd", r).interpret;
-File.readAllString((~ddbot_root)++"/program_files/compose_piece_funcs.scd", r).interpret;
+File.readAllString((~ddbot_root)++"/program_files/assist_compose_page_func.scd", r).interpret;
+File.readAllString((~ddbot_root)++"/program_files/assisted_comp_part_func.scd", r).interpret;
+File.readAllString((~ddbot_root)++"/program_files/assisted_ai_run_piece_func.scd", r).interpret;
+File.readAllString((~ddbot_root)++"/program_files/ai_assist_instructions_page_func.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/machine_learning_func.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/synthdefs_func.scd", r).interpret;
 File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interpret;

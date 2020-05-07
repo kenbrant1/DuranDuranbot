@@ -5,3 +5,11 @@
 // DEVELOP WAY TO FOR AI TO HELP COMPOSE.
 // LET HUMAN USER EXPERIMENT WITH EACH COMPOSING SECTION.
 //
+
+- saved scores do NOT currently record "comp_interval" data for machine learning
+
+
+
+- use arrays ~assist_number arrays for buttons - maybe not
+- allow for duplicating riffs... as well as other things like pattern alterations, etc
+- create two "views" different scrolling

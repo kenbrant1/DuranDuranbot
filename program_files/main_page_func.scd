@@ -2,11 +2,22 @@
 
 	var arrow, newrandomseedsbutton, reversenewrandomseedsbutton, currentrandomseedstrext, playnil, see_saved_seeds_file_button;
 
+	~ai_assist_compose = 0;
+
+	if(~firstview != nil, {~firstview.close;});
+	if(~firstview2 != nil, {~firstview2.close;});
+
 	~firstview = View(w, Rect(0, 0, w.bounds.width, w.bounds.height));
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;
 	~firstviewboundsWIDTH = ~firstview.bounds.width;
 	~firstviewboundsHEIGHT = ~firstview.bounds.height;
+
+	~ddbot_assist_compose_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/50, ~firstviewboundsWIDTH/4.4, ~firstviewboundsHEIGHT/21)).states_([["DDbot Assist Compose",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~assist_compose_page_func.value;
+
+	});
+	~ddbot_assist_compose_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.2857142857143, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21));
 	~firstviewtext1.background=~backgroundcolor;
@@ -46,7 +57,9 @@
 				if(~pause_piece != 1, {
 					~seedscheck = 1;
 					~stopbuttonfunc.value;
-					~run_piece_func.value;
+					case
+					{~ai_assist_compose == 0}{~run_piece_func.value;}
+					{~ai_assist_compose == 1}{~assisted_ai_run_piece_func.value;}
 				}, {/*~timer_routine.resume;*/
 					~amp = 1;
 					Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, ~amp);});});
@@ -55,7 +68,6 @@
 			}, {
 				/*~timer_routine.pause;*/
 				Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
-
 				~duranduranbot_routine.pause;
 				/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.set(\freq, 0);});});
 				*/"Piece Paused".postln;
@@ -80,19 +92,21 @@
 	if(~piece_created == nil, {~playbutton.close; ~arrow.close;});
 
 	~stop_func = {
-		AppClock.sched(0, {
+		~playbutton.valueAction = 0;
+		~duranduranbot_routine.pause;
+		~playbutton.value = 0;
+		~timeslider.valueAction = 0;
+		"piece stopped".postln;
+		~fullpiecedur2 = ~fullpiecedur;
+		if(~stopbutton != nil, {~stopbutton.close});
+		~pause_piece = 0;
+		~playbutton.string = "Play Piece";
+		~duranduranbot_routine.stop;
+		AppClock.sched(0.25, {
 			/*~timer_routine.stop;*/
 			/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
 			*/	/*~piece_position = 0;*/
-			~timeslider.valueAction = 0;
-			"piece stopped".postln;
-			~fullpiecedur2 = ~fullpiecedur;
-			if(~stopbutton != nil, {~stopbutton.close});
-			~playbutton.value = 0;
-			~pause_piece = 0;
-			~playbutton.string = "Play Piece";
 			Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.free;});});
-			~duranduranbot_routine.stop;
 			if(~will_record == 1, {s.stopRecording;});
 			Server.freeAll;
 		});
@@ -700,5 +714,8 @@
 		w.close;
 	});
 	~closeddbotbutton.font = Font(size: ~firstviewboundsWIDTH/48);
+
+
+	if(~gen_4_assit == nil, {~generatepiecebutton.valueAction = 0; ~gen_4_assit = 1;});
 
 };
