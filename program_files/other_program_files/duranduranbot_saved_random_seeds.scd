@@ -86,3 +86,48 @@ Thu May  7 17:49:30 2020
 random seed 1 - 40048288
 random seed 2 - 20857070
 random seed 3 - 53994853
+
+Thu May  7 18:08:47 2020
+random seed 1 - 14558499
+random seed 2 - 18504538
+random seed 3 - 44958293
+
+Thu May  7 19:12:22 2020
+random seed 1 - 13411261
+random seed 2 - 91531720
+random seed 3 - 6157362
+
+Thu May  7 19:22:07 2020
+random seed 1 - 95740411
+random seed 2 - 65951536
+random seed 3 - 74407841
+
+Thu May  7 19:25:37 2020
+random seed 1 - 52956635
+random seed 2 - 81392425
+random seed 3 - 19491596
+
+Thu May  7 19:38:35 2020
+random seed 1 - 17170355
+random seed 2 - 27098105
+random seed 3 - 60282513
+
+Thu May  7 19:38:44 2020
+random seed 1 - 67231612
+random seed 2 - 10932791
+random seed 3 - 64998233
+
+Thu May  7 19:39:07 2020
+random seed 1 - 96134163
+random seed 2 - 24533960
+random seed 3 - 41610120
+
+Thu May  7 19:41:07 2020
+random seed 1 - 82947672
+random seed 2 - 69051396
+random seed 3 - 51919961
+
+Thu May  7 19:53:50 2020
+random seed 1 - 23640663
+random seed 2 - 54680926
+random seed 3 - 2184124

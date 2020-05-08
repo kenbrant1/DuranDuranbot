@@ -54,12 +54,12 @@
 	~firstviewtext11.font = Font(size: ~firstviewboundsWIDTH/55);
 
 	~firstviewtext2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/16, ~firstviewboundsHEIGHT/21)).states_([["back",~stringcolor,~backgroundcolor],["back",~stringcolor,~backgroundcolor]]).action_({arg button;
-        ~firstview.close;
-        ~main_page_func.value;
-    });
-    ~firstviewtext2.background=~stringcolor;
-    ~firstviewtext2.string = "Back";
-    ~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
+		~firstview.close;
+		~main_page_func.value;
+	});
+	~firstviewtext2.background=~stringcolor;
+	~firstviewtext2.string = "Back";
+	~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor],["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		var piecegenerated;
@@ -225,20 +225,20 @@ if(~firstview2 != nil, {~firstview2.close;});
 
 	~new_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Part",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		~num_assist_parts = ~num_assist_parts + 1;
-		if(~line_multiple2 >= 10, {~line_multiple1 = ~line_multiple1 + 1; ~line_multiple2 = 0;});
-		~line_multiple2 = ~line_multiple2 + 1;
+	~num_assist_parts = ~num_assist_parts + 1;
+	if(~line_multiple2 >= 10, {~line_multiple1 = ~line_multiple1 + 1; ~line_multiple2 = 0;});
+	~line_multiple2 = ~line_multiple2 + 1;
 
-		("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirPut(
-			Button.new(~firstview2, Rect(~spacing1.value, ~spacing2.value, ~firstviewboundsWIDTH/18, ~firstviewboundsHEIGHT/21)).states_([[~num_assist_parts.asString,~stringcolor,~backgroundcolor],[~num_assist_parts.asString,Color.black,Color.green]]).action_({arg button;
-				("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
-				button.value = 1;
-				~assist_part_number = button.string.asInteger;
-				if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-				AppClock.sched(0.25, {~playbutton.valueAction = 1;});
-			});
-		);
-		("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(size: ~firstviewboundsWIDTH/48);
+	("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirPut(
+	Button.new(~firstview2, Rect(~spacing1.value, ~spacing2.value, ~firstviewboundsWIDTH/18, ~firstviewboundsHEIGHT/21)).states_([[~num_assist_parts.asString,~stringcolor,~backgroundcolor],[~num_assist_parts.asString,Color.black,Color.green]]).action_({arg button;
+	("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
+	button.value = 1;
+	~assist_part_number = button.string.asInteger;
+	if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+	AppClock.sched(0.25, {~playbutton.valueAction = 1;});
+	});
+	);
+	("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	});
 	~new_part_button.font = Font(size: ~firstviewboundsWIDTH/48);*/
@@ -263,6 +263,13 @@ if(~firstview2 != nil, {~firstview2.close;});
 					if(~dup_1_part_num == nil, {~dup_1_part_num = ~assist_part_number}, {
 						("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 1;
 						~dup_2_part_num = ~assist_part_number;
+					});
+				});
+				if(~delete_on == 1, {
+					~delete_array = ~delete_array.add(~assist_part_number);
+					~delete_array.size.do(j=(-1); {
+						j=j+1;
+						("assist_comp_part_"++(~delete_array.at(j))++"_button").asSymbol.envirGet.value = 1;
 					});
 				});
 				if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
@@ -295,22 +302,71 @@ if(~firstview2 != nil, {~firstview2.close;});
 	~line_multiple2 = 0;
 	~part_limit_counter = 0;*/
 
-	~delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/9), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Delete Part",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~set_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/9), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21)).states_([["Set Delete Parts",~stringcolor,~backgroundcolor],["Set Delete Parts",~backgroundcolor,Color.green]]).action_({arg button;
 
+		if(button.value == 1, {
+			if(~dup_1_part_num != nil, {("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;});
+			if(~dup_2_part_num != nil, {("assist_comp_part_"++(~dup_2_part_num)++"_button").asSymbol.envirGet.value = 0;});
+			("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
+			~delete_on = 1;
+			~delete_array = [];
+		}, {
+			~delete_on = 0;
+			~delete_array.size.do(j=(-1); {
+				j=j+1;
+				("assist_comp_part_"++(~delete_array.at(j))++"_button").asSymbol.envirGet.value = 0;
+			});
+		});
+	});
+	~set_delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
+	~delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		if(~set_delete_part_button.value == 1, {
+			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+			~delete_array.size.do(j=(-1); {
+				j=j+1;
+				~number_of_instruments.do(s = 0; {
+					s=s+1;
+					("assisted_inst_"++(s)++"_array_part_"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
+						("assisted_inst_"++(s)++"_array_part_"++(~delete_array.at(j))).asSymbol.envirGet;
+					);
+					("assisted_inst_"++(s)++"_array_part_"++(~delete_array.at(j))).asSymbol.envirPut(nil);
+				});
+			});
+			~delete_array.size.do(j=(-1); {
+				j=j+1;
+				("assist_comp_part_"++(~delete_array.at(j))++"_button").asSymbol.envirGet.value = 0;
+			});
+			~delete_array_backup = ~delete_array;
+			~set_delete_part_button.valueAction = 0;
+		});
 	});
 	~delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/5.8, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Part",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/5.8, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-
+		if(~set_delete_part_button.value == 1, {
+			if(~delete_array_backup != [], {
+				~delete_array_backup.size.do(j=(-1); {
+					j=j+1;
+					~number_of_instruments.do(s = 0; {
+						s=s+1;
+						("assisted_inst_"++(s)++"_array_part_"++(~delete_array_backup.at(j))).asSymbol.envirPut(
+							("assisted_inst_"++(s)++"_array_part_"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
+						);
+					});
+				});
+			});
+			~set_delete_part_button.valueAction = 0;
+		});
 	});
 	~undo_delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~load_piece_to_main_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/5.8), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Piece To Main Page",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~load_piece_to_main_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Piece To Main Page",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		~number_of_instruments.do(s = 0; {
-				s=s+1;
+			s=s+1;
 			("instrument_"++(s)++"_full").asSymbol.envirPut([]);
 		});
 		~num_assist_parts.do(j = 0; {
@@ -341,6 +397,12 @@ if(~firstview2 != nil, {~firstview2.close;});
 	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+		~number_of_instruments.do(s = 0; {
+			s=s+1;
+			("assisted_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assisted_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+			);
+		});
 		~assisted_comp_part_func.value;
 		AppClock.sched(0.25, {~playbutton.valueAction = 1;});
 	});
@@ -348,13 +410,27 @@ if(~firstview2 != nil, {~firstview2.close;});
 
 	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/7), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
+		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+		~number_of_instruments.do(s = 0; {
+			s=s+1;
+			("assisted_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
+				("assisted_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+			);
+			("assisted_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirPut(
+				("assisted_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
+			);
+			("assisted_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assisted_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
+			);
+		});
+		AppClock.sched(0.25, {~playbutton.valueAction = 1;});
 	});
 	~undo_generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~save_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/7) + (~firstviewboundsWIDTH/5), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Save Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
-
-	});
-	~save_generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	// ~save_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/7) + (~firstviewboundsWIDTH/5), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Save Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
+	//
+	// });
+	// ~save_generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~set_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Set Duplicate",~stringcolor,~backgroundcolor],["Set Duplicate",~backgroundcolor,Color.green]]).action_({arg button;
 
@@ -392,19 +468,22 @@ if(~firstview2 != nil, {~firstview2.close;});
 
 	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		~number_of_instruments.do(s = 0; {
-			s=s+1;
-			//uses reverse forumla found in "~reversenewrandomseedsbutton" on main page
-			("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
-				("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)).asSymbol.envirGet;
-			);
-			("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)).asSymbol.envirPut(
-				("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
-			);
-			("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-				("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
-			);
-			"undo duplicate performed".postln;
+		if(~set_duplicate_button.value == 1, {
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				//uses reverse forumla found in "~reversenewrandomseedsbutton" on main page
+				("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
+					("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)).asSymbol.envirGet;
+				);
+				("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
+				);
+				("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assisted_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
+				);
+				"undo duplicate performed".postln;
+			});
+			~set_duplicate_button.value = 0;
 		});
 	});
 	~undo_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);

@@ -32,9 +32,30 @@
 
     ~firstviewtext4 = TextView(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.528571428571, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/1.2));
     ~firstviewtext4.background=~backgroundcolor;
-	~firstviewtext4.string = "(Scroll down for more)\n\n\n\n
-What works currently -
-\n\nsave project, load project, new project, New Part, Generate New, and all duplicate functions";
+	~firstviewtext4.string = "(Scroll down for more)
+
+How to use -
+
+New Part - creates new part, which has no audio
+
+Set Delete Parts - choose which parts to get rid of audio. does not delete the part though. After choosing parts, delete by hitting the Delete Parts button.
+
+Delete Parts - delete parts after setting delete parts.
+
+Undo Delete Parts - undo deleted parts. must hit Set Delete Parts first in order to use this.
+
+Generate New - Click on part, then click this button to generate new part audio.
+
+Undo Generate New - Click on part, then click this to undo generate new audio.
+
+Set Duplicate - choose which part to duplicate. after clicking this button, choose part you wish to duplicate... then choose part to overwrite, then hit the Duplicate button to duplicate.
+
+Duplicate - duplicate part after setting duplicate parts.
+
+Undo Duplicate - undo duplicate parts. must hit Set Duplicate Parts first in order to use this.
+
+Load Piece To Main Page - load the entire peice the to the main page.
+";
     ~firstviewtext4.stringColor=~stringcolor;
     ~firstviewtext4.font = Font(size: ~firstviewboundsWIDTH/48);
 
