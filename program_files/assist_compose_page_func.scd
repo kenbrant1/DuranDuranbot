@@ -483,7 +483,7 @@ if(~firstview2 != nil, {~firstview2.close;});
 				);
 				"undo duplicate performed".postln;
 			});
-			~set_duplicate_button.value = 0;
+			~set_duplicate_button.valueAction = 0;
 		});
 	});
 	~undo_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
