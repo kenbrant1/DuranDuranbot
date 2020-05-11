@@ -389,12 +389,12 @@ if(~firstview2 != nil, {~firstview2.close;});
 			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full_midi").asSymbol.envirGet.round);
 		});
 		~create_pseq_arrays_func.value;
-		"full piece loaded to main page".postln;
-
+		"full piece loaded to main page".postln;/*
+("instrument_"++(1)++"_full_midi").asSymbol.envirGet.size*/
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~number_of_instruments.do(s = 0; {
@@ -408,7 +408,7 @@ if(~firstview2 != nil, {~firstview2.close;});
 	});
 	~generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/7), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/7), ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~number_of_instruments.do(s = 0; {
@@ -432,7 +432,51 @@ if(~firstview2 != nil, {~firstview2.close;});
 	// });
 	// ~save_generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~set_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Set Duplicate",~stringcolor,~backgroundcolor],["Set Duplicate",~backgroundcolor,Color.green]]).action_({arg button;
+	~partavgdurstatictext_1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/4.2, ~firstviewboundsHEIGHT/21));
+	~partavgdurstatictext_1.background_(~backgroundcolor);
+	~partavgdurstatictext_1.stringColor_(~stringcolor);
+	~partavgdurstatictext_1.string = "Avg. part length (secs.) -";
+	~partavgdurstatictext_1.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~partavgdurtextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~partavgdurtextfield_1.string = ~avg_part_length.asString;
+	~partavgdurtextfield_1.background_(~backgroundcolor);
+	~partavgdurtextfield_1.stringColor_(~stringcolor);
+	~partavgdurtextfield_1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~partavgdurtextfield_1.action = {
+		~sdfk = ~partavgdurtextfield_1.value.asInteger;
+		/*	~pos_1 = looptextfield_1.value.asInteger;*/
+		if(~sdfk.value.isNumber == true, {
+			~avg_part_length = ~sdfk.value.asFloat;
+			g = File((~ddbot_root)++"/program_files/other_program_files/avg_part_length.scd", "w");
+			g.write(~avg_part_length.asString;);
+		}, {~partavgdurtextfield_1.string = "number".asString;});
+		~partavgdurtextfield_1.string = ~avg_part_length.asString;
+	};
+
+	~partavgdurstatictext_2 = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280)+(~firstviewboundsWIDTH/10), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/14, ~firstviewboundsHEIGHT/21));
+	~partavgdurstatictext_2.background_(~backgroundcolor);
+	~partavgdurstatictext_2.stringColor_(~stringcolor);
+	~partavgdurstatictext_2.string = "Range -";
+	~partavgdurstatictext_2.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~partavgdurtextfield_2 = TextField(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2+2)+(~firstviewboundsWIDTH/10)+(~firstviewboundsWIDTH/14)+(~firstviewboundsWIDTH/100), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~partavgdurtextfield_2.string = ~avg_part_range.asString;
+	~partavgdurtextfield_2.background_(~backgroundcolor);
+	~partavgdurtextfield_2.stringColor_(~stringcolor);
+	~partavgdurtextfield_2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~partavgdurtextfield_2.action = {
+		~sdfk = ~partavgdurtextfield_2.value.asInteger;
+		/*	~pos_1 = looptextfield_1.value.asInteger;*/
+		if(~sdfk.value.isNumber == true, {
+			~avg_part_range = ~sdfk.value.asFloat;
+			g = File((~ddbot_root)++"/program_files/other_program_files/avg_part_range.scd", "w");
+			g.write(~avg_part_range.asString;);
+		}, {~partavgdurtextfield_2.string = "number".asString;});
+		~partavgdurtextfield_2.string = ~avg_part_range.asString;
+	};
+
+	~set_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Set Duplicate",~stringcolor,~backgroundcolor],["Set Duplicate",~backgroundcolor,Color.green]]).action_({arg button;
 
 		if(~dup_1_part_num != nil, {("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;});
 		if(~dup_2_part_num != nil, {("assist_comp_part_"++(~dup_2_part_num)++"_button").asSymbol.envirGet.value = 0;});
@@ -445,7 +489,7 @@ if(~firstview2 != nil, {~firstview2.close;});
 
 	if(~duplicate_on == 1, {~set_duplicate_button.value = 1;});
 
-	~duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/6.6), ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/6.6), ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(((~duplicate_on == 1) and: (~dup_1_part_num != nil) and: (~dup_2_part_num != nil)), {
 			~number_of_instruments.do(s = 0; {
@@ -466,7 +510,7 @@ if(~firstview2 != nil, {~firstview2.close;});
 	});
 	~duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_duplicate_button.value == 1, {
 			~number_of_instruments.do(s = 0; {

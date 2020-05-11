@@ -15,3 +15,10 @@
 - create two "views" different scrolling
 
 - create controllable setting for amplitude
+
+- add way to shorten or lengthen part length manually
+- allow save generate new for being able to test generates
+
+- test stuff
+
+- add machine learning to avg part length/range AND for same thing in full - ai compose

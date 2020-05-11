@@ -22,6 +22,12 @@ s = ~bit_duration;
 ~interval_array = (1..12);
 ~midi_ratio_array = (1..12);
 
+~part_length_func = {
+	o = rrand((~avg_part_length/~bit_duration) - (~avg_part_range/~bit_duration), (~avg_part_length/~bit_duration) + (~avg_part_range/~bit_duration)).roundUp;
+	if(o.isNegative == true, {o = o.neg;});
+	if(o < (1/~bit_duration), {o = (1/~bit_duration);});
+	o.value;
+};
 
 ~clock_diff_func = {
 
@@ -312,6 +318,9 @@ s = ~bit_duration;
 
 						// HAS BEEN TESTED TO WORK
 
+						~avg_part_length = ~ai_avg_part_length;
+						~avg_part_range = ~ai_avg_part_range;
+
 						~number_of_instruments.do(x = 0; {
 							x=x+1;
 							("top_level_notes_"++(x)).asSymbol.envirPut([]);
@@ -415,7 +424,7 @@ s = ~bit_duration;
 								("instrument_"++(n)++"_array").asSymbol.envirPut([]);
 								("instrument_"++(n)++"_array_1").asSymbol.envirPut([]);
 							});
-							(o = (exprand(4, 16).round)/~bit_duration).do({~inst_clock_func.value});
+							(~part_length_func.value).do({~inst_clock_func.value});
 							~number_of_instruments.do(n = 0; {("instrument_"++(n=n+1)++"_array_1").asSymbol.envirPut(("instrument_"++(n)++"_array").asSymbol.envirGet)});
 
 						};

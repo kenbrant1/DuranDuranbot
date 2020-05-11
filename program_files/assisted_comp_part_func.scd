@@ -4,6 +4,9 @@
 	~randseed_2 =  99999999.rand;
 	~randseed_3 =  99999999.rand;
 
+	~avg_part_length = ~assist_avg_part_length;
+	~avg_part_range = ~assist_avg_part_range;
+
 	thisThread.randSeed = ~randseed_1;
 
 	~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut((-1));});
@@ -73,7 +76,7 @@
 		("instrument_"++(n)++"_array").asSymbol.envirPut([]);
 		("instrument_"++(n)++"_array_1").asSymbol.envirPut([]);
 	});
-	(o = (exprand(4, 16).round)/~bit_duration).do({~inst_clock_func.value});
+	(~part_length_func.value).do({~inst_clock_func.value});
 	~number_of_instruments.do(n = 0; {("instrument_"++(n=n+1)++"_array_1").asSymbol.envirPut(("instrument_"++(n)++"_array").asSymbol.envirGet)});
 
 	// same with first notes
