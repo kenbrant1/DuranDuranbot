@@ -4,6 +4,9 @@
 
 	~ai_assist_compose = 0;
 
+	~avg_part_length = ~ai_avg_part_length;
+	~avg_part_range = ~ai_avg_part_range;
+
 	if(~firstview != nil, {~firstview.close;});
 	if(~firstview2 != nil, {~firstview2.close;});
 

@@ -318,9 +318,6 @@ s = ~bit_duration;
 
 						// HAS BEEN TESTED TO WORK
 
-						~avg_part_length = ~ai_avg_part_length;
-						~avg_part_range = ~ai_avg_part_range;
-
 						~number_of_instruments.do(x = 0; {
 							x=x+1;
 							("top_level_notes_"++(x)).asSymbol.envirPut([]);

@@ -4,9 +4,6 @@
 	~randseed_2 =  99999999.rand;
 	~randseed_3 =  99999999.rand;
 
-	~avg_part_length = ~assist_avg_part_length;
-	~avg_part_range = ~assist_avg_part_range;
-
 	thisThread.randSeed = ~randseed_1;
 
 	~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut((-1));});

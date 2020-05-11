@@ -10,6 +10,9 @@
 
 	~ai_assist_compose = 1;
 
+	~avg_part_length = ~assist_avg_part_length;
+	~avg_part_range = ~assist_avg_part_range;
+
 	~firstview.close;
 
 	/*~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height));
@@ -454,13 +457,13 @@ if(~firstview2 != nil, {~firstview2.close;});
 		~partavgdurtextfield_1.string = ~avg_part_length.asString;
 	};
 
-	~partavgdurstatictext_2 = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280)+(~firstviewboundsWIDTH/10), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/14, ~firstviewboundsHEIGHT/21));
+	~partavgdurstatictext_2 = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280)+(~firstviewboundsWIDTH/10), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/7.6, ~firstviewboundsHEIGHT/21));
 	~partavgdurstatictext_2.background_(~backgroundcolor);
 	~partavgdurstatictext_2.stringColor_(~stringcolor);
-	~partavgdurstatictext_2.string = "Range -";
+	~partavgdurstatictext_2.string = "Range (+/-) -";
 	~partavgdurstatictext_2.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~partavgdurtextfield_2 = TextField(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2+2)+(~firstviewboundsWIDTH/10)+(~firstviewboundsWIDTH/14)+(~firstviewboundsWIDTH/100), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~partavgdurtextfield_2 = TextField(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/7.6)+(~firstviewboundsWIDTH/14)+(~firstviewboundsWIDTH/25), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~partavgdurtextfield_2.string = ~avg_part_range.asString;
 	~partavgdurtextfield_2.background_(~backgroundcolor);
 	~partavgdurtextfield_2.stringColor_(~stringcolor);

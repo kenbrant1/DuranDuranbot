@@ -48,6 +48,10 @@ Generate New - Click on part, then click this button to generate new part audio.
 
 Undo Generate New - Click on part, then click this to undo generate new audio.
 
+Avg. part length (secs.) - Set the average length of a part in seconds.
+
+Range (+/-) - Set the +/- range for average part length.
+
 Set Duplicate - choose which part to duplicate. after clicking this button, choose part you wish to duplicate... then choose part to overwrite, then hit the Duplicate button to duplicate.
 
 Duplicate - duplicate part after setting duplicate parts.
