@@ -393,7 +393,7 @@ if(~firstview2 != nil, {~firstview2.close;});
 		});
 		~create_pseq_arrays_func.value;
 		"full piece loaded to main page".postln;/*
-("instrument_"++(1)++"_full_midi").asSymbol.envirGet.size*/
+("instrument_"++(1)++"_full").asSymbol.envirGet.size*/
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -410,6 +410,8 @@ if(~firstview2 != nil, {~firstview2.close;});
 		AppClock.sched(0.25, {~playbutton.valueAction = 1;});
 	});
 	~generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	/*("assisted_inst_"++(1)++"_array_part_"++(1)).asSymbol.envirGet.size;*/
 
 	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/7), ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
