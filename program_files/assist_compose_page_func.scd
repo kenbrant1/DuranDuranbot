@@ -451,7 +451,7 @@ if(~firstview2 != nil, {~firstview2.close;});
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
 		if(~sdfk.value.isNumber == true, {
 			~avg_part_length = ~sdfk.value.asFloat;
-			g = File((~ddbot_root)++"/program_files/other_program_files/avg_part_length.scd", "w");
+			g = File((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_length.scd", "w");
 			g.write(~avg_part_length.asString;);
 		}, {~partavgdurtextfield_1.string = "number".asString;});
 		~partavgdurtextfield_1.string = ~avg_part_length.asString;
@@ -473,7 +473,7 @@ if(~firstview2 != nil, {~firstview2.close;});
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
 		if(~sdfk.value.isNumber == true, {
 			~avg_part_range = ~sdfk.value.asFloat;
-			g = File((~ddbot_root)++"/program_files/other_program_files/avg_part_range.scd", "w");
+			g = File((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_range.scd", "w");
 			g.write(~avg_part_range.asString;);
 		}, {~partavgdurtextfield_2.string = "number".asString;});
 		~partavgdurtextfield_2.string = ~avg_part_range.asString;
