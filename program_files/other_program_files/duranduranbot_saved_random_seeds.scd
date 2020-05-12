@@ -99,3 +99,18 @@ Mon May 11 19:20:28 2020
 random seed 1 - 86669011
 random seed 2 - 65827405
 random seed 3 - 45202350
+
+Mon May 11 19:29:09 2020
+random seed 1 - 13990909
+random seed 2 - 53836633
+random seed 3 - 33814818
+
+Mon May 11 19:36:22 2020
+random seed 1 - 15221277
+random seed 2 - 22919385
+random seed 3 - 35310785
+
+Mon May 11 19:47:49 2020
+random seed 1 - 14764390
+random seed 2 - 13433530
+random seed 3 - 54096380

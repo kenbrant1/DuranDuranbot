@@ -371,6 +371,8 @@ if(~firstview2 != nil, {~firstview2.close;});
 		~number_of_instruments.do(s = 0; {
 			s=s+1;
 			("instrument_"++(s)++"_full").asSymbol.envirPut([]);
+			("instrument_"++(s)++"comp_interval_array").asSymbol.envirPut([]);
+			("instrument_"++(s)++"comp_choice_array").asSymbol.envirPut([]);
 		});
 		~num_assist_parts.do(j = 0; {
 			j=j+1;
@@ -409,8 +411,14 @@ if(~firstview2 != nil, {~firstview2.close;});
 			("instrument_"++(s)++"comp_choice_array").asSymbol.envirPut(("instrument_"++(s)++"comp_choice_array").asSymbol.envirGet.flatten);
 		});
 		~create_pseq_arrays_func.value;
-		"full piece loaded to main page".postln;/*
-("instrument_"++(1)++"_full").asSymbol.envirGet.size*/
+		"full piece loaded to main page".postln;
+		/*
+("instrument_"++(1)++"_full").asSymbol.envirGet.size
+		("instrument_"++(1)++"comp_interval_array").asSymbol.envirGet.size
+		("instrument_"++(1)++"comp_choice_array").asSymbol.envirGet.size
+
+			("assist_instrument_"++(1)++"comp_interval_array_part"++(5)).asSymbol.envirGet.size;
+		*/
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
