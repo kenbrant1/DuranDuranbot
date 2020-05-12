@@ -84,10 +84,9 @@
 	~num_instruments_menu.value = FileReader.read((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", false, true);
 	~num_instruments_menu.action = { arg menu;
 
-		~stop_func.value;
+		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+		Server.default.freeAll;
 		w.close;
-		Server.freeAll;
-		~duranduranbot_routine.stop;
 
 		g = File((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", "w");
 		case

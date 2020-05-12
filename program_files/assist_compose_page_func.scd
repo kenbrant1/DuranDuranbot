@@ -50,7 +50,7 @@
 	~firstviewtext1.align = \topLeft;
 	~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext11 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.75, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/1.3, ~firstviewboundsHEIGHT/21));
+	~firstviewtext11 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.75, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~firstviewtext11.background=~backgroundcolor;
 	~firstviewtext11.stringColor_(~stringcolor);
 	~firstviewtext11.string = "(scroll down to see more)";
