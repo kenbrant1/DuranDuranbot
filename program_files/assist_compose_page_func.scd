@@ -50,11 +50,11 @@
 	~firstviewtext1.align = \topLeft;
 	~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext11 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/1.3, ~firstviewboundsHEIGHT/21));
+	/*~firstviewtext11 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/1.3, ~firstviewboundsHEIGHT/21));
 	~firstviewtext11.background=~backgroundcolor;
 	~firstviewtext11.stringColor_(~stringcolor);
 	~firstviewtext11.string = "*this page is currently under development. See Instructions on what works.";
-	~firstviewtext11.font = Font(size: ~firstviewboundsWIDTH/55);
+	~firstviewtext11.font = Font(size: ~firstviewboundsWIDTH/55);*/
 
 	~firstviewtext2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/16, ~firstviewboundsHEIGHT/21)).states_([["back",~stringcolor,~backgroundcolor],["back",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~firstview.close;
