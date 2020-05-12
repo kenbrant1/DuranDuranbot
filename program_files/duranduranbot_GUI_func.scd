@@ -16,4 +16,6 @@
 
 	~main_page_func.value;
 
+	if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
+
 };

@@ -49,6 +49,7 @@ if(~ai_avg_part_length == nil, {~ai_avg_part_length_default = 8; ~ai_avg_part_le
 if(~ai_avg_part_range == nil, {~ai_avg_part_range_default = 4; ~ai_avg_part_range = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ai_avg_part_range.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~assist_avg_part_length == nil, {~assist_avg_part_length_default = 4; ~assist_avg_part_length = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_length.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~assist_avg_part_range == nil, {~assist_avg_part_range_default = 2; ~assist_avg_part_range = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_range.scd", false, true).flatten.at(0).asString.asFloat;});
+if(~fullscreenon == nil, {~fullscreenon = FileReader.read((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", false, true).flatten.at(0).asString.asFloat;});
 
 if(FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true) != nil, {
 	case
@@ -83,5 +84,5 @@ File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interp
 
 if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});
 
-if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
+
 );

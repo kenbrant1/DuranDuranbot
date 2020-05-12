@@ -49,6 +49,9 @@
 			~main_page_func.value;
 			~fullscreenbutton.value = 1;
 			~fullscreenon = 1;
+			g = File((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", "w");
+			g.write("1");
+			g.close;
 		}, {
 			w.close;
 			w = Window("DuranDuranbot",
@@ -61,6 +64,9 @@
 			~main_page_func.value;
 			~fullscreenbutton.value = 0;
 			~fullscreenon = 0;
+			g = File((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", "w");
+			g.write("0");
+			g.close;
 		});
 
 	});

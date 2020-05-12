@@ -155,14 +155,6 @@
 				g.write("];");
 			});
 		});
-		g.write("\n
-if(~firstview != nil, {~firstview.close;});
-if(~firstview2 != nil, {~firstview2.close;});
-~assist_compose_page_func.value;
-~firstview.refresh;
-~firstview2.refresh;"++
-			"project loaded".quote++".postln;
-");
 		g.close;
 		"project saved".postln;
 	});
@@ -173,6 +165,11 @@ if(~firstview2 != nil, {~firstview2.close;});
 		FileDialog.new(
 			{arg path;
 				File.readAllString(path, r).interpret.value;
+				w.close;
+				~duranduranbot_GUI_func.value;
+				"project loaded".postln;
+				if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
+				~assist_compose_page_func.value;
 		}, {}, 0, 0, stripResult: true);
 	});
 	~load_saved_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -191,11 +188,11 @@ if(~firstview2 != nil, {~firstview2.close;});
 		~num_assist_parts = nil;
 		~line_multiple1 = nil;
 		~line_multiple2 = nil;
-		if(~firstview != nil, {~firstview.close;});
-		if(~firstview2 != nil, {~firstview2.close;});
+		w.close;
+		~duranduranbot_GUI_func.value;
+		"project loaded".postln;
+		if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
 		~assist_compose_page_func.value;
-		~firstview.refresh;
-		~firstview2.refresh;
 	});
 	~new_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -554,6 +551,17 @@ if(~firstview2 != nil, {~firstview2.close;});
 	~set_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	if(~duplicate_on == 1, {~set_duplicate_button.value = 1;});
+
+	/*~duplicate_from_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Duplicate From",~stringcolor,~backgroundcolor],["Duplicate From",~backgroundcolor,Color.green]]).action_({arg button;
+
+		if(~dup_1_part_num != nil, {("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;});
+		if(~dup_2_part_num != nil, {("assist_comp_part_"++(~dup_2_part_num)++"_button").asSymbol.envirGet.value = 0;});
+		if(button.value == 1, {~duplicate_on = 1}, {
+			~duplicate_on = 0;
+			~dup_1_part_num = nil;
+		});
+	});
+	~duplicate_from_button.font = Font(size: ~firstviewboundsWIDTH/48);*/
 
 	~duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/6.6), ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
 

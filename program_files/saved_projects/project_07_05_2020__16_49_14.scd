@@ -8,8 +8,3 @@
 ~assisted_inst_1_array_part_4 = [ ];
 ~assisted_inst_2_array_part_4 = [ ];
 
-if(~firstview != nil, {~firstview.close;});
-if(~firstview2 != nil, {~firstview2.close;});
-~assist_compose_page_func.value;
-~firstview.refresh;
-~firstview2.refresh;"project loaded".postln;
