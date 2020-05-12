@@ -35,6 +35,39 @@
 	});
 	~firstviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
 
+	~fullscreenbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.3584905660377, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Enter Fullscreen",~stringcolor,~backgroundcolor],["Exit Fullscreen",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		if(button.value == 1, {
+			w.close;
+			w = Window("DuranDuranbot",
+				Rect(0, 0, Window.availableBounds.width, Window.availableBounds.height),
+
+				/*Rect(0, 0, Window.screenBounds.width, Window.screenBounds.height),*/
+				resizable: true, border:true);
+
+			w.front; w.fullScreen;
+			~main_page_func.value;
+			~fullscreenbutton.value = 1;
+			~fullscreenon = 1;
+		}, {
+			w.close;
+			w = Window("DuranDuranbot",
+				Rect(Window.availableBounds.width*(1/4.4), Window.availableBounds.height*(1/4.5), Window.availableBounds.width*((4.5-2)/4.5), Window.availableBounds.height*((4.5-2)/4.5)),
+
+				/*Rect(0, 0, Window.screenBounds.width, Window.screenBounds.height),*/
+				resizable: true, border:true);
+
+			w.front; /*w.fullScreen;*/
+			~main_page_func.value;
+			~fullscreenbutton.value = 0;
+			~fullscreenon = 0;
+		});
+
+	});
+	~fullscreenbutton.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	if(~fullscreenon == 1, {~fullscreenbutton.value = 1;});
+
 	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		var piecegenerated;
 		~piecegenerated = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695652174, ~firstviewboundsWIDTH/36));
@@ -712,7 +745,7 @@
 	~save_current_piece_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~closeddbotbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/1.1, ~firstviewboundsWIDTH/7.5, ~firstviewboundsHEIGHT/21)).states_([["Close DD'bot",~stringcolor,~backgroundcolor],["Close DD'bot",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~stop_func.value;
+		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		Server.freeAll;
 		w.close;
 	});

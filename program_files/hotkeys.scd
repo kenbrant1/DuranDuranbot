@@ -3,6 +3,7 @@
 ~hotkeys_func = {
 
 	~spacebar_unicode = 32; //pause DDbot
+	~esc_unicode = 27; //escape fullscreen
 
 	w.view.keyDownAction = { arg view, char, modifiers, unicode, keycode;
 		[char, modifiers, unicode, keycode];
@@ -13,6 +14,9 @@
 				if(~pause_piece == 0, {~playbutton.valueAction = 0});
 				if(~pause_piece == 1, {~playbutton.valueAction = 1});
 			});
+		});
+		if((unicode == ~esc_unicode) or: (keycode == ~esc_unicode), {
+				~fullscreenbutton.valueAction = 0;
 		});
 	};
 };

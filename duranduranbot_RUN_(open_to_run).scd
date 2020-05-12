@@ -83,5 +83,5 @@ File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interp
 
 if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});
 
-
+if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
 );
