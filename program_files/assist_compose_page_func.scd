@@ -383,6 +383,20 @@ if(~firstview2 != nil, {~firstview2.close;});
 						);
 					);
 				});
+				if(("assist_instrument_"++(s)++"comp_interval_array_part"++(j)).asSymbol.envirGet != nil, {
+					("instrument_"++(s)++"comp_interval_array").asSymbol.envirPut(
+						("instrument_"++(s)++"comp_interval_array").asSymbol.envirGet.add(
+							("assist_instrument_"++(s)++"comp_interval_array_part"++(j)).asSymbol.envirGet;
+						);
+					);
+				});
+				if(("assist_instrument_"++(s)++"comp_choice_array_part"++(j)).asSymbol.envirGet != nil, {
+					("instrument_"++(s)++"comp_choice_array").asSymbol.envirPut(
+						("instrument_"++(s)++"comp_choice_array").asSymbol.envirGet.add(
+							("assist_instrument_"++(s)++"comp_choice_array_part"++(j)).asSymbol.envirGet;
+						);
+					);
+				});
 			});
 		});
 		~number_of_instruments.do(s = 0; {
@@ -390,6 +404,9 @@ if(~firstview2 != nil, {~firstview2.close;});
 			("instrument_"++(s)++"_full").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.flatten);
 			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.cpsmidi);
 			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full_midi").asSymbol.envirGet.round);
+
+			("instrument_"++(s)++"comp_interval_array").asSymbol.envirPut(("instrument_"++(s)++"comp_interval_array").asSymbol.envirGet.flatten);
+			("instrument_"++(s)++"comp_choice_array").asSymbol.envirPut(("instrument_"++(s)++"comp_choice_array").asSymbol.envirGet.flatten);
 		});
 		~create_pseq_arrays_func.value;
 		"full piece loaded to main page".postln;/*

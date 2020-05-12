@@ -204,6 +204,8 @@
 
 				("instrument_"++(n)++"_array_blended").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet.add(u.value));
 
+				("assisted_inst_"++(n)++"_array_part_"++(~assist_part_number)).asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet;);
+
 			});
 		});
 	});
