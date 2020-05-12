@@ -497,23 +497,27 @@
 
 ~machine_learning_func = {
 
-	if(~duranduranbot_routine.isPlaying == true, {~playbutton.valueAction = 0;});
+	if(~ai_assist_compose != 1, {
+		if(~duranduranbot_routine.isPlaying == true, {~playbutton.valueAction = 0;});
+	});
 
 	~interval_machine_learning_func.value;
 	~time_machine_learning_func.value;
 	if(~comp_machine_learning == 1, {~comp_interval_machine_learning_func.value;});
 
-	AppClock.sched(0.1, {
-		if(~duranduranbot_routine.isPlaying == false, {~playbutton.valueAction = 1; "pause".postln;});
+	if(~ai_assist_compose != 1, {
+		AppClock.sched(0.1, {
+			if(~duranduranbot_routine.isPlaying == false, {~playbutton.valueAction = 1; "pause".postln;});
 
-		if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});
-		~ratedonetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.063829787234, ~firstviewboundsHEIGHT/4.228571428571, ~firstviewboundsWIDTH/4.04545454545, ~firstviewboundsHEIGHT/21));
-		~ratedonetext.background=~backgroundcolor;
-		~ratedonetext.stringColor_(~stringcolor);
-		~ratedonetext.string = "PIECE SELECTION RATED";
-		~ratedonetext.font = Font(size: ~firstviewboundsWIDTH/55);
+			if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});
+			~ratedonetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.063829787234, ~firstviewboundsHEIGHT/4.228571428571, ~firstviewboundsWIDTH/4.04545454545, ~firstviewboundsHEIGHT/21));
+			~ratedonetext.background=~backgroundcolor;
+			~ratedonetext.stringColor_(~stringcolor);
+			~ratedonetext.string = "PIECE SELECTION RATED";
+			~ratedonetext.font = Font(size: ~firstviewboundsWIDTH/55);
 
-		AppClock.sched(3, {if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});});
+			AppClock.sched(3, {if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});});
+		});
 	});
 
 };

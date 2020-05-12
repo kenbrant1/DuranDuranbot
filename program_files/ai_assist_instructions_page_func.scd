@@ -59,6 +59,8 @@ Duplicate - duplicate part after setting duplicate parts.
 Undo Duplicate - undo duplicate parts. must hit Set Duplicate Parts first in order to use this.
 
 Load Piece To Main Page - load the entire peice the to the main page.
+
+Machine Learn Full Piece - Train DDbot using the full piece.
 ";
     ~firstviewtext4.stringColor=~stringcolor;
     ~firstviewtext4.font = Font(size: ~firstviewboundsWIDTH/48);

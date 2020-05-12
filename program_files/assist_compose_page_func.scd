@@ -397,6 +397,40 @@ if(~firstview2 != nil, {~firstview2.close;});
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
+	~train_full_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Machine Learn Full Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		~mlfullpieceprompt = View(~firstview, Rect((~firstviewboundsWIDTH/3), ~firstviewboundsHEIGHT/25, ~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/3));
+		~mlfullpieceprompt.background_(~backgroundcolor);
+
+		~mlfullpieceprompttext = StaticText(~mlfullpieceprompt, Rect(0, 0, ~mlfullpieceprompt.bounds.width, ~mlfullpieceprompt.bounds.height/3));
+		~mlfullpieceprompttext.background_(~backgroundcolor);
+		~mlfullpieceprompttext.stringColor_(~stringcolor);
+		~mlfullpieceprompttext.align = \center;
+		~mlfullpieceprompttext.string = "Machine Learn full piece?";
+		~mlfullpieceprompttext.font = Font(size: ~mlfullpieceprompt.bounds.width/14);
+		~mlfullpieceprompttext.front;
+
+		~train_full_piece_yes_no_button_1 = Button.new(~mlfullpieceprompt, Rect(~mlfullpieceprompt.bounds.width/8, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["Yes",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+			~load_piece_to_main_page_button.valueAction = 0;
+			~rate_selection_start = 0;
+			~rate_selection_end = ("instrument_"++(1)++"_full_midi").asSymbol.envirGet.size - 1;
+			~machine_learning_func.value;
+			("\nlast "++(~rate_time_range)++" secs rated:\nx"++(~net_change_mult)++" points\n").postln;
+			~mlfullpieceprompt.close;
+			Server.default.freeAll;
+		});
+		~train_full_piece_yes_no_button_1.font = Font(size: ~firstviewboundsWIDTH/48);
+
+		~train_full_piece_yes_no_button_2 = Button.new(~mlfullpieceprompt, Rect( ~mlfullpieceprompt.bounds.width/1.6, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["No",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+			~mlfullpieceprompt.close;
+		});
+		~train_full_piece_yes_no_button_2.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	});
+	~train_full_piece_button.font = Font(size: ~firstviewboundsWIDTH/48);
+
 	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
