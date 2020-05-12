@@ -501,6 +501,7 @@
 		/*if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~loop_creator_func.value;*/
 	});
+	~loopsetbutton.font = Font(size: ~firstviewboundsWIDTH/65);
 
 	if(~loop_on == 1, {~loopsetbutton.value = 1}, {~loopsetbutton.value = 0});
 

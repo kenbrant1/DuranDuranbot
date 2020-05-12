@@ -369,3 +369,13 @@ Tue May 12 15:25:15 2020
 random seed 1 - 44189149
 random seed 2 - 25522449
 random seed 3 - 71730786
+
+Tue May 12 15:28:08 2020
+random seed 1 - 2275074
+random seed 2 - 50456271
+random seed 3 - 34997373
+
+Tue May 12 15:34:07 2020
+random seed 1 - 44318573
+random seed 2 - 46576486
+random seed 3 - 79005947
