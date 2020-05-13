@@ -511,6 +511,7 @@
 			~avg_part_length = ~sdfk.value.asFloat;
 			~assist_avg_part_length = ~sdfk.value.asFloat;
 			~partavgdurtextfield_1.string = ~avg_part_length.asString;
+			~avg_part_length.postln;
 			g = File((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_length.scd", "w");
 			g.write(~avg_part_length.asString;);
 		}, {~partavgdurtextfield_1.string = "number".asString;});
@@ -534,6 +535,7 @@
 			~avg_part_range = ~sdfk.value.asFloat;
 			~assist_avg_part_range = ~sdfk.value.asFloat;
 			~partavgdurtextfield_2.string = ~avg_part_range.asString;
+			~avg_part_range.postln;
 			g = File((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_range.scd", "w");
 			g.write(~avg_part_range.asString;);
 		}, {~partavgdurtextfield_2.string = "number".asString;});
@@ -628,6 +630,7 @@
 		if(~sdfk.value.isInteger == true, {
 			~batch_dup_1 = ~sdfk.value.asInteger;
 			~batchduptextfield_1.string = ~batch_dup_1.asString;
+			~batch_dup_1.postln;
 		}, {~batchduptextfield_1.string = "int.".asString;});
 	};
 
@@ -641,6 +644,7 @@
 		if(~sdfk.value.isInteger == true, {
 			~batch_dup_2 = ~sdfk.value.asInteger;
 			~batchduptextfield_2.string = ~batch_dup_2.asString;
+			~batch_dup_2.postln;
 		}, {~batchduptextfield_2.string = "int.".asString;});
 	};
 
@@ -660,6 +664,7 @@
 		if(~sdfk.value.isInteger == true, {
 			~batch_dup_3 = ~sdfk.value.asInteger;
 			~batchduptextfield_3.string = ~batch_dup_3.asString;
+			~batch_dup_3.postln;
 		}, {~batchduptextfield_3.string = "int.".asString;});
 	};
 
@@ -673,6 +678,7 @@
 		if(~sdfk.value.isInteger == true, {
 			~batch_dup_4 = ~sdfk.value.asInteger;
 			~batchduptextfield_4.string = ~batch_dup_4.asString;
+			~batch_dup_4.postln;
 		}, {~batchduptextfield_4.string = "int.".asString;});
 	};
 
