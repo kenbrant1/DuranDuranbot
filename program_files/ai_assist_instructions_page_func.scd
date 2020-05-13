@@ -34,6 +34,10 @@
     ~firstviewtext4.background=~backgroundcolor;
 	~firstviewtext4.string = "(Scroll down for more)
 
+Quick youtube tutorials/demonstrations -
+https://www.youtube.com/watch?v=WEjo4IdC0hs
+https://www.youtube.com/watch?v=ccNjaQmctoQ
+
 How to use -
 
 New Part - creates new part, which has no audio
