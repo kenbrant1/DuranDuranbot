@@ -61,6 +61,8 @@ Undo Duplicate - undo duplicate parts. must hit Set Duplicate Parts first in ord
 Load Piece To Main Page - load the entire peice the to the main page.
 
 Machine Learn Full Piece - Train DDbot using the full piece.
+
+Batch Duplicate... To dup. 1st/last - range of parts to duplicate. Dup. into 1st/last - range of parts to be duplicated into. Click Set Dup. to perform the action... and click Undo to undo it.
 ";
     ~firstviewtext4.stringColor=~stringcolor;
     ~firstviewtext4.font = Font(size: ~firstviewboundsWIDTH/48);

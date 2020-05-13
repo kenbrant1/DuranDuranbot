@@ -505,15 +505,15 @@
 	~partavgdurtextfield_1.stringColor_(~stringcolor);
 	~partavgdurtextfield_1.font = Font(size: ~firstviewboundsWIDTH/48);
 	~partavgdurtextfield_1.action = {
-		~sdfk = ~partavgdurtextfield_1.value.asInteger;
+		~sdfk = ~partavgdurtextfield_1.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
 		if(~sdfk.value.isNumber == true, {
 			~avg_part_length = ~sdfk.value.asFloat;
 			~assist_avg_part_length = ~sdfk.value.asFloat;
+			~partavgdurtextfield_1.string = ~avg_part_length.asString;
 			g = File((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_length.scd", "w");
 			g.write(~avg_part_length.asString;);
 		}, {~partavgdurtextfield_1.string = "number".asString;});
-		~partavgdurtextfield_1.string = ~avg_part_length.asString;
 	};
 
 	~partavgdurstatictext_2 = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280)+(~firstviewboundsWIDTH/10), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/7.6, ~firstviewboundsHEIGHT/21));
@@ -528,15 +528,15 @@
 	~partavgdurtextfield_2.stringColor_(~stringcolor);
 	~partavgdurtextfield_2.font = Font(size: ~firstviewboundsWIDTH/48);
 	~partavgdurtextfield_2.action = {
-		~sdfk = ~partavgdurtextfield_2.value.asInteger;
+		~sdfk = ~partavgdurtextfield_2.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
 		if(~sdfk.value.isNumber == true, {
 			~avg_part_range = ~sdfk.value.asFloat;
 			~assist_avg_part_range = ~sdfk.value.asFloat;
+			~partavgdurtextfield_2.string = ~avg_part_range.asString;
 			g = File((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_range.scd", "w");
 			g.write(~avg_part_range.asString;);
 		}, {~partavgdurtextfield_2.string = "number".asString;});
-		~partavgdurtextfield_2.string = ~avg_part_range.asString;
 	};
 
 	~set_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Set Duplicate",~stringcolor,~backgroundcolor],["Set Duplicate",~backgroundcolor,Color.green]]).action_({arg button;
@@ -605,6 +605,145 @@
 		});
 	});
 	~undo_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~batchduptext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/6.2, ~firstviewboundsHEIGHT/21));
+	~batchduptext.background=~backgroundcolor;
+	~batchduptext.stringColor=~stringcolor;
+	~batchduptext.string = "Batch Duplicate -";
+	~batchduptext.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~batchduptext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2)+(~firstviewboundsWIDTH/280), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/6.5, ~firstviewboundsHEIGHT/21));
+	~batchduptext1.background=~backgroundcolor;
+	~batchduptext1.stringColor=~stringcolor;
+	~batchduptext1.string = "To dup. 1st/last";
+	~batchduptext1.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~batchduptextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/280), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
+	~batchduptextfield_1.string = ~batch_dup_1.asString;
+	~batchduptextfield_1.background_(~backgroundcolor);
+	~batchduptextfield_1.stringColor_(~stringcolor);
+	~batchduptextfield_1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptextfield_1.action = {
+		~sdfk = ~batchduptextfield_1.value.asInteger;
+		if(~sdfk.value.isInteger == true, {
+			~batch_dup_1 = ~sdfk.value.asInteger;
+			~batchduptextfield_1.string = ~batch_dup_1.asString;
+		}, {~batchduptextfield_1.string = "int.".asString;});
+	};
+
+	~batchduptextfield_2 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17)+(~firstviewboundsWIDTH/280*2), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
+	~batchduptextfield_2.string = ~batch_dup_2.asString;
+	~batchduptextfield_2.background_(~backgroundcolor);
+	~batchduptextfield_2.stringColor_(~stringcolor);
+	~batchduptextfield_2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptextfield_2.action = {
+		~sdfk = ~batchduptextfield_2.value.asInteger;
+		if(~sdfk.value.isInteger == true, {
+			~batch_dup_2 = ~sdfk.value.asInteger;
+			~batchduptextfield_2.string = ~batch_dup_2.asString;
+		}, {~batchduptextfield_2.string = "int.".asString;});
+	};
+
+	~batchduptext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*2)+(~firstviewboundsWIDTH/280*4), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21));
+	~batchduptext2.background=~backgroundcolor;
+	~batchduptext2.stringColor=~stringcolor;
+	~batchduptext2.string = "Dup. into 1st/last";
+	~batchduptext2.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~batchduptextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*2)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*5), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
+	~batchduptextfield_3.string = ~batch_dup_3.asString;
+	~batchduptextfield_3.background_(~backgroundcolor);
+	~batchduptextfield_3.stringColor_(~stringcolor);
+	~batchduptextfield_3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptextfield_3.action = {
+		~sdfk = ~batchduptextfield_3.value.asInteger;
+		if(~sdfk.value.isInteger == true, {
+			~batch_dup_3 = ~sdfk.value.asInteger;
+			~batchduptextfield_3.string = ~batch_dup_3.asString;
+		}, {~batchduptextfield_3.string = "int.".asString;});
+	};
+
+	~batchduptextfield_4 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*3)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*6), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
+	~batchduptextfield_4.string = ~batch_dup_4.asString;
+	~batchduptextfield_4.background_(~backgroundcolor);
+	~batchduptextfield_4.stringColor_(~stringcolor);
+	~batchduptextfield_4.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptextfield_4.action = {
+		~sdfk = ~batchduptextfield_4.value.asInteger;
+		if(~sdfk.value.isInteger == true, {
+			~batch_dup_4 = ~sdfk.value.asInteger;
+			~batchduptextfield_4.string = ~batch_dup_4.asString;
+		}, {~batchduptextfield_4.string = "int.".asString;});
+	};
+
+	~batch_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*4)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*4)+(~firstviewboundsWIDTH/17/2), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/11, ~firstviewboundsHEIGHT/21)).states_([["Set Dup.",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		var num_dups1, num_dups2;
+		num_dups1 = ~batch_dup_2 - ~batch_dup_1 + 1;
+		num_dups2 = ~batch_dup_4 - ~batch_dup_3 + 1;
+		if((
+			(num_dups1.isNegative == false) and:
+			(num_dups2.isNegative == false) and:
+			(num_dups1 == num_dups2) and:
+			(num_dups1 != 0) and:
+			(num_dups2 != 0) and:
+			(num_dups1 != nil) and:
+			(num_dups2 != nil) and:
+			(~batch_dup_1 != nil) and:
+			(~batch_dup_2 != nil) and:
+			(~batch_dup_3 != nil) and:
+			(~batch_dup_4 != nil) and:
+			(~batch_dup_1 != 0) and:
+			(~batch_dup_2 != 0) and:
+			(~batch_dup_3 != 0) and:
+			(~batch_dup_4 != 0)
+		), {
+			num_dups2.do(j=(-1); {
+				j=j+1;
+				if(j <= num_dups2, {
+					~number_of_instruments.do(s = 0; {
+						s=s+1;
+						("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3+j)++"batch_dup_save_1").asSymbol.envirPut(
+							("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3+j)).asSymbol.envirGet;
+						);
+						("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3+j)).asSymbol.envirPut(
+							("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_1+j)).asSymbol.envirGet;
+						);
+					});
+				});
+			});
+			~num_dups_save = num_dups2;
+			~batch_dup_3_save = ~batch_dup_3;
+			"batch duplicate performed".postln;
+		}, {"error occured. dup. not performed.".postln;});
+	});
+	~batch_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~undo_batch_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*4)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*9)+(~firstviewboundsWIDTH/17*2), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		if(~num_dups_save != nil, {
+			~num_dups_save.do(j=(-1); {
+				j=j+1;
+				if(j <= ~num_dups_save, {
+					~number_of_instruments.do(s = 0; {
+						s=s+1;
+						//uses reverse forumla found in "~reversenewrandomseedsbutton" on main page
+						("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
+							("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3_save+j)).asSymbol.envirGet;
+						);
+						("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3_save+j)).asSymbol.envirPut(
+							("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
+						);
+						("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
+							("assisted_inst_"++(s)++"_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
+						);
+					});
+				});
+			});
+			"undo batch duplicate performed".postln;
+		});
+	});
+	~undo_batch_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	/*fillertext = StaticText(~firstview, Rect(0, ~firstviewboundsHEIGHT/0.999999, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
 	fillertext.background=~backgroundcolor;
