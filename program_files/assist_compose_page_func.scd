@@ -721,7 +721,7 @@
 			~num_dups_save = num_dups2;
 			~batch_dup_3_save = ~batch_dup_3;
 			"batch duplicate performed".postln;
-		}, {"error occured. dup. not performed.".postln;});
+		}, {"error occured. try again.".postln;});
 	});
 	~batch_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
