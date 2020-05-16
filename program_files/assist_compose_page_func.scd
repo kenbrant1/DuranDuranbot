@@ -389,7 +389,7 @@
 	});
 	~delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/5.8, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_delete_part_button.value == 1, {
 			if(~delete_array_backup != [], {
@@ -685,7 +685,7 @@
 	});
 	~duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.4, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_duplicate_button.value == 1, {
 			~number_of_instruments.do(s = 0; {
