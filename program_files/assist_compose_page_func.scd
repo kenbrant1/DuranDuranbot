@@ -154,23 +154,37 @@
 				});
 				g.write("];");
 
-				g.write("\n~assist_inst_"++(s)++"comp_interval_array_part"++(j)++" = [ ");
-				("assist_inst_"++(s)++"comp_interval_array_part"++(j)).asSymbol.envirGet.size.do(q = (-1); {
+			});
+		});
+		~num_assist_parts.do(j = 0; {
+			j=j+1;
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				g.write("\n~assist_inst_"++(s)++"_comp_interval_array_part"++(j)++" = [ ");
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet.size.do(q = (-1); {
 					q=q+1;
-					g.write((("assist_inst_"++(s)++"comp_interval_array_part"++(j)).asSymbol.envirGet.at(q).asString)++", ");
-				});
-				g.write("];");
-
-				g.write("\n~assist_inst_"++(s)++"comp_choice_array_part"++(j)++" = [ ");
-				("assist_inst_"++(s)++"comp_choice_array_part"++(j)).asSymbol.envirGet.size.do(q = (-1); {
-					q=q+1;
-					g.write((("assist_inst_"++(s)++"comp_choice_array_part"++(j)).asSymbol.envirGet.at(q).asString)++", ");
+					g.write((("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet.at(q).asString)++", ");
 				});
 				g.write("];");
 
 			});
 		});
+		~num_assist_parts.do(j = 0; {
+			j=j+1;
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				g.write("\n~assist_inst_"++(s)++"_comp_choice_array_part"++(j)++" = [ ");
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet.size.do(q = (-1); {
+					q=q+1;
+					g.write((("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet.at(q).asString)++", ");
+				});
+				g.write("];");
+
+			});
+		});
+
 		g.close;
+
 		"project saved".postln;
 	});
 	~save_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -199,9 +213,9 @@
 				s=s+1;
 				("assist_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirPut(nil);
 
-				("assist_inst_"++(s)++"comp_interval_array_part"++(j)).asSymbol.envirPut(nil);
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirPut(nil);
 
-				("assist_inst_"++(s)++"comp_choice_array_part"++(j)).asSymbol.envirPut(nil);
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirPut(nil);
 
 			});
 		});
@@ -353,15 +367,15 @@
 					);
 					("assist_inst_"++(s)++"_array_part_"++(~delete_array.at(j))).asSymbol.envirPut(nil);
 
-					("assist_inst_"++(s)++"comp_interval_array_part"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
-						("assist_inst_"++(s)++"comp_interval_array_part"++(~delete_array.at(j))).asSymbol.envirGet;
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array.at(j))).asSymbol.envirGet;
 					);
-					("assist_inst_"++(s)++"comp_interval_array_part"++(~delete_array.at(j))).asSymbol.envirPut(nil);
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array.at(j))).asSymbol.envirPut(nil);
 
-					("assist_inst_"++(s)++"comp_choice_array_part"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
-						("assist_inst_"++(s)++"comp_choice_array_part"++(~delete_array.at(j))).asSymbol.envirGet;
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array.at(j))).asSymbol.envirGet;
 					);
-					("assist_inst_"++(s)++"comp_choice_array_part"++(~delete_array.at(j))).asSymbol.envirPut(nil);
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array.at(j))).asSymbol.envirPut(nil);
 
 				});
 			});
@@ -387,12 +401,12 @@
 							("assist_inst_"++(s)++"_array_part_"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"comp_interval_array_part"++(~delete_array_backup.at(j))).asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_interval_array_part"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array_backup.at(j))).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"comp_choice_array_part"++(~delete_array_backup.at(j))).asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_choice_array_part"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array_backup.at(j))).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
 						);
 
 					});
@@ -408,8 +422,8 @@
 		~number_of_instruments.do(s = 0; {
 			s=s+1;
 			("instrument_"++(s)++"_full").asSymbol.envirPut([]);
-			("instrument_"++(s)++"comp_interval_array").asSymbol.envirPut([]);
-			("instrument_"++(s)++"comp_choice_array").asSymbol.envirPut([]);
+			("instrument_"++(s)++"_comp_interval_array").asSymbol.envirPut([]);
+			("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut([]);
 		});
 		~num_assist_parts.do(j = 0; {
 			j=j+1;
@@ -422,17 +436,17 @@
 						);
 					);
 				});
-				if(("assist_inst_"++(s)++"comp_interval_array_part"++(j)).asSymbol.envirGet != nil, {
-					("instrument_"++(s)++"comp_interval_array").asSymbol.envirPut(
-						("instrument_"++(s)++"comp_interval_array").asSymbol.envirGet.add(
-							("assist_inst_"++(s)++"comp_interval_array_part"++(j)).asSymbol.envirGet;
+				if(("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet != nil, {
+					("instrument_"++(s)++"_comp_interval_array").asSymbol.envirPut(
+						("instrument_"++(s)++"_comp_interval_array").asSymbol.envirGet.add(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet;
 						);
 					);
 				});
-				if(("assist_inst_"++(s)++"comp_choice_array_part"++(j)).asSymbol.envirGet != nil, {
-					("instrument_"++(s)++"comp_choice_array").asSymbol.envirPut(
-						("instrument_"++(s)++"comp_choice_array").asSymbol.envirGet.add(
-							("assist_inst_"++(s)++"comp_choice_array_part"++(j)).asSymbol.envirGet;
+				if(("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet != nil, {
+					("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut(
+						("instrument_"++(s)++"_comp_choice_array").asSymbol.envirGet.add(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet;
 						);
 					);
 				});
@@ -444,17 +458,17 @@
 			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.cpsmidi);
 			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full_midi").asSymbol.envirGet.round);
 
-			("instrument_"++(s)++"comp_interval_array").asSymbol.envirPut(("instrument_"++(s)++"comp_interval_array").asSymbol.envirGet.flatten);
-			("instrument_"++(s)++"comp_choice_array").asSymbol.envirPut(("instrument_"++(s)++"comp_choice_array").asSymbol.envirGet.flatten);
+			("instrument_"++(s)++"_comp_interval_array").asSymbol.envirPut(("instrument_"++(s)++"_comp_interval_array").asSymbol.envirGet.flatten);
+			("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut(("instrument_"++(s)++"_comp_choice_array").asSymbol.envirGet.flatten);
 		});
 		~create_pseq_arrays_func.value;
 		"full piece loaded to main page".postln;
 		/*
 ("instrument_"++(1)++"_full").asSymbol.envirGet.size
-		("instrument_"++(1)++"comp_interval_array").asSymbol.envirGet.size
-		("instrument_"++(1)++"comp_choice_array").asSymbol.envirGet.size
+		("instrument_"++(1)++"_comp_interval_array").asSymbol.envirGet.size
+		("instrument_"++(1)++"_comp_choice_array").asSymbol.envirGet.size
 
-			("assist_inst_"++(1)++"comp_interval_array_part"++(5)).asSymbol.envirGet.size;
+			("assist_inst_"++(1)++"_comp_interval_array_part"++(5)).asSymbol.envirGet.size;
 		*/
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -502,12 +516,12 @@
 				("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet;
 			);
 
-			("assist_inst_"++(s)++"comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
 			);
 
-			("assist_inst_"++(s)++"comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
 			);
 		});
 
@@ -533,24 +547,24 @@
 				("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
 			);
 
-			("assist_inst_"++(s)++"comp_interval_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
 			);
 
-			("assist_inst_"++(s)++"comp_choice_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
 			);
 
 		});
@@ -647,18 +661,18 @@
 					("assist_inst_"++(s)++"_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
 				);
 
 			});
@@ -687,24 +701,24 @@
 					("assist_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
 				);
 
 				"undo duplicate performed".postln;
@@ -823,18 +837,18 @@
 							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+j)).asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+j)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+j)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_1+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+j)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_1+j)).asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+j)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+j)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_1+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+j)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_1+j)).asSymbol.envirGet;
 						);
 
 					});
@@ -873,24 +887,24 @@
 							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3_save+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3_save+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3_save+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3_save+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
 						);
 
 					});

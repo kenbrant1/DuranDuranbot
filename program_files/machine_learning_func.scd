@@ -369,7 +369,7 @@
 		});
 		if(((b != 0) and: (b != nil)), {
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(
-				("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+				("instrument_"++(~inst_num)++"_comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 
 			);
 		}, {
@@ -423,13 +423,13 @@
 
 			// comp choice of current note
 			("interval_diff"++(u)).asSymbol.envirPut(
-				("instrument_"++(~inst_num)++"comp_choice_array").asSymbol.envirGet.at(~rate_selection_start);
+				("instrument_"++(~inst_num)++"_comp_choice_array").asSymbol.envirGet.at(~rate_selection_start);
 
 			);
 
 			// find interval of current note
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(
-				("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start);
+				("instrument_"++(~inst_num)++"_comp_interval_array").asSymbol.envirGet.at(~rate_selection_start);
 			);
 
 			// find interval of "older" notes
@@ -449,19 +449,19 @@
 
 					// comp choice of current note
 					("interval_diff"++(u)).asSymbol.envirPut(
-						("instrument_"++(~inst_num)++"comp_choice_array").asSymbol.envirGet.at(~rate_selection_start+x);
+						("instrument_"++(~inst_num)++"_comp_choice_array").asSymbol.envirGet.at(~rate_selection_start+x);
 
 					);
 
 					// find interval of current note
 					("interval_diff"++(u=u+1)).asSymbol.envirPut(
-						("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+x);
+						("instrument_"++(~inst_num)++"_comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+x);
 
 					);
 
 					// find interval of "older" notes
 					("interval_diff"++(u=u+1)).asSymbol.envirPut(
-						("instrument_"++(~inst_num)++"comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+						("instrument_"++(~inst_num)++"_comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(x-1));
 
 					);
 

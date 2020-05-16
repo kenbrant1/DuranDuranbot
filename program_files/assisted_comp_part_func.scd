@@ -134,8 +134,8 @@
 			("comp_int_2_inst_"++(n)++"part_"++((~assist_part_number))).asSymbol.envirPut(0);
 		});
 	});
-	~number_of_instruments.do(n = 0; {("assist_inst_"++(n=n+1)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut([]);});
-	~number_of_instruments.do(n = 0; {("assist_inst_"++(n=n+1)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut([]);});
+	~number_of_instruments.do(n = 0; {("assist_inst_"++(n=n+1)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut([]);});
+	~number_of_instruments.do(n = 0; {("assist_inst_"++(n=n+1)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut([]);});
 
 	~number_of_instruments.do(n = 0; {var comp_choice;
 		n=n+1;
@@ -202,9 +202,9 @@
 
 				("instrument_"++(n)++"_array_blended").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet.add(("comp_result_"++(n)).asSymbol.envirGet;));
 
-				("assist_inst_"++(n)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet));
+				("assist_inst_"++(n)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet));
 
-				("assist_inst_"++(n)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet.add(~comp_choice.value));
+				("assist_inst_"++(n)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet.add(~comp_choice.value));
 
 				("assist_inst_"++(n)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet;);
 

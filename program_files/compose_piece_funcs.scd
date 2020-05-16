@@ -433,8 +433,8 @@ s = ~bit_duration;
 						~number_of_instruments.do(n = 0; {("note_1_inst_"++(n=n+1)).asSymbol.envirPut(nil);});
 						~number_of_instruments.do(n = 0; {("note_2_inst_"++(n=n+1)).asSymbol.envirPut(nil);});
 						~number_of_instruments.do(n = 0; {("comp_int_2_inst_"++(n=n+1)).asSymbol.envirPut(0);});
-						~number_of_instruments.do(n = 0; {("instrument_"++(n=n+1)++"comp_interval_array").asSymbol.envirPut([]);});
-						~number_of_instruments.do(n = 0; {("instrument_"++(n=n+1)++"comp_choice_array").asSymbol.envirPut([]);});
+						~number_of_instruments.do(n = 0; {("instrument_"++(n=n+1)++"_comp_interval_array").asSymbol.envirPut([]);});
+						~number_of_instruments.do(n = 0; {("instrument_"++(n=n+1)++"_comp_choice_array").asSymbol.envirPut([]);});
 
 						(~top_level_notes_1_full.size-1).do(x = (-1); ~part_num = 0; {
 							x=x+1;
@@ -548,9 +548,9 @@ s = ~bit_duration;
 
 										("instrument_"++(n)++"_array_blended").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet.add(("comp_result_"++(n)).asSymbol.envirGet.value));
 
-										("instrument_"++(n)++"comp_interval_array").asSymbol.envirPut(("instrument_"++(n)++"comp_interval_array").asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet));
+										("instrument_"++(n)++"_comp_interval_array").asSymbol.envirPut(("instrument_"++(n)++"_comp_interval_array").asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet));
 
-										("instrument_"++(n)++"comp_choice_array").asSymbol.envirPut(("instrument_"++(n)++"comp_choice_array").asSymbol.envirGet.add(~comp_choice.value));
+										("instrument_"++(n)++"_comp_choice_array").asSymbol.envirPut(("instrument_"++(n)++"_comp_choice_array").asSymbol.envirGet.add(~comp_choice.value));
 
 									}, {
 										u = ((("instrument_"++(n)++"_array_1").asSymbol.envirGet.at(i) + ("instrument_"++(n)++"_array_2").asSymbol.envirGet.at(i)) / 2).round;
