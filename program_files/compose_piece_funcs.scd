@@ -535,6 +535,11 @@ s = ~bit_duration;
 
 											);
 
+											if(((("comp_result_"++(n)).asSymbol.envirGet > ~midi_high_limit) or: (("comp_result_"++(n)).asSymbol.envirGet < ~midi_low_limit)), {
+												while({("comp_result_"++(n)).asSymbol.envirGet > ~midi_high_limit}, {("comp_result_"++(n)).asSymbol.envirPut(("comp_result_"++(n)).asSymbol.envirGet-12)});
+												while({("comp_result_"++(n)).asSymbol.envirGet < ~midi_low_limit}, {("comp_result_"++(n)).asSymbol.envirPut(("comp_result_"++(n)).asSymbol.envirGet+12)});
+											});
+
 											("comp_int_2_inst_"++(n)).asSymbol.envirPut(
 												("comp_int_1_inst_"++(n)).asSymbol.envirGet
 
