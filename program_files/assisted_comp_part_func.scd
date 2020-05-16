@@ -16,7 +16,7 @@
 	// find last notes of last sequence
 
 	c = ~assist_part_number;
-	a = {("assisted_inst_"++(1)++"_array_part_"++(c-1)++"_midi").asSymbol.envirGet;};
+	a = {("assist_inst_"++(1)++"_array_part_"++(c-1)++"_midi").asSymbol.envirGet;};
 	e = a.value;
 	while({((e == nil) and: (c > 2))}, {
 		c = c - 1;
@@ -27,23 +27,23 @@
 	if(e != nil, {
 		~number_of_instruments.do(~inst_num = 0; {
 			~inst_num = ~inst_num + 1;
-			("assisted_inst_"++(~inst_num)++"_last_note").asSymbol.envirPut(
-				("assisted_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at(
-					("assisted_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.size - 1;
+			("assist_inst_"++(~inst_num)++"_last_note").asSymbol.envirPut(
+				("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at(
+					("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.size - 1;
 				);
 			);
 		});
 	}, {
 		~number_of_instruments.do(~inst_num = 0; {
 			~inst_num = ~inst_num + 1;
-			("assisted_inst_"++(~inst_num)++"_last_note").asSymbol.envirPut(rrand(~midi_low_limit, ~midi_high_limit));
+			("assist_inst_"++(~inst_num)++"_last_note").asSymbol.envirPut(rrand(~midi_low_limit, ~midi_high_limit));
 		});
 	});
 
 	// find first notes of next sequence
 
 	c = ~assist_part_number;
-	a = {("assisted_inst_"++(1)++"_array_part_"++(c+1)++"_midi").asSymbol.envirGet;};
+	a = {("assist_inst_"++(1)++"_array_part_"++(c+1)++"_midi").asSymbol.envirGet;};
 	e = a.value;
 	while({((e == nil) and: (c < ~num_assist_parts))}, {
 		c = c + 1;
@@ -52,14 +52,14 @@
 	if(e != nil, {
 		~number_of_instruments.do(~inst_num = 0; {
 			~inst_num = ~inst_num + 1;
-			("assisted_inst_"++(~inst_num)++"_first_note").asSymbol.envirPut(
-				("assisted_inst_"++(~inst_num)++"_array_part_"++(c+1)++"_midi").asSymbol.envirGet.at(0);
+			("assist_inst_"++(~inst_num)++"_first_note").asSymbol.envirPut(
+				("assist_inst_"++(~inst_num)++"_array_part_"++(c+1)++"_midi").asSymbol.envirGet.at(0);
 			);
 		});
 	}, {
 		~number_of_instruments.do(~inst_num = 0; {
 			~inst_num = ~inst_num + 1;
-			("assisted_inst_"++(~inst_num)++"_first_note").asSymbol.envirPut(rrand(~midi_low_limit, ~midi_high_limit));
+			("assist_inst_"++(~inst_num)++"_first_note").asSymbol.envirPut(rrand(~midi_low_limit, ~midi_high_limit));
 		});
 	});
 
@@ -67,7 +67,7 @@
 
 	~number_of_instruments.do(~inst_num = 0; {
 		~inst_num = ~inst_num + 1;
-		("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(("assisted_inst_"++(~inst_num)++"_last_note").asSymbol.envirGet;);
+		("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(("assist_inst_"++(~inst_num)++"_last_note").asSymbol.envirGet;);
 	});
 
 	thisThread.randSeed = ~randseed_2;
@@ -84,7 +84,7 @@
 
 	~number_of_instruments.do(~inst_num = 0; {
 		~inst_num = ~inst_num + 1;
-		("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(("assisted_inst_"++(~inst_num)++"_first_note").asSymbol.envirGet;);
+		("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(("assist_inst_"++(~inst_num)++"_first_note").asSymbol.envirGet;);
 	});
 
 	~number_of_instruments.do(n = 0; {
@@ -95,7 +95,7 @@
 	o.do({~inst_clock_func.value});
 	~number_of_instruments.do(n = 0; {("instrument_"++(n=n+1)++"_array_2").asSymbol.envirPut(("instrument_"++(n)++"_array").asSymbol.envirGet)});
 
-	/*("assisted_inst_"++(2)++"_first_note").asSymbol.envirGet*/
+	/*("assist_inst_"++(2)++"_first_note").asSymbol.envirGet*/
 
 	/*~instrument_1_array_1
 	~instrument_1_array_2
@@ -134,8 +134,8 @@
 			("comp_int_2_inst_"++(n)++"part_"++((~assist_part_number))).asSymbol.envirPut(0);
 		});
 	});
-	~number_of_instruments.do(n = 0; {("assist_instrument_"++(n=n+1)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut([]);});
-	~number_of_instruments.do(n = 0; {("assist_instrument_"++(n=n+1)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut([]);});
+	~number_of_instruments.do(n = 0; {("assist_inst_"++(n=n+1)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut([]);});
+	~number_of_instruments.do(n = 0; {("assist_inst_"++(n=n+1)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut([]);});
 
 	~number_of_instruments.do(n = 0; {var comp_choice;
 		n=n+1;
@@ -197,18 +197,18 @@
 
 				("instrument_"++(n)++"_array_blended").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet.add(("comp_result_"++(n)).asSymbol.envirGet;));
 
-				("assist_instrument_"++(n)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(("assist_instrument_"++(n)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet));
+				("assist_inst_"++(n)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet));
 
-				("assist_instrument_"++(n)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(("assist_instrument_"++(n)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet.add(~comp_choice.value));
+				("assist_inst_"++(n)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet.add(~comp_choice.value));
 
-				("assisted_inst_"++(n)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet;);
+				("assist_inst_"++(n)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet;);
 
 			}, {
 				u = ((("instrument_"++(n)++"_array_1").asSymbol.envirGet.at(i) + ("instrument_"++(n)++"_array_2").asSymbol.envirGet.at(i)) / 2).round;
 
 				("instrument_"++(n)++"_array_blended").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet.add(u.value));
 
-				("assisted_inst_"++(n)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet;);
+				("assist_inst_"++(n)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet;);
 
 			});
 		});
@@ -236,13 +236,13 @@
 
 		~number_of_instruments.do(x = 0; {
 			x=x+1;
-			("assisted_inst_"++(n)++"_array_part_"++(~assist_part_number)++"midi_backup").asSymbol.envirPut(("assisted_inst_"++(n)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet;);
+			("assist_inst_"++(n)++"_array_part_"++(~assist_part_number)++"midi_backup").asSymbol.envirPut(("assist_inst_"++(n)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet;);
 			/*~number_of_parts_in_piece.do(y = 0; {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.add(("instrument_"++(x)++"_array_part_"++(y=y+1)).asSymbol.envirGet););});
-			*/("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet.flatten);
+			*/("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet.flatten);
 			/*("instrument_"++(x)++"_full_midi").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet);*/
-			if(~tuning_frequency != 440, {("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet + ~midi_shift)});
-			("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirPut(("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet.midicps);
-			("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirPut(("assisted_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.replace(h, 0));
+			if(~tuning_frequency != 440, {("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirPut(("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet + ~midi_shift)});
+			("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet.midicps);
+			("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.replace(h, 0));
 		});
 	});
 

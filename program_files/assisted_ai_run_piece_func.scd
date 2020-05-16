@@ -2,7 +2,7 @@
 
 ~assisted_ai_run_piece_func = {
 
-	~size_val = (("assisted_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1);
+	~size_val = (("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1);
 
 	~synthdefs_func.value;
 /*
@@ -38,7 +38,7 @@
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirPut(
 					Synth("synth"++(~x), [
-						\freq, (~freq_r = ("assisted_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position)),
+						\freq, (~freq_r = ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position)),
 						\amp, ~fr_func.value
 					]);
 
@@ -51,7 +51,7 @@
 			Server.default.makeBundle(Server.default.latency, {
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
-					\freq, (~freq_r = ("assisted_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position)),
+					\freq, (~freq_r = ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position)),
 					\amp, ~fr_func.value
 
 				);});
