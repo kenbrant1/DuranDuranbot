@@ -67,7 +67,6 @@
 				~rate_selection_start = ~piece_position-(~rate_time_range/~bit_duration);
 				if(~rate_selection_start.isNegative == true, {~rate_selection_start = 0;});
 
-				AppClock.sched(0, {
 					~piecepositionstatictext.string = (
 						"Bit pos. "++(~piece_position.asInteger.asString)++" Midi "++(
 							case
@@ -76,28 +75,23 @@
 							{~number_of_instruments == 3}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)++" "++(~instrument_3_full_midi.at(~piece_position).asString)};
 						)
 					);
-				});
 			};
-		}, {~bit_timer_func1 = nil});
+		}, {
+			("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
+			("assist_comp_part_"++(~green = ~full_piece_part_array.at(0);)++"_button").asSymbol.envirGet.value = 1;
 
-
-		("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
-		("assist_comp_part_"++(~green = ~full_piece_part_array.at(0);)++"_button").asSymbol.envirGet.value = 1;
-
-		if(~ai_assist_compose == 1, {
-
-			~bit_timer_func2 = {
+			~bit_timer_func1 = {
 				if(~green != ~full_piece_part_array.at(~piece_position), {
 					("assist_comp_part_"++(~green)++"_button").asSymbol.envirGet.value = 0;
 					("assist_comp_part_"++(~green = ~full_piece_part_array.at(~piece_position))++"_button").asSymbol.envirGet.value = 1;
 				});
 			};
-		}, {~bit_timer_func2 = nil});
+		});
+
 
 		~bit_timer_func = {
 
 			~bit_timer_func1.value;
-			~bit_timer_func2.value;
 			~timeslider.valueAction = ~piece_position;
 
 
