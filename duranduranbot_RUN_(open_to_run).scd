@@ -49,6 +49,8 @@ if(~ai_avg_part_length == nil, {~ai_avg_part_length_default = 8; ~ai_avg_part_le
 if(~ai_avg_part_range == nil, {~ai_avg_part_range_default = 4; ~ai_avg_part_range = FileReader.read((~ddbot_root)++"/program_files/other_program_files/ai_avg_part_range.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~assist_avg_part_length == nil, {~assist_avg_part_length_default = 4; ~assist_avg_part_length = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_length.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~assist_avg_part_range == nil, {~assist_avg_part_range_default = 2; ~assist_avg_part_range = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_range.scd", false, true).flatten.at(0).asString.asFloat;});
+if(~assist_ml_on == nil, {~assist_ml_on = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_ml_on.scd", false, true).flatten.at(0).asString.asFloat;});
+if(~assist_ml_data_on == nil, {~assist_ml_data_on = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_ml_data_on.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~fullscreenon == nil, {~fullscreenon = FileReader.read((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", false, true).flatten.at(0).asString.asFloat;});
 
 if(FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true) != nil, {
@@ -77,9 +79,12 @@ File.readAllString((~ddbot_root)++"/program_files/assist_compose_page_func.scd",
 File.readAllString((~ddbot_root)++"/program_files/assisted_comp_part_func.scd", r).interpret; "assisted_comp_part_func.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/assisted_ai_run_piece_func.scd", r).interpret; "assisted_ai_run_piece_func.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/ai_assist_instructions_page_func.scd", r).interpret; "ai_assist_instructions_page_func.scd".postln;
+File.readAllString((~ddbot_root)++"/program_files/ai_assist_settings_page_func.scd", r).interpret; "ai_assist_settings_page_func.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/machine_learning_func.scd", r).interpret; "machine_learning_func.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/synthdefs_func.scd", r).interpret; "synthdefs_func.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interpret; "run_piece_func.scd".postln;
+File.readAllString((~ddbot_root)++"/program_files/hotkeys.scd", r).interpret; "hotkeys.scd".postln;
+File.readAllString((~ddbot_root)++"/program_files/full_midi_to_ml_func.scd", r).interpret; "full_midi_to_ml_func.scd".postln;
 
 
 if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});

@@ -39,7 +39,7 @@ s = ~bit_duration;
 
 };
 
-~note_generator_func = {
+~find_interval_func = {
 
 	if(~number_of_instruments == 1, {
 		if(("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet != nil, {
@@ -107,7 +107,17 @@ s = ~bit_duration;
 		{~number_of_instruments == 3}{~clock_diff_1*(~interval_array.size+1)*(~interval_array.size+1)+(~clock_diff_2*(~interval_array.size+1))+~clock_diff_3};
 	).normalizeSum;
 
-	~new_interval = ~interval_array.wchoose(~intv_weights);
+};
+
+~note_generator_func = {
+
+	if(((~ai_assist_compose == 1) and: (~assist_ml_data_on == 0)), {
+		~new_interval = ~interval_array.wchoose(Array.fill(~interval_array.size, {1/~interval_array.size}).normalizeSum;);
+	}, {
+		~find_interval_func.value;
+		~new_interval = ~interval_array.wchoose(~intv_weights);
+	});
+
 	~new_interval = [~new_interval, ~new_interval.neg].choose;
 
 	("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(("instrument_"++(~inst_num)++"_freq").asSymbol.envirGet + ~new_interval);
@@ -120,7 +130,7 @@ s = ~bit_duration;
 	("instrument_"++(~inst_num)++"_freq").asSymbol.envirGet;
 };
 
-~time_generator_func = {
+~find_time_func = {
 
 	(~number_of_instruments).do(e = 0; {
 		e=e+1;
@@ -180,7 +190,16 @@ s = ~bit_duration;
 		{~number_of_instruments == 3}{~length_comp_1*(~time_array.size+1)*(~time_array.size+1)+(~length_comp_2*(~time_array.size+1))+~length_comp_3};
 	).normalizeSum;
 
-	~new_time = ~bit_choice_array.wchoose(~time_weights);
+};
+
+~time_generator_func = {
+
+	if(((~ai_assist_compose == 1) and: (~assist_ml_data_on == 0)), {
+		~new_time = ~bit_choice_array.wchoose(Array.fill(~bit_choice_array.size, {1/~bit_choice_array.size}).normalizeSum;);
+	}, {
+		~find_time_func.value;
+		~new_time = ~bit_choice_array.wchoose(~time_weights);
+	});
 
 	if(~number_of_instruments == 1, {
 		("old_bit_clock_"++(~inst_num)++"_choice_1").asSymbol.envirPut(("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirGet);
@@ -670,27 +689,29 @@ s = ~bit_duration;
 
 							case
 							{~ai_assist_compose != 1}{
-							if(~saved_piece_loaded != 1, {
+								if(~saved_piece_loaded != 1, {
 
-								~number_of_instruments.do(x = 0; {
-									x=x+1;
-									/*~number_of_parts_in_piece.do(y = 0; {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.add(("instrument_"++(x)++"_array_part_"++(y=y+1)).asSymbol.envirGet););});
-									*/("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.flatten);
-									("instrument_"++(x)++"_full_midi").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet);
-									if(~tuning_frequency != 440, {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet + ~midi_shift)});
-									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.midicps);
-									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.replace(h, 0));
+									~number_of_instruments.do(x = 0; {
+										x=x+1;
+										/*~number_of_parts_in_piece.do(y = 0; {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.add(("instrument_"++(x)++"_array_part_"++(y=y+1)).asSymbol.envirGet););});
+										*/("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.flatten);
+										("instrument_"++(x)++"_full_midi").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet);
+										if(~tuning_frequency != 440, {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet + ~midi_shift)});
+										("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.midicps);
+										("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.replace(h, 0));
+									});
+								}, {
+									~number_of_instruments.do(x = 0; {
+										x=x+1;
+										("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full_midi").asSymbol.envirGet);
+										if(~tuning_frequency != 440, {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet + ~midi_shift)});
+										("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.midicps);
+										("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.replace(h, 0));
+									});
+									~saved_piece_loaded = 0;
 								});
-							}, {
-								~number_of_instruments.do(x = 0; {
-									x=x+1;
-									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full_midi").asSymbol.envirGet);
-									if(~tuning_frequency != 440, {("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet + ~midi_shift)});
-									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.midicps);
-									("instrument_"++(x)++"_full").asSymbol.envirPut(("instrument_"++(x)++"_full").asSymbol.envirGet.replace(h, 0));
-								});
-								~saved_piece_loaded = 0;
-							});
+
+								~full_midi_to_ml_func.value;
 							}
 							{~ai_assist_compose == 1}{
 								nil

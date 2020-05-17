@@ -4,6 +4,8 @@
 
 	~ai_assist_compose = 0;
 
+	~full_midi_to_ml_func.value;
+
 	~avg_part_length = ~ai_avg_part_length;
 	~avg_part_range = ~ai_avg_part_range;
 

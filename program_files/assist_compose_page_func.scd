@@ -15,6 +15,8 @@
 
 	~firstview.close;
 
+	~button_base = {(~firstviewboundsHEIGHT/3.7+(((~firstviewboundsHEIGHT/3)-(~firstviewboundsHEIGHT/3.7))*x))};
+
 	/*~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height));
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;
@@ -31,17 +33,17 @@
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;*/
 
-	~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height/2.25));
+	~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height/2));
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;
 	~firstviewboundsWIDTH = ~firstview.bounds.width;
-	~firstviewboundsHEIGHT = ~firstview.bounds.height*2.25;
+	~firstviewboundsHEIGHT = ~firstview.bounds.height*2;
 
-	~firstview2 = ScrollView(w, Rect(0, w.bounds.height/2.25, w.bounds.width, w.bounds.height - (w.bounds.height/2.25)));
+	~firstview2 = ScrollView(w, Rect(0, w.bounds.height/2, w.bounds.width, w.bounds.height - (w.bounds.height/2)));
 	/*view.clearOnRefresh = false;*/
 	~firstview2.background = ~backgroundcolor;
 	~firstviewboundsWIDTH2 = ~firstview.bounds.width;
-	~firstviewboundsHEIGHT2 = ~firstview.bounds.height*2.25;
+	~firstviewboundsHEIGHT2 = ~firstview.bounds.height*2;
 
 	~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.75, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~firstviewtext1.background=~backgroundcolor;
@@ -282,7 +284,7 @@
 
 	if(~assist_part_number == nil, {~assist_part_number = 1});
 
-	~new_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Part",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~new_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Part",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		~num_assist_parts = ~num_assist_parts + 1;
 		if(~line_multiple2 >= 16, {~line_multiple1 = ~line_multiple1 + 1; ~line_multiple2 = 0;});
@@ -336,7 +338,7 @@
 	~line_multiple2 = 0;
 	~part_limit_counter = 0;*/
 
-	~set_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/9), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21)).states_([["Set Delete Parts",~stringcolor,~backgroundcolor],["Set Delete Parts",~backgroundcolor,Color.green]]).action_({arg button;
+	~set_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/9), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21)).states_([["Set Delete Parts",~stringcolor,~backgroundcolor],["Set Delete Parts",~backgroundcolor,Color.green]]).action_({arg button;
 
 		if(button.value == 1, {
 			if(~dup_1_part_num != nil, {("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;});
@@ -354,7 +356,7 @@
 	});
 	~set_delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_delete_part_button.value == 1, {
 			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
@@ -389,7 +391,7 @@
 	});
 	~delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), ~firstviewboundsHEIGHT/3.7, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_delete_part_button.value == 1, {
 			if(~delete_array_backup != [], {
@@ -417,7 +419,25 @@
 	});
 	~undo_delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~load_piece_to_main_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Piece To Main Page",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~ml_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
+	~ml_static.background_(~backgroundcolor);
+	~ml_static.stringColor_(~stringcolor);
+	if(~assist_ml_on == 1, {~ml_static.string = "Machine learning is ON";}, {~ml_static.string = "Machine learning is OFF";});
+	~ml_static.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~ml_data_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
+	~ml_data_static.background_(~backgroundcolor);
+	~ml_data_static.stringColor_(~stringcolor);
+	if(~assist_ml_data_on == 1, {~ml_data_static.string = "Using ML data is ON";}, {~ml_data_static.string = "Using ML data is OFF";});
+	~ml_data_static.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~ai_assist_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		~ai_assist_settings_page_func.value;
+	});
+	~ai_assist_settings_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~load_piece_to_main_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Piece To Main Page",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		~number_of_instruments.do(s = 0; {
 			s=s+1;
@@ -462,52 +482,60 @@
 			("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut(("instrument_"++(s)++"_comp_choice_array").asSymbol.envirGet.flatten);
 		});
 		~create_pseq_arrays_func.value;
+		~full_midi_to_ml_func.value;
 		"full piece loaded to main page".postln;
 		/*
-("instrument_"++(1)++"_full").asSymbol.envirGet.size
+		("instrument_"++(1)++"_full").asSymbol.envirGet.size
 		("instrument_"++(1)++"_comp_interval_array").asSymbol.envirGet.size
 		("instrument_"++(1)++"_comp_choice_array").asSymbol.envirGet.size
 
-			("assist_inst_"++(1)++"_comp_interval_array_part"++(5)).asSymbol.envirGet.size;
+		("assist_inst_"++(1)++"_comp_interval_array_part"++(5)).asSymbol.envirGet.size;
 		*/
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~train_full_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Machine Learn Full Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~train_button_func = {
 
-		~mlfullpieceprompt = View(~firstview, Rect((~firstviewboundsWIDTH/3), ~firstviewboundsHEIGHT/25, ~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/3));
-		~mlfullpieceprompt.background_(~backgroundcolor);
+		~train_full_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Machine Learn Full Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		~mlfullpieceprompttext = StaticText(~mlfullpieceprompt, Rect(0, 0, ~mlfullpieceprompt.bounds.width, ~mlfullpieceprompt.bounds.height/3));
-		~mlfullpieceprompttext.background_(~backgroundcolor);
-		~mlfullpieceprompttext.stringColor_(~stringcolor);
-		~mlfullpieceprompttext.align = \center;
-		~mlfullpieceprompttext.string = "Machine Learn full piece?";
-		~mlfullpieceprompttext.font = Font(size: ~mlfullpieceprompt.bounds.width/14);
-		~mlfullpieceprompttext.front;
+			~mlfullpieceprompt = View(~firstview, Rect((~firstviewboundsWIDTH/3), ~firstviewboundsHEIGHT/25, ~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/3));
+			~mlfullpieceprompt.background_(~backgroundcolor);
 
-		~train_full_piece_yes_no_button_1 = Button.new(~mlfullpieceprompt, Rect(~mlfullpieceprompt.bounds.width/8, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["Yes",~stringcolor,~backgroundcolor]]).action_({arg button;
+			~mlfullpieceprompttext = StaticText(~mlfullpieceprompt, Rect(0, 0, ~mlfullpieceprompt.bounds.width, ~mlfullpieceprompt.bounds.height/3));
+			~mlfullpieceprompttext.background_(~backgroundcolor);
+			~mlfullpieceprompttext.stringColor_(~stringcolor);
+			~mlfullpieceprompttext.align = \center;
+			~mlfullpieceprompttext.string = "Machine Learn full piece?";
+			~mlfullpieceprompttext.font = Font(size: ~mlfullpieceprompt.bounds.width/14);
+			~mlfullpieceprompttext.front;
 
-			~load_piece_to_main_page_button.valueAction = 0;
-			~rate_selection_start = 0;
-			~rate_selection_end = ("instrument_"++(1)++"_full_midi").asSymbol.envirGet.size - 1;
-			~machine_learning_func.value;
-			("\nlast "++(~rate_time_range)++" secs rated:\nx"++(~net_change_mult)++" points\n").postln;
-			~mlfullpieceprompt.close;
-			Server.default.freeAll;
+			~train_full_piece_yes_no_button_1 = Button.new(~mlfullpieceprompt, Rect(~mlfullpieceprompt.bounds.width/8, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["Yes",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+				~load_piece_to_main_page_button.valueAction = 0;
+				~full_midi_to_ml_func.value;
+				~rate_selection_start = 0;
+				~rate_selection_end = ("instrument_"++(1)++"_full_midi_ml").asSymbol.envirGet.size - 1;
+				if(~assist_ml_on == 1, {~machine_learning_func.value;});
+				("full piece rated:\nx"++(~net_change_mult)++" points\n").postln;
+				~mlfullpieceprompt.close;
+				Server.default.freeAll;
+			});
+			~train_full_piece_yes_no_button_1.font = Font(size: ~firstviewboundsWIDTH/48);
+
+			~train_full_piece_yes_no_button_2 = Button.new(~mlfullpieceprompt, Rect( ~mlfullpieceprompt.bounds.width/1.6, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["No",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+				~mlfullpieceprompt.close;
+			});
+			~train_full_piece_yes_no_button_2.font = Font(size: ~firstviewboundsWIDTH/48);
+
 		});
-		~train_full_piece_yes_no_button_1.font = Font(size: ~firstviewboundsWIDTH/48);
+		~train_full_piece_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-		~train_full_piece_yes_no_button_2 = Button.new(~mlfullpieceprompt, Rect( ~mlfullpieceprompt.bounds.width/1.6, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["No",~stringcolor,~backgroundcolor]]).action_({arg button;
+	};
 
-			~mlfullpieceprompt.close;
-		});
-		~train_full_piece_yes_no_button_2.font = Font(size: ~firstviewboundsWIDTH/48);
+	if(~assist_ml_on == 1, {~train_button_func.value;});
 
-	});
-	~train_full_piece_button.font = Font(size: ~firstviewboundsWIDTH/48);
-
-	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~number_of_instruments.do(s = 0; {
@@ -532,7 +560,7 @@
 
 	/*("assist_inst_"++(1)++"_array_part_"++(1)).asSymbol.envirGet.size;*/
 
-	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/7), ~firstviewboundsHEIGHT/2.5, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/7), (x=2; ~button_base.value;), ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~number_of_instruments.do(s = 0; {
@@ -577,13 +605,13 @@
 	// });
 	// ~save_generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~partavgdurstatictext_1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/4.2, ~firstviewboundsHEIGHT/21));
+	~partavgdurstatictext_1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/4.2, ~firstviewboundsHEIGHT/21));
 	~partavgdurstatictext_1.background_(~backgroundcolor);
 	~partavgdurstatictext_1.stringColor_(~stringcolor);
 	~partavgdurstatictext_1.string = "Avg. part length (secs.) -";
 	~partavgdurstatictext_1.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~partavgdurtextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~partavgdurtextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280), (x=1; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~partavgdurtextfield_1.string = ~avg_part_length.asString;
 	~partavgdurtextfield_1.background_(~backgroundcolor);
 	~partavgdurtextfield_1.stringColor_(~stringcolor);
@@ -601,13 +629,13 @@
 		}, {~partavgdurtextfield_1.string = "number".asString;});
 	};
 
-	~partavgdurstatictext_2 = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280)+(~firstviewboundsWIDTH/10), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/7.6, ~firstviewboundsHEIGHT/21));
+	~partavgdurstatictext_2 = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280)+(~firstviewboundsWIDTH/10), (x=1; ~button_base.value;), ~firstviewboundsWIDTH/7.6, ~firstviewboundsHEIGHT/21));
 	~partavgdurstatictext_2.background_(~backgroundcolor);
 	~partavgdurstatictext_2.stringColor_(~stringcolor);
 	~partavgdurstatictext_2.string = "Range (+/-) -";
 	~partavgdurstatictext_2.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~partavgdurtextfield_2 = TextField(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/7.6)+(~firstviewboundsWIDTH/14)+(~firstviewboundsWIDTH/25), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~partavgdurtextfield_2 = TextField(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/7.6)+(~firstviewboundsWIDTH/14)+(~firstviewboundsWIDTH/25), (x=1; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~partavgdurtextfield_2.string = ~avg_part_range.asString;
 	~partavgdurtextfield_2.background_(~backgroundcolor);
 	~partavgdurtextfield_2.stringColor_(~stringcolor);
@@ -625,7 +653,7 @@
 		}, {~partavgdurtextfield_2.string = "number".asString;});
 	};
 
-	~set_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Set Duplicate",~stringcolor,~backgroundcolor],["Set Duplicate",~backgroundcolor,Color.green]]).action_({arg button;
+	~set_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Set Duplicate",~stringcolor,~backgroundcolor],["Set Duplicate",~backgroundcolor,Color.green]]).action_({arg button;
 
 		if(~dup_1_part_num != nil, {("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;});
 		if(~dup_2_part_num != nil, {("assist_comp_part_"++(~dup_2_part_num)++"_button").asSymbol.envirGet.value = 0;});
@@ -638,18 +666,7 @@
 
 	if(~duplicate_on == 1, {~set_duplicate_button.value = 1;});
 
-	/*~duplicate_from_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Duplicate From",~stringcolor,~backgroundcolor],["Duplicate From",~backgroundcolor,Color.green]]).action_({arg button;
-
-		if(~dup_1_part_num != nil, {("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;});
-		if(~dup_2_part_num != nil, {("assist_comp_part_"++(~dup_2_part_num)++"_button").asSymbol.envirGet.value = 0;});
-		if(button.value == 1, {~duplicate_on = 1}, {
-			~duplicate_on = 0;
-			~dup_1_part_num = nil;
-		});
-	});
-	~duplicate_from_button.font = Font(size: ~firstviewboundsWIDTH/48);*/
-
-	~duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/6.6), ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/6.6), (x=3; ~button_base.value;), ~firstviewboundsWIDTH/6.6, ~firstviewboundsHEIGHT/21)).states_([["Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(((~duplicate_on == 1) and: (~dup_1_part_num != nil) and: (~dup_2_part_num != nil)), {
 			~number_of_instruments.do(s = 0; {
@@ -675,7 +692,29 @@
 					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
 				);
 
+
+				// machine learning training on duplicate
+
+				("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
+				);
+				("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
+				);
+				("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
+				);
+
 			});
+
+			if(~assist_ml_on == 1, {
+				~rate_selection_start = 0;
+				~rate_selection_end = ("instrument_"++(1)++"_full_midi_ml").asSymbol.envirGet.size - 1;
+				~dup_ml_on = 1;
+				~machine_learning_func.value;
+				~dup_ml_on = 0;
+			});
+
 			("assist_comp_part_"++(~dup_1_part_num)++"_button").asSymbol.envirGet.value = 0;
 			("assist_comp_part_"++(~dup_2_part_num)++"_button").asSymbol.envirGet.value = 0;
 			~dup_1_part_num = nil;
@@ -685,7 +724,7 @@
 	});
 	~duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), ~firstviewboundsHEIGHT/2.125, ~firstviewboundsWIDTH/6.4, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), (x=3; ~button_base.value;), ~firstviewboundsWIDTH/6.4, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_duplicate_button.value == 1, {
 			~number_of_instruments.do(s = 0; {
@@ -729,19 +768,19 @@
 	});
 	~undo_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~batchduptext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/6.2, ~firstviewboundsHEIGHT/21));
+	~batchduptext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/6.2, ~firstviewboundsHEIGHT/21));
 	~batchduptext.background=~backgroundcolor;
 	~batchduptext.stringColor=~stringcolor;
 	~batchduptext.string = "Batch Duplicate -";
 	~batchduptext.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~batchduptext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2)+(~firstviewboundsWIDTH/280), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/6.5, ~firstviewboundsHEIGHT/21));
+	~batchduptext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/6.5, ~firstviewboundsHEIGHT/21));
 	~batchduptext1.background=~backgroundcolor;
 	~batchduptext1.stringColor=~stringcolor;
 	~batchduptext1.string = "To dup. 1st/last";
 	~batchduptext1.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~batchduptextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/280), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
+	~batchduptextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2)+(~firstviewboundsWIDTH/280), (x=5; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~batchduptextfield_1.string = ~batch_dup_1.asString;
 	~batchduptextfield_1.background_(~backgroundcolor);
 	~batchduptextfield_1.stringColor_(~stringcolor);
@@ -755,7 +794,7 @@
 		}, {~batchduptextfield_1.string = "int.".asString;});
 	};
 
-	~batchduptextfield_2 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17)+(~firstviewboundsWIDTH/280*2), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
+	~batchduptextfield_2 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2)+(~firstviewboundsWIDTH/17)+(~firstviewboundsWIDTH/280*2), (x=5; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~batchduptextfield_2.string = ~batch_dup_2.asString;
 	~batchduptextfield_2.background_(~backgroundcolor);
 	~batchduptextfield_2.stringColor_(~stringcolor);
@@ -769,13 +808,13 @@
 		}, {~batchduptextfield_2.string = "int.".asString;});
 	};
 
-	~batchduptext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*2)+(~firstviewboundsWIDTH/280*4), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21));
+	~batchduptext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=6; ~button_base.value;), ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21));
 	~batchduptext2.background=~backgroundcolor;
 	~batchduptext2.stringColor=~stringcolor;
 	~batchduptext2.string = "Dup. into 1st/last";
 	~batchduptext2.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~batchduptextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*2)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*5), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
+	~batchduptextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*1), (x=6; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~batchduptextfield_3.string = ~batch_dup_3.asString;
 	~batchduptextfield_3.background_(~backgroundcolor);
 	~batchduptextfield_3.stringColor_(~stringcolor);
@@ -789,7 +828,7 @@
 		}, {~batchduptextfield_3.string = "int.".asString;});
 	};
 
-	~batchduptextfield_4 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*3)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*6), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
+	~batchduptextfield_4 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/17)+(~firstviewboundsWIDTH/280*2), (x=6; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~batchduptextfield_4.string = ~batch_dup_4.asString;
 	~batchduptextfield_4.background_(~backgroundcolor);
 	~batchduptextfield_4.stringColor_(~stringcolor);
@@ -803,9 +842,9 @@
 		}, {~batchduptextfield_4.string = "int.".asString;});
 	};
 
-	~batch_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*4)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*4)+(~firstviewboundsWIDTH/17/2), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/11, ~firstviewboundsHEIGHT/21)).states_([["Set Dup.",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~batch_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/17*2)+(~firstviewboundsWIDTH/280*4)+(~firstviewboundsWIDTH/17/2), (x=6; ~button_base.value;), ~firstviewboundsWIDTH/11, ~firstviewboundsHEIGHT/21)).states_([["Set Dup.",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		var num_dups1, num_dups2;
+		var num_dups1, num_dups2, dup_num;
 		num_dups1 = ~batch_dup_2 - ~batch_dup_1 + 1;
 		num_dups2 = ~batch_dup_4 - ~batch_dup_3 + 1;
 		if((
@@ -825,33 +864,54 @@
 			(~batch_dup_3 != 0) and:
 			(~batch_dup_4 != 0)
 		), {
-			num_dups2.do(j=(-1); {
-				j=j+1;
-				if(j <= num_dups2, {
+			num_dups2.do(dup_num=(-1); {
+				dup_num=dup_num+1;
+				if(dup_num <= num_dups2, {
 					~number_of_instruments.do(s = 0; {
 						s=s+1;
-						("assist_inst_"++(s)++"_array_part_"++(~batch_dup_3+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_3+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_array_part_"++(~batch_dup_3+dup_num)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_3+dup_num)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"_array_part_"++(~batch_dup_3+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+j)).asSymbol.envirGet;
-						);
-
-						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+j)).asSymbol.envirGet;
-						);
-						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_1+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_array_part_"++(~batch_dup_3+dup_num)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+dup_num)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+dup_num)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_1+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+dup_num)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+						);
+
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+dup_num)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+dup_num)).asSymbol.envirGet;
+						);
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+dup_num)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+						);
+
+						// machine learning training on duplicate
+
+						("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+						);
+						("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+						);
+						("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
 						);
 
 					});
+
+					if(~assist_ml_on == 1, {
+						~rate_selection_start = 0;
+						~rate_selection_end = ("instrument_"++(1)++"_full_midi_ml").asSymbol.envirGet.size - 1;
+						~dup_ml_on = 1;
+						~machine_learning_func.value;
+						~dup_ml_on = 0;
+					});
+
 				});
 			});
 			~num_dups_save = num_dups2;
@@ -860,15 +920,15 @@
 		}, {var statictext;
 			"error occured. try again.".postln;
 			/*statictext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*3)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*6), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
-	statictext.string = ~batch_dup_4.asString;
-	statictext.background_(~backgroundcolor);
-	statictext.stringColor_(~stringcolor);
-	statictext.font = Font(size: ~firstviewboundsWIDTH/48);*/
+			statictext.string = ~batch_dup_4.asString;
+			statictext.background_(~backgroundcolor);
+			statictext.stringColor_(~stringcolor);
+			statictext.font = Font(size: ~firstviewboundsWIDTH/48);*/
 		});
 	});
 	~batch_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_batch_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2*2)+(~firstviewboundsWIDTH/17*4)+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*9)+(~firstviewboundsWIDTH/17*2), ~firstviewboundsHEIGHT/1.88, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_batch_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/17*2)+(~firstviewboundsWIDTH/280*9)+(~firstviewboundsWIDTH/17*2), (x=6; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~num_dups_save != nil, {
 			~num_dups_save.do(j=(-1); {

@@ -62,11 +62,15 @@ Duplicate - duplicate part after setting duplicate parts.
 
 Undo Duplicate - undo duplicate parts. must hit Set Duplicate Parts first in order to use this.
 
+Batch Duplicate... To dup. 1st/last - range of parts to duplicate. Dup. into 1st/last - range of parts to be duplicated into. Click Set Dup. to perform the action... and click Undo to undo it.
+
+Machine learning is ON/OFF - If machine learning during the composition process is on or off. Doing things like duplicating parts/etc. or using the Machine Learn Full Piece button will teach DDbot how to compose if on.
+
+Using ML data is ON/OFF - If using machine learning data to compose music on this page is on or off. For instance... when you generate a music for a part. Using no ML data will result in the use of untrained data for generating music for parts.
+
 Load Piece To Main Page - load the entire peice the to the main page.
 
 Machine Learn Full Piece - Train DDbot using the full piece.
-
-Batch Duplicate... To dup. 1st/last - range of parts to duplicate. Dup. into 1st/last - range of parts to be duplicated into. Click Set Dup. to perform the action... and click Undo to undo it.
 ";
     ~firstviewtext4.stringColor=~stringcolor;
     ~firstviewtext4.font = Font(size: ~firstviewboundsWIDTH/48);

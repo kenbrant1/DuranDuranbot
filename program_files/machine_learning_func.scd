@@ -1,5 +1,7 @@
 // MACHINE LEARNING FUNCTIONS
 
+~time_ml_on = 0; // time machine learning is off currently. weird stuff happens when on (fast timing rolling effect).
+
 // - "past" note interval ml goes past "rate_selection_start" point
 
 ~net_change = 0.02;
@@ -8,13 +10,13 @@
 
 ~interv_older_notes_func = {
 
-	c = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-	b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+	c = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+	b = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 	if(((b != 0) and: (b != nil) and: (c != 0) and: (c != nil)), {
 		while({c == b}, {
 			q=q-1;
-			c = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-			b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+			c = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+			b = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 		});
 		if(((b != 0) and: (b != nil)), {
 			e = c - b;
@@ -36,7 +38,7 @@
 
 	if(~number_of_instruments > 1, {
 		(~number_of_instruments-1).do(t = 1; {
-			e = j - ("instrument_"++(~inst_array.wrapAt(~inst_num-(t=t-1)))++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+			e = j - ("instrument_"++(~inst_array.wrapAt(~inst_num-(t=t-1)))++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(x-1));
 			if(e.isNegative == true, {e = e.neg});
 			while({e > 12}, {e = e - 12});
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
@@ -64,9 +66,11 @@
 
 		// Machine learning for musical intervals
 
-		("\n").post;
-		("intervals written -").post;
-		("\n").post;
+		if(~dup_ml_on != 1, {
+			("\n").post;
+			("intervals written -").post;
+			("\n").post;
+		});
 
 		~player_array.size.do(~inst_num = 0; {
 			~inst_num=~inst_num+1;
@@ -78,8 +82,8 @@
 			~inst_num = r;
 			(~rate_selection_end-~rate_selection_start).do(x = 0; {
 				x=x+1;
-				j = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(x-1));
-				v = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+x);
+				j = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+				v = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+x);
 				if(((v != j) and: (v != 0) and: (j != 0) and: (j != nil)), {
 
 					u = 0;
@@ -136,7 +140,9 @@
 					h = h.normalizeSum;
 					("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.put(~ml_data_array_num, h);
 
-					((~interval_diff0).asString++" - "++(~player_array.wrapAt(r-1))++"__"++(~interv_inst_case.value)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
+					if(~dup_ml_on != 1, {
+						((~interval_diff0).asString++" - "++(~player_array.wrapAt(r-1))++"__"++(~interv_inst_case.value)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
+					});
 				});
 			});
 		});
@@ -168,13 +174,13 @@
 ~older_times_ml_func = {
 
 	k = 1;
-	c = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-	b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+	c = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+	b = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 	if(((b != 0) and: (b != nil) and: (c != 0) and: (c != nil)), {
 		while({c == b}, {
 			q=q-1;
-			c = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-			b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+			c = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+			b = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 			k = k + 1;
 		});
 		("length"++(u=u+1)).asSymbol.envirPut(k);
@@ -189,18 +195,18 @@
 	if(~number_of_instruments > 1, {
 		(~number_of_instruments-1).do(t = 0; {
 			q = x-1;
-			d = ("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-			f = ("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+q);
+			d = ("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+			f = ("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+q);
 			while({f == d}, {
 				q=q-1;
-				d = ("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-				f = ("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+q);
+				d = ("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+				f = ("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+q);
 			});
 			c = (~rate_selection_start+(q+1));
 			k = 1;
 			while({
-				("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi").asSymbol.envirGet.at(c=c+1) ==
-				("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi").asSymbol.envirGet.at(c-1)
+				("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi_ml").asSymbol.envirGet.at(c=c+1) ==
+				("instrument_"++(~inst_array.wrapAt(~inst_num-(t)))++"_full_midi_ml").asSymbol.envirGet.at(c-1)
 			}, {k = k +1});
 			k=k+1;
 			("length"++(u=u+1)).asSymbol.envirPut(k);
@@ -224,9 +230,11 @@
 	(
 		~savenum = 0;
 
-		("\n").post;
-		("bit durations written -").post;
-		("\n").post;
+		if(~dup_ml_on != 1, {
+			("\n").post;
+			("bit durations written -").post;
+			("\n").post;
+		});
 
 		~player_array.size.do(~inst_num = 0; {
 			~inst_num=~inst_num+1;
@@ -238,8 +246,8 @@
 			~inst_num = r;
 			(~rate_selection_end-~rate_selection_start).do(x = 0; {
 				x=x+1;
-				j = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(x-1));
-				v = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+x);
+				j = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+				v = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+x);
 				if(v != j, {
 
 					u = 0;
@@ -248,8 +256,8 @@
 
 					k = 1; c = (~rate_selection_start+(x));
 					while({
-						("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(c=c+1) ==
-						("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(c-1)
+						("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(c=c+1) ==
+						("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(c-1)
 					}, {k = k +1});
 					("length"++(u)).asSymbol.envirPut(k);
 
@@ -325,7 +333,9 @@
 					h = h.normalizeSum;
 					("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.put(~ml_data_array_num, h);
 
-					((~lengthplace0).asString++" - "++(~player_array.wrapAt(r-1))++" "++(~time_inst_case.value)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
+					if(~dup_ml_on != 1, {
+						((~lengthplace0).asString++" - "++(~player_array.wrapAt(r-1))++" "++(~time_inst_case.value)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
+					});
 
 					~rate_revert = 0;
 				});
@@ -359,17 +369,17 @@
 
 ~comp_interv_older_notes_func = {
 
-	c = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-	b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+	c = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+	b = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 	if(((b != 0) and: (b != nil) and: (c != 0) and: (c != nil)), {
 		while({c == b}, {
 			q=q-1;
-			c = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-			b = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+			c = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-1));
+			b = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 		});
 		if(((b != 0) and: (b != nil)), {
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(
-				("instrument_"++(~inst_num)++"_comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+				("instrument_"++(~inst_num)++"_comp_interval_array_ml").asSymbol.envirGet.at(~rate_selection_start+(q-2));
 
 			);
 		}, {
@@ -395,7 +405,9 @@
 	h = h.normalizeSum;
 	~ml_data_array.put(~ml_data_array_num, h);
 
-	((~interval_diff0).asString++" - "++(~interval_diff1)++"__"++(~interval_diff2)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
+	if(~dup_ml_on != 1, {
+		((~interval_diff0).asString++" - "++(~interval_diff1)++"__"++(~interval_diff2)++" (line "++((~ml_data_array_num+2).asString++")")).postln;
+	});
 };
 
 
@@ -409,9 +421,11 @@
 		// It has 2 more ml instances than other ml's due to the others only analyzing interval and time ***changes***,
 		// ... while this one analyzes the value itself - being the "comp_choice"... and not the change in "comp_choice".
 
-		("\n").post;
-		("comp intervals written -").post;
-		("\n").post;
+		if(~dup_ml_on != 1, {
+			("\n").post;
+			("comp intervals written -").post;
+			("\n").post;
+		});
 
 		~ml_data_array = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/ddbot_training_data/compose_ml_data.scd", r).interpret;
 
@@ -423,13 +437,13 @@
 
 			// comp choice of current note
 			("interval_diff"++(u)).asSymbol.envirPut(
-				("instrument_"++(~inst_num)++"_comp_choice_array").asSymbol.envirGet.at(~rate_selection_start);
+				("instrument_"++(~inst_num)++"_comp_choice_array_ml").asSymbol.envirGet.at(~rate_selection_start);
 
 			);
 
 			// find interval of current note
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(
-				("instrument_"++(~inst_num)++"_comp_interval_array").asSymbol.envirGet.at(~rate_selection_start);
+				("instrument_"++(~inst_num)++"_comp_interval_array_ml").asSymbol.envirGet.at(~rate_selection_start);
 			);
 
 			// find interval of "older" notes
@@ -441,27 +455,27 @@
 
 			(~rate_selection_end-~rate_selection_start).do(x = 0; {
 				x=x+1;
-				j = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+(x-1));
-				v = ("instrument_"++(~inst_num)++"_full_midi").asSymbol.envirGet.at(~rate_selection_start+x);
+				j = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+				v = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+x);
 				if(((v != j) and: (v != 0) and: (j != 0) and: (j != nil)), {
 
 					u = 0;
 
 					// comp choice of current note
 					("interval_diff"++(u)).asSymbol.envirPut(
-						("instrument_"++(~inst_num)++"_comp_choice_array").asSymbol.envirGet.at(~rate_selection_start+x);
+						("instrument_"++(~inst_num)++"_comp_choice_array_ml").asSymbol.envirGet.at(~rate_selection_start+x);
 
 					);
 
 					// find interval of current note
 					("interval_diff"++(u=u+1)).asSymbol.envirPut(
-						("instrument_"++(~inst_num)++"_comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+x);
+						("instrument_"++(~inst_num)++"_comp_interval_array_ml").asSymbol.envirGet.at(~rate_selection_start+x);
 
 					);
 
 					// find interval of "older" notes
 					("interval_diff"++(u=u+1)).asSymbol.envirPut(
-						("instrument_"++(~inst_num)++"_comp_interval_array").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+						("instrument_"++(~inst_num)++"_comp_interval_array_ml").asSymbol.envirGet.at(~rate_selection_start+(x-1));
 
 					);
 
@@ -502,7 +516,7 @@
 	});
 
 	~interval_machine_learning_func.value;
-	~time_machine_learning_func.value;
+	if(~time_ml_on == 1, {~time_machine_learning_func.value;});
 	if(~comp_machine_learning == 1, {~comp_interval_machine_learning_func.value;});
 
 	if(~ai_assist_compose != 1, {
