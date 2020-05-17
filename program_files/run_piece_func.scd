@@ -5,7 +5,7 @@
 	~size_val = ~instrument_1_full.size-1;
 
 	~synthdefs_func.value;
-/*
+	/*
 	~low_pass_filter_on = 1;
 	~gsine.value;*/
 
@@ -13,20 +13,20 @@
 
 		/*~init_start_func = {
 
-			Server.default.makeBundle(Server.default.latency, {
+		Server.default.makeBundle(Server.default.latency, {
 
-				~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
-				~synthopen.value;
-			});
+		~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
+		~synthopen.value;
+		});
 		};
 
 		~init_func = {
 
-			Server.default.makeBundle(Server.default.latency, {
+		Server.default.makeBundle(Server.default.latency, {
 
-				~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
-				~synthflow.value;
-			});
+		~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
+		~synthflow.value;
+		});
 
 		};*/
 
@@ -58,22 +58,48 @@
 			});
 		};
 
-		~bit_timer_func = {
-			~rate_selection_end = ~piece_position;
-			~rate_selection_start = ~piece_position-(~rate_time_range/~bit_duration);
-			if(~rate_selection_start.isNegative == true, {~rate_selection_start = 0;});
 
-			AppClock.sched(0, {
-				~piecepositionstatictext.string = (
-					"Bit pos. "++(~piece_position.asInteger.asString)++" Midi "++(
-						case
-						{~number_of_instruments == 1}{(~instrument_1_full_midi.at(~piece_position).asString)}
-						{~number_of_instruments == 2}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)}
-						{~number_of_instruments == 3}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)++" "++(~instrument_3_full_midi.at(~piece_position).asString)};
-					)
-				);
-				~timeslider.valueAction = ~piece_position;
-			});
+		if(~ai_assist_compose == 0, {
+
+			~bit_timer_func1 = {
+
+				~rate_selection_end = ~piece_position;
+				~rate_selection_start = ~piece_position-(~rate_time_range/~bit_duration);
+				if(~rate_selection_start.isNegative == true, {~rate_selection_start = 0;});
+
+				AppClock.sched(0, {
+					~piecepositionstatictext.string = (
+						"Bit pos. "++(~piece_position.asInteger.asString)++" Midi "++(
+							case
+							{~number_of_instruments == 1}{(~instrument_1_full_midi.at(~piece_position).asString)}
+							{~number_of_instruments == 2}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)}
+							{~number_of_instruments == 3}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)++" "++(~instrument_3_full_midi.at(~piece_position).asString)};
+						)
+					);
+				});
+			};
+		}, {~bit_timer_func1 = nil});
+
+
+		("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
+		("assist_comp_part_"++(~green = ~full_piece_part_array.at(0);)++"_button").asSymbol.envirGet.value = 1;
+
+		if(~ai_assist_compose == 1, {
+
+			~bit_timer_func2 = {
+				if(~green != ~full_piece_part_array.at(~piece_position), {
+					("assist_comp_part_"++(~green)++"_button").asSymbol.envirGet.value = 0;
+					("assist_comp_part_"++(~green = ~full_piece_part_array.at(~piece_position))++"_button").asSymbol.envirGet.value = 1;
+				});
+			};
+		}, {~bit_timer_func2 = nil});
+
+		~bit_timer_func = {
+
+			~bit_timer_func1.value;
+			~bit_timer_func2.value;
+			~timeslider.valueAction = ~piece_position;
+
 
 			// old timer function
 
@@ -115,7 +141,7 @@
 
 				~init_start_func.value;
 
-				~bit_timer_func.value;
+				AppClock.sched(0, {~bit_timer_func.value;});
 
 				/*if(~will_record != 1, {~bit_timer_func.value;});*/
 
@@ -123,13 +149,13 @@
 
 			});
 
-			~size_val.do({
+			inf.do({
 
 				~piece_position = ~piece_position + 1;
 
 				~init_func.value;
 
-				~bit_timer_func.value;
+				AppClock.sched(0, {~bit_timer_func.value;});
 
 				/*if(~will_record != 1, {~bit_timer_func.value;});*/
 

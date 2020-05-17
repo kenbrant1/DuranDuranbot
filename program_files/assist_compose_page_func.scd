@@ -66,16 +66,24 @@
 	~firstviewtext2.string = "Back";
 	~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor],["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Play full piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		var piecegenerated;
-		~piecegenerated = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695652174, ~firstviewboundsWIDTH/36));
+		/*~piecegenerated = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695652174, ~firstviewboundsWIDTH/36));
 		~piecegenerated.background=~backgroundcolor;
 		~piecegenerated.stringColor_(~stringcolor);
 		"Please Wait".postln;
 		~piecegenerated.font = Font(size: ~firstviewboundsWIDTH/55);
-		~piecegenerated.string = "Please Wait";/*
-		if(~piece_created == "true", {~playbutton.close; ~arrow.close;});*/
-		~piece_generator_func.value;
+		~piecegenerated.string = "Please Wait";/**/
+		if(~piece_created == "true", {~playbutton.close; ~arrow.close;});*//*
+		~piece_generator_func.value;*/
+
+		~load_piece_to_main_page_button.valueAction = 0;
+		if(("instrument_"++(1)++"_full").asSymbol.envirGet.at(0).isNumber == true, {
+			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+			~load_assist = 1;
+			~playbutton.valueAction = 1;
+			~load_assist = 0;
+		});
 
 	});
 	~generatepiecebutton.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -91,7 +99,9 @@
 				if(~pause_piece != 1, {
 					~seedscheck = 1;
 					~stopbuttonfunc.value;
-					~assisted_ai_run_piece_func.value;
+					case
+					{(~ai_assist_compose == 0) or: (~load_assist == 1)}{~run_piece_func.value;}
+					{~ai_assist_compose == 1}{~assisted_ai_run_piece_func.value;}
 				}, {/*~timer_routine.resume;*/
 					~amp = 1;
 					Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, ~amp);});});
@@ -100,7 +110,6 @@
 			}, {
 				/*~timer_routine.pause;*/
 				Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
-
 				~duranduranbot_routine.pause;
 				/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.set(\freq, 0);});});
 				*/if(~ai_assist_compose != 1, {"Piece Paused".postln;});
@@ -445,6 +454,7 @@
 			("instrument_"++(s)++"_comp_interval_array").asSymbol.envirPut([]);
 			("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut([]);
 		});
+		~full_piece_part_array = [];
 		~num_assist_parts.do(j = 0; {
 			j=j+1;
 			~number_of_instruments.do(s = 0; {
@@ -456,6 +466,7 @@
 						);
 					);
 				});
+
 				if(("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet != nil, {
 					("instrument_"++(s)++"_comp_interval_array").asSymbol.envirPut(
 						("instrument_"++(s)++"_comp_interval_array").asSymbol.envirGet.add(
@@ -463,6 +474,7 @@
 						);
 					);
 				});
+
 				if(("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet != nil, {
 					("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut(
 						("instrument_"++(s)++"_comp_choice_array").asSymbol.envirGet.add(
@@ -471,19 +483,29 @@
 					);
 				});
 			});
-		});
-		~number_of_instruments.do(s = 0; {
-			s=s+1;
-			("instrument_"++(s)++"_full").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.flatten);
-			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.cpsmidi);
-			("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full_midi").asSymbol.envirGet.round);
 
-			("instrument_"++(s)++"_comp_interval_array").asSymbol.envirPut(("instrument_"++(s)++"_comp_interval_array").asSymbol.envirGet.flatten);
-			("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut(("instrument_"++(s)++"_comp_choice_array").asSymbol.envirGet.flatten);
+			if(("assist_inst_"++(1)++"_array_part_"++(j)).asSymbol.envirGet != nil, {
+				~full_piece_part_array = ~full_piece_part_array.add(Array.fill(("assist_inst_"++(1)++"_array_part_"++(j)).asSymbol.envirGet.size, {j}));
+			});
 		});
-		~create_pseq_arrays_func.value;
-		~full_midi_to_ml_func.value;
-		"full piece loaded to main page".postln;
+
+		if(("instrument_"++(1)++"_full").asSymbol.envirGet.at(0).at(0).isNumber == true, {
+
+			~full_piece_part_array = ~full_piece_part_array.flatten;
+
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				("instrument_"++(s)++"_full").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.flatten);
+				("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full").asSymbol.envirGet.cpsmidi);
+				("instrument_"++(s)++"_full_midi").asSymbol.envirPut(("instrument_"++(s)++"_full_midi").asSymbol.envirGet.round);
+
+				("instrument_"++(s)++"_comp_interval_array").asSymbol.envirPut(("instrument_"++(s)++"_comp_interval_array").asSymbol.envirGet.flatten);
+				("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut(("instrument_"++(s)++"_comp_choice_array").asSymbol.envirGet.flatten);
+			});
+			~create_pseq_arrays_func.value;
+			~full_midi_to_ml_func.value;
+			"full piece loaded to main page".postln;
+		});
 		/*
 		("instrument_"++(1)++"_full").asSymbol.envirGet.size
 		("instrument_"++(1)++"_comp_interval_array").asSymbol.envirGet.size
