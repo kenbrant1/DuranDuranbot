@@ -52,6 +52,7 @@ if(~assist_avg_part_range == nil, {~assist_avg_part_range_default = 2; ~assist_a
 if(~assist_ml_on == nil, {~assist_ml_on = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_ml_on.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~assist_ml_data_on == nil, {~assist_ml_data_on = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_ml_data_on.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~fullscreenon == nil, {~fullscreenon = FileReader.read((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", false, true).flatten.at(0).asString.asFloat;});
+if(~composition_process_setting == nil, {~composition_process_setting = FileReader.read((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", false, true).flatten.at(0).asString.asFloat;});
 
 if(FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true) != nil, {
 	case
@@ -68,6 +69,7 @@ if(FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.
 	~stringcolor = Color.white;
 });
 
+File.readAllString((~ddbot_root)++"/program_files/part_length_func.scd", r).interpret; "part_length_func.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/compose_piece_funcs.scd", r).interpret; "compose_piece_funcs.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/duranduranbot_GUI_func.scd", r).interpret; "duranduranbot_GUI_func.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/main_page_func.scd", r).interpret; "main_page_func.scd".postln;

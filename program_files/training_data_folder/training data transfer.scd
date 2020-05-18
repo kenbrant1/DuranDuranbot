@@ -138,32 +138,50 @@ g.close;
 
 
 
-~array = [];
-9.do(s=(-1); {
+~array = (Array.fill(~bit_choice_array.size, {1/~bit_choice_array.size}).normalizeSum;);
+/*(~bit_choice_array.size+1).do(s=(-1); {
 	s=s+1;
-	9.do(d=(-1); {
+	(~bit_choice_array.size+1).do(d=(-1); {
 		d=d+1;
-		h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/training_data_current_3_inst/time_weights/player_1/"++(s)++"_"++(d)++"_time_weights.scd", r).interpret.normalizeSum;
+		h = File.readAllString((~ddbot_root)++"/program_files/training_data_folder/"++(s)++"_"++(d)++"_time_weights.scd", r).interpret.normalizeSum;
 		/*("interval_diff_revert_"++(~savenum=~savenum+1)).asSymbol.envirPut([(~player_array.wrapAt(r-1))++" "++(inst_case.value)), h]);
 		~interval_diff_revert_1.postln;*/
 		/*h.put(~interval_diff0-1, (h.at(~interval_diff0-1) + (~net_change*~net_change_mult)));
 		h = h.normalizeSum;*/
 		~array = ~array.add(h);
 	});
-});
-g = File((~ddbot_root)++"/program_files/training_data_folder/"++(~ddbot_training_data_location)++"/new/3_inst_player_1_time_weights.scd", "w");
+});*/
+g = File((~ddbot_root)++"/program_files/training_data_folder/new/2_inst_player_2_time_weights.scd", "w");
 g.write("[\n");
-9.do(s=(-1); f = (-1); {
+(~bit_choice_array.size+1).do(s=(-1); f = (-1); {
 	s=s+1;
-	9.do(d=(-1); {
+	(~bit_choice_array.size+1).do(d=(-1); {
 		d=d+1;
 		f=f+1;
-		g.write(("/*"++(s)++"_"++(d)++"*/ "++(~array.at(f))).asString++",\n");
+		g.write(~array.asString++",\n");
 	});
 });
 g.write("]");
 g.close;
 
+
+~array = (Array.fill(~bit_choice_array.size, {1/~bit_choice_array.size}).normalizeSum;);
+g = File((~ddbot_root)++"/program_files/training_data_folder/new/3_inst_player_3_time_weights.scd", "w");
+g.write("[\n");
+(~bit_choice_array.size+1).do(s=(-1); f = (-1); {
+	s=s+1;
+	(~bit_choice_array.size+1).do(d=(-1); {
+		d=d+1;
+		(~bit_choice_array.size+1).do(j=(-1); {
+			j=j+1;
+			f=f+1;
+			g.write(~array.asString++",\n");
+
+		});
+	});
+});
+g.write("]");
+g.close;
 
 
 ~array = [];

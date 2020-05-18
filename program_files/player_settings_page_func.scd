@@ -22,7 +22,37 @@
 	~firstviewtext2.string = "Back";
 	~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~tuningfreqtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~comp_setting_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9, ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21));
+	~comp_setting_menu.items = [
+		"Current - "++(
+			case
+			{FileReader.read((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", false, true).flatten.at(0) == 1.asString}{"Use ML data and writing algorithm for composition"}
+			{FileReader.read((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", false, true).flatten.at(0) == 2.asString}{"Use just ML data for composition"};
+		),
+		"Use ML data and writing algorithm for composition", "Use just ML data for composition"];
+	~comp_setting_menu.background_(~backgroundcolor);
+	~comp_setting_menu.stringColor_(~stringcolor);
+	~comp_setting_menu.value = FileReader.read((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", false, true);
+	~comp_setting_menu.action = { arg menu;
+
+		case
+		{~comp_setting_menu.value == 0}{nil}
+		{~comp_setting_menu.value == 1}{
+			~composition_process_setting = 1;
+			g = File((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", "w");
+			g.write(~composition_process_setting.asString);
+			g.close;
+		}
+		{~comp_setting_menu.value == 2}{
+			~composition_process_setting = 2;
+			g = File((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", "w");
+			g.write(~composition_process_setting.asString);
+			g.close;
+		};
+	};
+	~comp_setting_menu.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~tuningfreqtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/5.5, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~tuningfreqtextfield.string = ~tuning_frequency.asString;
 	~tuningfreqtextfield.background_(~backgroundcolor);
 	~tuningfreqtextfield.stringColor_(~stringcolor);
@@ -40,7 +70,7 @@
 		});
 	};
 
-	~tuningfreqtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/21));
+	~tuningfreqtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/5.5, ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/21));
 	~tuningfreqtextfield2.background=~backgroundcolor;
 	~tuningfreqtextfield2.stringColor=~stringcolor;
 	~tuningfreqtextfield2.string = "Note A4 tuning frquency in hertz. Current - "++(~tuning_frequency)++". Original default is "++(~tuning_frequency_default)++".";
@@ -88,12 +118,26 @@
 		Server.default.freeAll;
 		w.close;
 
-		g = File((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", "w");
 		case
 		{~num_instruments_menu.value == 0}{nil}
-		{~num_instruments_menu.value == 1}{g.write("1".asString); g.close; ~number_of_instruments = 1;}
-		{~num_instruments_menu.value == 2}{g.write("2".asString); g.close; ~number_of_instruments = 2;}
-		{~num_instruments_menu.value == 3}{g.write("3".asString); g.close; ~number_of_instruments = 3;};
+		{~num_instruments_menu.value == 1}{
+			~number_of_instruments = 1;
+			g = File((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", "w");
+			g.write(~number_of_instruments.asString);
+			g.close;
+		}
+		{~num_instruments_menu.value == 2}{
+			~number_of_instruments = 2;
+			g = File((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", "w");
+			g.write(~number_of_instruments.asString);
+			g.close;
+		}
+		{~num_instruments_menu.value == 3}{
+			~number_of_instruments = 3;
+			g = File((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", "w");
+			g.write(~number_of_instruments.asString);
+			g.close;
+		};
 
 		~duranduranbot_GUI_func.value;
 		~main_page_func.value;

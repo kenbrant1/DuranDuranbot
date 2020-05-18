@@ -2,11 +2,10 @@
 
 ~comp_machine_learning = 1; //composition process machine learning is on (default)
 
-
 ~ml_0to12_array = (0..12);
 ~interval_array = (1..12);
 ~comp_process_interval_array = (0..11);
-~bit_choice_array = [1, 2, 4, 8, 16, 32, 64, 128];
+~bit_choice_array = [1, 2, 4, 8, 16, 32, 64];
 s = ~bit_duration;
 ~time_array = [~bit_duration.value]++Array.fill(~bit_choice_array.size - 1, {s = s * 2});
 ~bit_choice_array_num = (1..~bit_choice_array.size);
@@ -21,13 +20,6 @@ s = ~bit_duration;
 /*~ratio_array = (x = 0; Array.fill(12, {1.0594630943593**(x=x+1)}));*/
 ~interval_array = (1..12);
 ~midi_ratio_array = (1..12);
-
-~part_length_func = {
-	o = rrand((~avg_part_length/~bit_duration) - (~avg_part_range/~bit_duration), (~avg_part_length/~bit_duration) + (~avg_part_range/~bit_duration)).round;
-	if(o.isNegative == true, {o = o.neg;});
-	if(o < (1/~bit_duration), {o = (1/~bit_duration);});
-	o.value;
-};
 
 ~clock_diff_func = {
 
@@ -45,7 +37,7 @@ s = ~bit_duration;
 		if(("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet != nil, {
 			("old_instrument_"++(~inst_num)++"_freq_2").asSymbol.envirPut(("old_instrument_"++(~inst_num)++"_freq_1").asSymbol.envirGet);
 		}, {
-			("old_instrument_"++(~inst_num)++"_freq_2").asSymbol.envirPut(("instrument_"++(~inst_array.wrapAt(~inst_num))++"_freq").asSymbol.envirGet);
+			("old_instrument_"++(~inst_num)++"_freq_2").asSymbol.envirPut(("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirGet);
 		});
 	});
 
@@ -141,8 +133,7 @@ s = ~bit_duration;
 		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(3)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(4))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(3)+~time_array.at(4)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(3)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(4)})}
 		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(4)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(5))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(4)+~time_array.at(5)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(4)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(5)})}
 		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(5)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(6))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(5)+~time_array.at(6)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(5)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(6)})}
-		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(6)) and: (("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration <= ~time_array.at(7))}{if((("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration < (~time_array.at(6)+~time_array.at(7)/2)), {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(6)}, {("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(7)})}
-		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(7))}{("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(7)};
+		{(("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice").asSymbol.envirGet*~bit_duration >= ~time_array.at(6))}{("bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place").asSymbol.envirPut(6)};
 	});
 
 	if(~number_of_instruments == 1, {
@@ -155,8 +146,7 @@ s = ~bit_duration;
 			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(3)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(4))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(3)+~time_array.at(4)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(3)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(4)})}
 			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(4)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(5))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(4)+~time_array.at(5)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(4)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(5)})}
 			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(5)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(6))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(5)+~time_array.at(6)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(5)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(6)})}
-			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(6)) and: (("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration <= ~time_array.at(7))}{if((("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration < (~time_array.at(6)+~time_array.at(7)/2)), {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(6)}, {("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(7)})}
-			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(7))}{("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(7)};
+			{(("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_choice_1").asSymbol.envirGet*~bit_duration >= ~time_array.at(6))}{("old_bit_clock_"++(~inst_array.wrapAt(~inst_num-1+e))++"_place_1").asSymbol.envirPut(6)};
 		});
 	});
 
@@ -293,11 +283,6 @@ s = ~bit_duration;
 
 
 				thisThread.randSeed = ~randseed_2;
-
-
-				// choose compoition process
-
-				~composition_process_setting = 1;
 
 				case
 				{~composition_process_setting == 1}{
@@ -610,10 +595,9 @@ s = ~bit_duration;
 
 					thisThread.randSeed = ~randseed_2;
 
-					~part_bit_size = 64;
-					~max_number_of_parts = 200; //max 200 parts. random probability choice decreases linearly from "~max_number_of_parts" value to 1.
+					~max_number_of_parts = 100; //max 100 parts. random probability choice decreases linearly from "~max_number_of_parts" value to 1.
 					~number_of_parts_in_piece = (~max_number_of_parts.linrand - ~max_number_of_parts).neg;
-					~just_ml_piece_size = ~part_bit_size*~number_of_parts_in_piece;
+					~just_ml_piece_size = (~part_length_func.value)*~number_of_parts_in_piece;
 
 					thisThread.randSeed = ~randseed_3;
 

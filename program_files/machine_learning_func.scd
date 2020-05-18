@@ -1,6 +1,6 @@
 // MACHINE LEARNING FUNCTIONS
 
-~time_ml_on = 0; // time machine learning is off currently. weird stuff happens when on (fast timing rolling effect).
+~time_ml_on = 1; // time machine learning is off currently. weird stuff happens when on (fast timing rolling effect).
 
 // - "past" note interval ml goes past "rate_selection_start" point
 
@@ -303,8 +303,7 @@
 						{(("length"++(u)).asSymbol.envirGet*~bit_duration >= ~time_array.at(3)) and: (("length"++(u)).asSymbol.envirGet*~bit_duration <= ~time_array.at(4))}{if((("length"++(u)).asSymbol.envirGet*~bit_duration < (~time_array.at(3)+~time_array.at(4)/2)), {("lengthplace"++(u)).asSymbol.envirPut(3)}, {("lengthplace"++(u)).asSymbol.envirPut(4)})}
 						{(("length"++(u)).asSymbol.envirGet*~bit_duration >= ~time_array.at(4)) and: (("length"++(u)).asSymbol.envirGet*~bit_duration <= ~time_array.at(5))}{if((("length"++(u)).asSymbol.envirGet*~bit_duration < (~time_array.at(4)+~time_array.at(5)/2)), {("lengthplace"++(u)).asSymbol.envirPut(4)}, {("lengthplace"++(u)).asSymbol.envirPut(5)})}
 						{(("length"++(u)).asSymbol.envirGet*~bit_duration >= ~time_array.at(5)) and: (("length"++(u)).asSymbol.envirGet*~bit_duration <= ~time_array.at(6))}{if((("length"++(u)).asSymbol.envirGet*~bit_duration < (~time_array.at(5)+~time_array.at(6)/2)), {("lengthplace"++(u)).asSymbol.envirPut(5)}, {("lengthplace"++(u)).asSymbol.envirPut(6)})}
-						{(("length"++(u)).asSymbol.envirGet*~bit_duration >= ~time_array.at(6)) and: (("length"++(u)).asSymbol.envirGet*~bit_duration <= ~time_array.at(7))}{if((("length"++(u)).asSymbol.envirGet*~bit_duration < (~time_array.at(6)+~time_array.at(7)/2)), {("lengthplace"++(u)).asSymbol.envirPut(6)}, {("lengthplace"++(u)).asSymbol.envirPut(7)})}
-						{(("length"++(u)).asSymbol.envirGet*~bit_duration >= ~time_array.at(7))}{("lengthplace"++(u)).asSymbol.envirPut(7)};
+						{(("length"++(u)).asSymbol.envirGet*~bit_duration >= ~time_array.at(6))}{("lengthplace"++(u)).asSymbol.envirPut(6)};
 
 					});
 
@@ -329,7 +328,7 @@
 						{~number_of_instruments <= 2}{~lengthplace1*(~time_array.size+1)+~lengthplace2}
 						{~number_of_instruments == 3}{~lengthplace1*(~time_array.size+1)*(~time_array.size+1)+(~lengthplace2*(~time_array.size+1))+~lengthplace3};
 					).normalizeSum;
-					h.put(~lengthplace0, (h.at(~lengthplace0) + (~net_change*~net_change_mult)));
+					h.put(~lengthplace0, (h.at(~lengthplace0) + ((~net_change*~net_change_mult)*((~lengthplace0+1)/~bit_choice_array.size))));
 					h = h.normalizeSum;
 					("ml_data_array_"++(~number_of_instruments.asString)++"_insts_"++((~player_array.wrapAt(~inst_num-1)))).asSymbol.envirGet.put(~ml_data_array_num, h);
 
