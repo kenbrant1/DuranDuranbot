@@ -58,6 +58,7 @@
 			});
 		};
 
+		if(~green != nil, {("assist_comp_part_"++(~green)++"_button").asSymbol.envirGet.value = 0;});
 
 		if(~ai_assist_compose == 0, {
 

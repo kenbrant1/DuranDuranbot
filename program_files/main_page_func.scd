@@ -146,6 +146,7 @@
 	if(~piece_created == nil, {~playbutton.close; ~arrow.close;});
 
 	~stop_func = {
+		if(~green != nil, {("assist_comp_part_"++(~green)++"_button").asSymbol.envirGet.value = 0; ~green = nil;});
 		~duranduranbot_routine.pause;
 		~playbutton.valueAction = 0;
 		~playbutton.value = 0;
