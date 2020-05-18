@@ -157,7 +157,7 @@
 
 				~bit_duration.wait;
 
-				if((~piece_position >= (~size_val)) or: (numberofloops >= ~num_loops), {
+				if((~piece_position >= ~size_val) or: (numberofloops >= ~num_loops), {
 					var amp = ~amp;
 					150.do({~number_of_instruments.do({
 
@@ -176,7 +176,10 @@
 					~amp = 1;
 					AppClock.sched(0, {~stop_func.value;});
 					"piece finished".postln;
-					if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {AppClock.sched(0, {~quicknewpiecebutton.valueAction = 0;});});
+					if(~ai_assist_compose != 1, {
+						if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {AppClock.sched(0, {~quicknewpiecebutton.valueAction = 0;});});
+					});
+					~duranduranbot_routine.stop;
 				});
 
 			});

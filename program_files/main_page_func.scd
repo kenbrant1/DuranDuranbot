@@ -95,15 +95,25 @@
 	~play_visible_func_verify*/
 
 	~playbutton_func = {
-		~playbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/4.95, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Play Piece",~stringcolor,~backgroundcolor],["Pause Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~playbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/4.95, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {6.2428571428571}, {7.5})), ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Play Piece",~stringcolor,~backgroundcolor],["Pause Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 			var pause_piece;
 			if(button.value == 1, {
 				if(~pause_piece != 1, {
 					~seedscheck = 1;
 					~stopbuttonfunc.value;
 					case
-					{~ai_assist_compose == 0}{~run_piece_func.value;}
-					{~ai_assist_compose == 1}{~assisted_ai_run_piece_func.value;}
+					{(~ai_assist_compose == 0) or: (~load_assist == 1)}{
+
+						~timeslider.controlSpec = ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size, \lin, 1, 50, "bits");
+						~run_piece_func.value;
+
+					}
+					{~ai_assist_compose == 1}{
+
+						~timeslider.controlSpec = ControlSpec(0, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size, \lin, 1, 50, "bits");
+						~assisted_ai_run_piece_func.value;
+
+					}
 				}, {/*~timer_routine.resume;*/
 					~amp = 1;
 					Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, ~amp);});});
@@ -123,7 +133,7 @@
 		});
 		~playbutton.font = Font(size: ~firstviewboundsWIDTH/48);
 		/*};*/
-		~arrow = StaticText(~firstview, Rect(~firstviewboundsWIDTH/5.7016393442623, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/21));
+		~arrow = StaticText(~firstview, Rect(~firstviewboundsWIDTH/5.7016393442623, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {6.2428571428571}, {7.5})), ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/21));
 		~arrow.background=~backgroundcolor;
 		~arrow.stringColor_(~stringcolor);
 		~arrow.string = "---";
@@ -299,23 +309,28 @@
 
 	if(~piece_position == nil, {~piece_position = 0});
 
-	~timeslider = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.073, ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size, \lin, 1, 50, "bits"), action: {
-		|timeselect|
-		var selection1;
-		~piece_position = timeselect.value/**(~instrument_1_full.size/~piecedur_secs)*/; // works
-		/*selection1 = ~piece_position.roundUp;
-		if(selection1 != ~piece_position, {~piece_position = selection1-1});*/
-		/*if(timeslider.value >= ~rate_time_range, {rangeslider.valueAction = [timeslider.value-~rate_time_range, timeslider.value]}, {rangeslider.valueAction = [0, timeslider.value]});
-		*//*timeselect.value.postln;
-		~piece_position.postln;*/
-		/*if((~piecedur_secs_zero+1) != timeselect.value, {
-		~piecedur_secs_zero = timeselect.value;
-		~fullpiecedur_change = ((~piecedur_secs - ~piecedur_secs_zero)/60);
-		~dd_secs = ((~fullpiecedur_change-(~dd_mins = ~fullpiecedur_change.roundUp-1))*60).roundUp;
+	~timeslider_func = {
+		~timeslider = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {2.073}, {5})), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size, \lin, 1, 50, "bits"), action: {
+			|timeselect|
+			var selection1;
+			~piece_position = timeselect.value/**(~instrument_1_full.size/~piecedur_secs)*/; // works
+			/*selection1 = ~piece_position.roundUp;
+			if(selection1 != ~piece_position, {~piece_position = selection1-1});*/
+			/*if(timeslider.value >= ~rate_time_range, {rangeslider.valueAction = [timeslider.value-~rate_time_range, timeslider.value]}, {rangeslider.valueAction = [0, timeslider.value]});
+			*//*timeselect.value.postln;
+			~piece_position.postln;*/
+			/*if((~piecedur_secs_zero+1) != timeselect.value, {
+			~piecedur_secs_zero = timeselect.value;
+			~fullpiecedur_change = ((~piecedur_secs - ~piecedur_secs_zero)/60);
+			~dd_secs = ((~fullpiecedur_change-(~dd_mins = ~fullpiecedur_change.roundUp-1))*60).roundUp;
+			});
+			*/
 		});
-		*/
-	});
-	~timeslider.setColors(~stringcolor,~stringcolor);
+		~timeslider.setColors(~stringcolor,~stringcolor);
+
+	};
+
+	~timeslider_func.value;
 
 	/*if(~pause_piece != nil, {if(~pause_piece != 1, {~timeslider.valueAction = 0;/*rangeslider.valueAction = [0, if(~piecedur_secs != nil, {~piecedur_secs}, {0});]*/nil});});
 */

@@ -58,22 +58,11 @@
 			});
 		};
 
-		~bit_timer_func = {
-			~rate_selection_end = ~piece_position;
-			~rate_selection_start = ~piece_position-(~rate_time_range/~bit_duration);
-			if(~rate_selection_start.isNegative == true, {~rate_selection_start = 0;});
 
-			AppClock.sched(0, {
-				~piecepositionstatictext.string = (
-					"Bit pos. "++(~piece_position.asInteger.asString)++" Midi "++(
-						case
-						{~number_of_instruments == 1}{(~instrument_1_full_midi.at(~piece_position).asString)}
-						{~number_of_instruments == 2}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)}
-						{~number_of_instruments == 3}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)++" "++(~instrument_3_full_midi.at(~piece_position).asString)};
-					)
-				);
-				~timeslider.valueAction = ~piece_position;
-			});
+		~bit_timer_func = {
+
+			~timeslider.valueAction = ~piece_position;
+
 
 			// old timer function
 
@@ -108,7 +97,7 @@
 
 				~init_start_func.value;
 
-			/*	~bit_timer_func.value;*/
+				AppClock.sched(0, {~bit_timer_func.value;});
 
 				/*if(~will_record != 1, {~bit_timer_func.value;});*/
 
@@ -116,13 +105,13 @@
 
 			});
 
-			~size_val.do({
+			inf.do({
 
 				~piece_position = ~piece_position + 1;
 
 				~init_func.value;
-/*
-				~bit_timer_func.value;*/
+
+				AppClock.sched(0, {~bit_timer_func.value;});
 
 				/*if(~will_record != 1, {~bit_timer_func.value;});*/
 
@@ -149,7 +138,9 @@
 					AppClock.sched(0, {~stop_func.value;});
 					/*if(~will_record == 1, {Server.default.stopRecording;});*/
 					/*if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {AppClock.sched(0, {~quicknewpiecebutton.valueAction = 0;});});
-				*/});
+				*/
+				~duranduranbot_routine.stop;
+				});
 
 			});
 
