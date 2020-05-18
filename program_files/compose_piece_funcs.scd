@@ -719,19 +719,19 @@ s = ~bit_duration;
 								AppClock.sched(3, {~piecegenerated.close});
 							});
 
-							AppClock.sched(0, {
-								~fullpiecedur1 = ((~piecedur_secs = (("instrument_"++(1)++"_full").asSymbol.envirGet.size*~bit_duration).round)/60);
-								~dd_secs = ((~fullpiecedur1-(~dd_mins = ~fullpiecedur1.roundUp-1))*60).roundUp;
-								/*~fullpiecedur = ("piece length - "++(~dd_mins.asString)++":"++(if(~dd_secs<10,{"0"},{""})++~dd_secs.asString)++" mins");
-								*/
-								~fullpiecedur = ("Piece Length - "++(("instrument_"++(1)++"_full").asSymbol.envirGet.size.asString)++" bits ("++(~dd_mins.asInteger.asString)++":"++(if(~dd_secs<10,{"0"},{""})++~dd_secs.asInteger.asString)++" mins)");
-								~piecedurationstatictext.string = ~fullpiecedur;
-								("\npiece duration: \n"++((~dd_mins.asInteger.asString)++":"++(if(~dd_secs<10,{"0"},{""})++~dd_secs.asInteger.asString))++" minutes";).postln;
-								/*rangeslider.set(spec: ControlSpec(0, if(~piecedur_secs != nil, {~piecedur_secs}, {0}), \lin, 1, 50, "secs"), initVal: [0,if(~piecedur_secs != nil, {~piecedur_secs}, {0})]);
-								*/~timeslider.set(spec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size, \lin, 1, 50, "bits"));
-								~rate_selection_start = 0;
-								~rate_selection_end = ("instrument_"++(1)++"_full").asSymbol.envirGet.size;
-							});
+
+							~fullpiecedur1 = ((~piecedur_secs = (("instrument_"++(1)++"_full").asSymbol.envirGet.size*~bit_duration).round)/60);
+							~dd_secs = ((~fullpiecedur1-(~dd_mins = ~fullpiecedur1.roundUp-1))*60).roundUp;
+							/*~fullpiecedur = ("piece length - "++(~dd_mins.asString)++":"++(if(~dd_secs<10,{"0"},{""})++~dd_secs.asString)++" mins");
+							*/
+							~fullpiecedur = ("Piece Length - "++(("instrument_"++(1)++"_full").asSymbol.envirGet.size.asString)++" bits ("++(~dd_mins.asInteger.asString)++":"++(if(~dd_secs<10,{"0"},{""})++~dd_secs.asInteger.asString)++" mins)");
+							~piecedurationstatictext.string = ~fullpiecedur;
+							("\npiece duration: \n"++((~dd_mins.asInteger.asString)++":"++(if(~dd_secs<10,{"0"},{""})++~dd_secs.asInteger.asString))++" minutes";).postln;
+							/*rangeslider.set(spec: ControlSpec(0, if(~piecedur_secs != nil, {~piecedur_secs}, {0}), \lin, 1, 50, "secs"), initVal: [0,if(~piecedur_secs != nil, {~piecedur_secs}, {0})]);
+							*/~timeslider.set(spec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size, \lin, 1, 50, "bits"));
+							~rate_selection_start = 0;
+							~rate_selection_end = ("instrument_"++(1)++"_full").asSymbol.envirGet.size;
+
 
 							if(~quicknewpiecebutton_num == 1, {
 								AppClock.sched(0, {
