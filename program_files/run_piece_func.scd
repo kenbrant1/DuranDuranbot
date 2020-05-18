@@ -175,7 +175,6 @@
 					});
 					~amp = 1;
 					AppClock.sched(0, {~stop_func.value;});
-					1.wait; if(~will_record == 1, {Server.default.stopRecording;});
 					"piece finished".postln;
 					if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {AppClock.sched(0, {~quicknewpiecebutton.valueAction = 0;});});
 				});
