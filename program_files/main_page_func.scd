@@ -102,18 +102,8 @@
 					~seedscheck = 1;
 					~stopbuttonfunc.value;
 					case
-					{(~ai_assist_compose == 0) or: (~load_assist == 1)}{
-
-						~timeslider.controlSpec = ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size, \lin, 1, 50, "bits");
-						~run_piece_func.value;
-
-					}
-					{~ai_assist_compose == 1}{
-
-						~timeslider.controlSpec = ControlSpec(0, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size, \lin, 1, 50, "bits");
-						~assisted_ai_run_piece_func.value;
-
-					}
+					{(~ai_assist_compose == 0) or: (~load_assist == 1)}{~run_piece_func.value;}
+					{~ai_assist_compose == 1}{~assisted_ai_run_piece_func.value;}
 				}, {/*~timer_routine.resume;*/
 					~amp = 1;
 					Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, ~amp);});});
@@ -147,6 +137,7 @@
 
 	~stop_func = {
 		if(~green != nil, {("assist_comp_part_"++(~green)++"_button").asSymbol.envirGet.value = 0; ~green = nil;});
+		/*if(~set_trim_on == 1, {~test_trim_stop_func.value});*/
 		~duranduranbot_routine.pause;
 		~playbutton.valueAction = 0;
 		~playbutton.value = 0;
@@ -311,7 +302,7 @@
 	if(~piece_position == nil, {~piece_position = 0});
 
 	~timeslider_func = {
-		~timeslider = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {2.073}, {5})), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size, \lin, 1, 50, "bits"), action: {
+		~timeslider = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {2.073}, {5})), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits"), action: {
 			|timeselect|
 			var selection1;
 			~piece_position = timeselect.value/**(~instrument_1_full.size/~piecedur_secs)*/; // works

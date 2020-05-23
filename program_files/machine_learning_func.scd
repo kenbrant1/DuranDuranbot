@@ -518,6 +518,8 @@
 	if(~time_ml_on == 1, {~time_machine_learning_func.value;});
 	if(~comp_machine_learning == 1, {~comp_interval_machine_learning_func.value;});
 
+	"machine learning performed".postln;
+
 	if(~ai_assist_compose != 1, {
 		AppClock.sched(0.1, {
 			if(~duranduranbot_routine.isPlaying == false, {~playbutton.valueAction = 1; "pause".postln;});

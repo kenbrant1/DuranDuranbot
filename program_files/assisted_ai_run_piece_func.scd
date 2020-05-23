@@ -2,10 +2,14 @@
 
 ~assisted_ai_run_piece_func = {
 
-	~size_val = (("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1);
+	if(~test_trim != 1, {
+		~size_val = (("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1);
+	}, {
+		~size_val = ~cut_to - 1;
+	});
 
 	~synthdefs_func.value;
-/*
+	/*
 	~low_pass_filter_on = 1;
 	~gsine.value;*/
 
@@ -13,20 +17,20 @@
 
 		/*~init_start_func = {
 
-			Server.default.makeBundle(Server.default.latency, {
+		Server.default.makeBundle(Server.default.latency, {
 
-				~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
-				~synthopen.value;
-			});
+		~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
+		~synthopen.value;
+		});
 		};
 
 		~init_func = {
 
-			Server.default.makeBundle(Server.default.latency, {
+		Server.default.makeBundle(Server.default.latency, {
 
-				~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
-				~synthflow.value;
-			});
+		~number_of_instruments.do(~x = 0; {("f"++(~x=~x+1)).asSymbol.envirPut(("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position));});
+		~synthflow.value;
+		});
 
 		};*/
 
@@ -58,10 +62,48 @@
 			});
 		};
 
+		if(~set_trim_on != 1, {
+
+			~which_timeslider_func = {
+
+				~timeslider.value = ~piece_position;
+			};
+		}, {
+			if(~test_trim != 1, {
+				~which_timeslider_func = {
+
+					~cutslider1.value = ~piece_position;
+				};
+			}, {
+				case
+				{~cutslider_1_position > ~cutslider_2_position}{
+					~first_cut_slider = 2;
+					~which_timeslider_func = {
+
+						~cutslider2.value = ~piece_position;
+					};
+				}
+				{~cutslider_1_position < ~cutslider_2_position}{
+					~first_cut_slider = 1;
+					~which_timeslider_func = {
+
+						~cutslider1.value = ~piece_position;
+					};
+				}
+				{~cutslider_1_position == ~cutslider_2_position}{
+					~first_cut_slider = 1;
+					~which_timeslider_func = {
+
+						~cutslider1.value = ~piece_position;
+					};
+				};
+			});
+
+		});
 
 		~bit_timer_func = {
 
-			~timeslider.valueAction = ~piece_position;
+			~which_timeslider_func.value;
 
 
 			// old timer function
@@ -89,7 +131,7 @@
 
 			/*if(~loop_on == 1, {~piece_position = ~pos_1}, {~piece_position = 0});*/
 
-			~piece_position = 0;
+			if(~test_trim != 1, {~piece_position = 0;}, {~piece_position = ~cut_from - 1; ~test_trim = 0; ~test_trim2 = 1;});
 
 			1.do({
 
@@ -121,25 +163,34 @@
 					/*var amp = ~amp;
 					150.do({~number_of_instruments.do({
 
-						~amp = ~amp - (~amp/40);
-						Server.default.makeBundle(Server.default.latency, {
-							~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
-								\amp, ~amp
-							);});
-						});
-						0.005.wait;});});
+					~amp = ~amp - (~amp/40);
 					Server.default.makeBundle(Server.default.latency, {
-						~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
-							\amp, 0
-						);});
+					~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
+					\amp, ~amp
+					);});
+					});
+					0.005.wait;});});
+					Server.default.makeBundle(Server.default.latency, {
+					~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
+					\amp, 0
+					);});
 					});
 					~amp = 1;
 					1.wait; */
-					AppClock.sched(0, {~stop_func.value;});
+					AppClock.sched(0, {
+						~stop_func.value;
+
+						if(~test_trim2 == 1, {
+							~test_trim2 = 0;
+							case
+							{~first_cut_slider == 2}{~cutslider2.value = ~cut_from_old - 1;}
+							{~first_cut_slider == 1}{~cutslider1.value = ~cut_from_old - 1;};
+						});
+					});
 					/*if(~will_record == 1, {Server.default.stopRecording;});*/
 					/*if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {AppClock.sched(0, {~quicknewpiecebutton.valueAction = 0;});});
-				*/
-				~duranduranbot_routine.stop;
+					*/
+					~duranduranbot_routine.stop;
 				});
 
 			});

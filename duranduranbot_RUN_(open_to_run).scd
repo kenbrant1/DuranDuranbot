@@ -88,6 +88,7 @@ File.readAllString((~ddbot_root)++"/program_files/run_piece_func.scd", r).interp
 File.readAllString((~ddbot_root)++"/program_files/hotkeys.scd", r).interpret; "hotkeys.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/full_midi_to_ml_func.scd", r).interpret; "full_midi_to_ml_func.scd".postln;
 
+if(w != nil, {w.close;});
 
 if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});
 

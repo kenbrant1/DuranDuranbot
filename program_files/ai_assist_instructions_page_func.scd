@@ -11,7 +11,7 @@
     ~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.2857142857143, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21));
     ~firstviewtext1.background=~backgroundcolor;
     ~firstviewtext1.stringColor=~stringcolor;
-    ~firstviewtext1.string = "AI Assist Instructions";
+    ~firstviewtext1.string = "Instructions";
     ~firstviewtext1.align = \topLeft;
     ~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -33,6 +33,8 @@
     ~firstviewtext4 = TextView(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.528571428571, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/1.2));
     ~firstviewtext4.background=~backgroundcolor;
 	~firstviewtext4.string = "(Scroll down for more)
+
+Saved projects found in - are in "++"/DuranDuranbot/program_files/saved_projects".quote++"
 
 Quick youtube tutorials/demonstrations -
 https://www.youtube.com/watch?v=WEjo4IdC0hs
@@ -63,6 +65,10 @@ Duplicate - duplicate part after setting duplicate parts.
 Undo Duplicate - undo duplicate parts. must hit Set Duplicate Parts first in order to use this.
 
 Batch Duplicate... To dup. 1st/last - range of parts to duplicate. Dup. into 1st/last - range of parts to be duplicated into. Click Set Dup. to perform the action... and click Undo to undo it.
+
+Merge - Merge two parts together. Beginning part is the beginning part of the merge, and the end part is the ending part of the merge. Merge into part is the part in which the two prior merged parts will go into.
+
+Trim - Trim a part by using the sliders to determine from which bit to which bit to trim... to keep. Everything outside of the range of bits as determined by the sliders will be discarded. Play Part plays the full part as in is currently... Test Trim tests the trimmed part as determined by the sliders, but does not trim the part yet.... and Trim Trims the part. You can undo a Trim by clicking Undo or Set Original.
 
 Machine learning is ON/OFF - If machine learning during the composition process is on or off. Doing things like duplicating parts/etc. or using the Machine Learn Full Piece button will teach DDbot how to compose if on.
 

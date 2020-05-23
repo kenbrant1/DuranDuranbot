@@ -126,11 +126,7 @@
 	~save_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Save Project",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		"please wait".postln;
-		if(~set_trim_on != 1, {
-			g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++".scd", "w");
-		}, {
-			g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++"_trim.scd", "w");
-		});
+		g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++".scd", "w");
 		g.write("~num_assist_parts = "++(~num_assist_parts.asString)++";");
 		~num_assist_parts.do(j = 0; {
 			j=j+1;
@@ -149,10 +145,10 @@
 			j=j+1;
 			~number_of_instruments.do(s = 0; {
 				s=s+1;
-				g.write("\n~assist_inst_"++(s)++"_comp_interval_array_part_"++(j)++" = [ ");
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(j)).asSymbol.envirGet.size.do(q = (-1); {
+				g.write("\n~assist_inst_"++(s)++"_comp_interval_array_part"++(j)++" = [ ");
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet.size.do(q = (-1); {
 					q=q+1;
-					g.write((("assist_inst_"++(s)++"_comp_interval_array_part_"++(j)).asSymbol.envirGet.at(q).asString)++", ");
+					g.write((("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet.at(q).asString)++", ");
 				});
 				g.write("];");
 
@@ -162,10 +158,10 @@
 			j=j+1;
 			~number_of_instruments.do(s = 0; {
 				s=s+1;
-				g.write("\n~assist_inst_"++(s)++"_comp_choice_array_part_"++(j)++" = [ ");
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(j)).asSymbol.envirGet.size.do(q = (-1); {
+				g.write("\n~assist_inst_"++(s)++"_comp_choice_array_part"++(j)++" = [ ");
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet.size.do(q = (-1); {
 					q=q+1;
-					g.write((("assist_inst_"++(s)++"_comp_choice_array_part_"++(j)).asSymbol.envirGet.at(q).asString)++", ");
+					g.write((("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet.at(q).asString)++", ");
 				});
 				g.write("];");
 
@@ -202,9 +198,9 @@
 				s=s+1;
 				("assist_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirPut(nil);
 
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(j)).asSymbol.envirPut(nil);
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirPut(nil);
 
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(j)).asSymbol.envirPut(nil);
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirPut(nil);
 
 			});
 		});
@@ -338,15 +334,15 @@
 					);
 					("assist_inst_"++(s)++"_array_part_"++(~delete_array.at(j))).asSymbol.envirPut(nil);
 
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~delete_array.at(j))).asSymbol.envirGet;
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array.at(j))).asSymbol.envirGet;
 					);
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~delete_array.at(j))).asSymbol.envirPut(nil);
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array.at(j))).asSymbol.envirPut(nil);
 
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~delete_array.at(j))).asSymbol.envirGet;
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array.at(j))++"_backup").asSymbol.envirPut(
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array.at(j))).asSymbol.envirGet;
 					);
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~delete_array.at(j))).asSymbol.envirPut(nil);
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array.at(j))).asSymbol.envirPut(nil);
 
 				});
 			});
@@ -372,12 +368,12 @@
 							("assist_inst_"++(s)++"_array_part_"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~delete_array_backup.at(j))).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_interval_array_part_"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array_backup.at(j))).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~delete_array_backup.at(j))).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_choice_array_part_"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array_backup.at(j))).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~delete_array_backup.at(j))++"_backup").asSymbol.envirGet;
 						);
 
 					});
@@ -427,18 +423,18 @@
 					);
 				});
 
-				if(("assist_inst_"++(s)++"_comp_interval_array_part_"++(j)).asSymbol.envirGet != nil, {
+				if(("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet != nil, {
 					("instrument_"++(s)++"_comp_interval_array").asSymbol.envirPut(
 						("instrument_"++(s)++"_comp_interval_array").asSymbol.envirGet.add(
-							("assist_inst_"++(s)++"_comp_interval_array_part_"++(j)).asSymbol.envirGet;
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(j)).asSymbol.envirGet;
 						);
 					);
 				});
 
-				if(("assist_inst_"++(s)++"_comp_choice_array_part_"++(j)).asSymbol.envirGet != nil, {
+				if(("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet != nil, {
 					("instrument_"++(s)++"_comp_choice_array").asSymbol.envirPut(
 						("instrument_"++(s)++"_comp_choice_array").asSymbol.envirGet.add(
-							("assist_inst_"++(s)++"_comp_choice_array_part_"++(j)).asSymbol.envirGet;
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(j)).asSymbol.envirGet;
 						);
 					);
 				});
@@ -467,6 +463,13 @@
 			~timeslider.controlSpec = ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits");
 			"full piece loaded to main page".postln;
 		});
+		/*
+		("instrument_"++(1)++"_full").asSymbol.envirGet.size
+		("instrument_"++(1)++"_comp_interval_array").asSymbol.envirGet.size
+		("instrument_"++(1)++"_comp_choice_array").asSymbol.envirGet.size
+
+		("assist_inst_"++(1)++"_comp_interval_array_part"++(5)).asSymbol.envirGet.size;
+		*/
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -520,12 +523,12 @@
 				("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet;
 			);
 
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
 			);
 
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
 			);
 		});
 
@@ -537,6 +540,8 @@
 			~playbutton.valueAction = 1;});
 	});
 	~generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	/*("assist_inst_"++(1)++"_array_part_"++(1)).asSymbol.envirGet.size;*/
 
 	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/7), (x=2; ~button_base.value;), ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -553,24 +558,24 @@
 				("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
 			);
 
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
 			);
 
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_gen_backup2").asSymbol.envirGet;
 			);
 
 		});
@@ -656,18 +661,18 @@
 					("assist_inst_"++(s)++"_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
 				);
 
 				if(~assist_ml_on == 1, {
@@ -678,10 +683,10 @@
 						("assist_inst_"++(s)++"_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
 					);
 					("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
 					);
 					("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_1_part_num)).asSymbol.envirGet;
 					);
 				});
 
@@ -720,24 +725,24 @@
 					("assist_inst_"++(s)++"_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~dup_2_part_num)++"_dup_save_2").asSymbol.envirGet;
 				);
 
 				"undo duplicate performed".postln;
@@ -867,18 +872,18 @@
 							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3+dup_num)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3+dup_num)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+dup_num)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+dup_num)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3+dup_num)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3+dup_num)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3+dup_num)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3+dup_num)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+dup_num)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+dup_num)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3+dup_num)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3+dup_num)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
 						);
 
 						if(~assist_ml_on == 1, {
@@ -892,12 +897,12 @@
 							);
 							("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 								("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirGet.add(
-									("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+									("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
 								)
 							);
 							("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
 								("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirGet.add(
-									("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+									("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
 								)
 							);
 						});
@@ -962,24 +967,24 @@
 							("assist_inst_"++(s)++"_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3_save+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3_save+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_interval_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_interval_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
 						);
 
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3_save+j)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)).asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3_save+j)).asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)).asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirGet;
 						);
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
-							("assist_inst_"++(s)++"_comp_choice_array_part_"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_1").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_comp_choice_array_part"++(~batch_dup_3_save+j)++"batch_dup_save_2").asSymbol.envirGet;
 						);
 
 					});
@@ -1012,7 +1017,8 @@
 		~sdfk = ~mergetextfield_1.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
 		if(~sdfk.value.isNumber == true, {
-			~merge_beg_part = ~sdfk.value.asInteger;
+			~merge_beg_part = ~sdfk.value.asFloat;
+			~merge_beg_part = ~sdfk.value.asFloat;
 			~mergetextfield_1.string = ~merge_beg_part.asString;
 			~merge_beg_part.postln;
 		}, {~mergetextfield_1.string = "number".asString;});
@@ -1033,7 +1039,8 @@
 		~sdfk = ~mergetextfield_2.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
 		if(~sdfk.value.isNumber == true, {
-			~merge_end_part = ~sdfk.value.asInteger;
+			~merge_end_part = ~sdfk.value.asFloat;
+			~merge_end_part = ~sdfk.value.asFloat;
 			~mergetextfield_2.string = ~merge_end_part.asString;
 			~merge_end_part.postln;
 		}, {~mergetextfield_2.string = "number".asString;});
@@ -1054,27 +1061,46 @@
 		~sdfk = ~mergetextfield_3.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
 		if(~sdfk.value.isNumber == true, {
-			~merge_into_part = ~sdfk.value.asInteger;
+			~merge_into_part = ~sdfk.value.asFloat;
+			~merge_into_part = ~sdfk.value.asFloat;
 			~mergetextfield_3.string = ~merge_into_part.asString;
 			~merge_into_part.postln;
 		}, {~mergetextfield_3.string = "number".asString;});
 	};
 
-	~set_merge_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3+(~firstviewboundsWIDTH/6.5)+(~firstviewboundsWIDTH/17), (x=9; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Set Merge",~stringcolor,~backgroundcolor]]).action_({arg button;
-
-		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+	~set_merge_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=9; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Set Merge",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		~number_of_instruments.do(s = 0; {
 			s=s+1;
 
+			("assist_inst_"++(s)++"_array_part_"++(~merge_beg_part)++"_merge_save_1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_array_part_"++(~merge_beg_part)).asSymbol.envirGet;
+			);
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_beg_part)++"_merge_save_1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_beg_part)).asSymbol.envirGet;
+			);
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_beg_part)++"_merge_save_1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_beg_part)).asSymbol.envirGet;
+			);
+
+			("assist_inst_"++(s)++"_array_part_"++(~merge_end_part)++"_merge_save_1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_array_part_"++(~merge_end_part)).asSymbol.envirGet;
+			);
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_end_part)++"_merge_save_1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_end_part)).asSymbol.envirGet;
+			);
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_end_part)++"_merge_save_1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_end_part)).asSymbol.envirGet;
+			);
+
 			("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirPut(
 				("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)).asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_into_part)++"_merge_save_1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_into_part)).asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_into_part)++"_merge_save_1").asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_into_part)).asSymbol.envirGet;
 			);
 
 
@@ -1082,65 +1108,20 @@
 				("assist_inst_"++(s)++"_array_part_"++(~merge_beg_part)).asSymbol.envirGet++
 				("assist_inst_"++(s)++"_array_part_"++(~merge_end_part)).asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_beg_part)).asSymbol.envirGet++
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_end_part)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_into_part)).asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_beg_part)).asSymbol.envirGet++
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~merge_end_part)).asSymbol.envirGet;
 			);
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_beg_part)).asSymbol.envirGet++
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_end_part)).asSymbol.envirGet;
+			("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_into_part)).asSymbol.envirPut(
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_beg_part)).asSymbol.envirGet++
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~merge_end_part)).asSymbol.envirGet;
 			);
 
 		});
-
-		("merge into part"++(~merge_into_part)++" performed").postln;
 	});
 	~set_merge_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_merge_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4+(~firstviewboundsWIDTH/6.5)+(~firstviewboundsWIDTH/17)+( ~firstviewboundsWIDTH/9), (x=9; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
-
-		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-
-		~number_of_instruments.do(s = 0; {
-			s=s+1;
-
-			("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)++"_merge_save_2").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)).asSymbol.envirGet;
-			);
-			("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirGet;
-			);
-			("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)++"_merge_save_2").asSymbol.envirGet;
-			);
-
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)++"_merge_save_2").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)).asSymbol.envirGet;
-			);
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirGet;
-			);
-			("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)++"_merge_save_2").asSymbol.envirGet;
-			);
-
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)++"_merge_save_2").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)).asSymbol.envirGet;
-			);
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)).asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirGet;
-			);
-			("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)++"_merge_save_1").asSymbol.envirPut(
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)++"_merge_save_2").asSymbol.envirGet;
-			);
-
-		});
-
-		("undo merge into part"++(~merge_into_part)++" performed").postln;
-	});
-	~undo_merge_button.font = Font(size: ~firstviewboundsWIDTH/48);
-
-	~set_up_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=11; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Trim OFF",~stringcolor,~backgroundcolor],["Trim ON",~backgroundcolor,Color.green]]).action_({arg button;
+	~set_up_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=10; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Trim OFF",~stringcolor,~backgroundcolor],["Trim ON",~backgroundcolor,Color.green]]).action_({arg button;
 
 		~test_trim = 0;
 		~test_trim2 = 0;
@@ -1154,18 +1135,18 @@
 					("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_trim_original").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_original").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_trim_original").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_original").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
 				);
 			});
 
 			~set_trim_on = 1;
 			if(~trimviewtext3 == nil, {
-				~trimviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=10; ~button_base.value;), ~firstviewboundsWIDTH/1.75, ~firstviewboundsHEIGHT/21));
+				~trimviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=9; ~button_base.value;), ~firstviewboundsWIDTH/1.75, ~firstviewboundsHEIGHT/21));
 				~trimviewtext3.background=~backgroundcolor;
 				~trimviewtext3.stringColor_(~stringcolor);
 				~trimviewtext3.string = "";
@@ -1177,7 +1158,7 @@
 
 	if(~set_trim_on == 1, {~set_up_trim_button.value = 1;});
 
-	~trimviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/9), (x=11; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21));
+	~trimviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/9), (x=10; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21));
 	~trimviewtext1.background=~backgroundcolor;
 	~trimviewtext1.stringColor_(~stringcolor);
 	~trimviewtext1.string = "- recommend keeping off if not in use";
@@ -1193,7 +1174,7 @@
 		{~cutslider_1_position == ~cutslider_2_position}{~cut_from = ~cutslider_1_position + 1; ~cut_to = ~cutslider_1_position + 1;};
 	};
 
-	~cutslider1 = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits"), action: {
+	~cutslider1 = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, (x=11; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits"), action: {
 		|timeselect|
 		var selection1;
 		if(~set_trim_on == 1, {
@@ -1205,7 +1186,7 @@
 	});
 	~cutslider1.setColors(~stringcolor,~stringcolor);
 
-	~cutslider2 = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, (x=13; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits"), action: {
+	~cutslider2 = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits"), action: {
 		|timeselect|
 		var selection1;
 		if(~set_trim_on == 1, {
@@ -1216,7 +1197,23 @@
 	});
 	~cutslider2.setColors(~stringcolor,~stringcolor);
 
-	~trim_play_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=14; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Play part",~stringcolor,~backgroundcolor]]).action_({arg button;
+	/*~test_trim_stop_func = {
+
+	~number_of_instruments.do(s = 0; {
+	s=s+1;
+	("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirPut(
+	("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirGet;
+	);
+	("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(
+	("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirGet;
+	);
+	("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(
+	("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirGet;
+	);
+	});
+	};*/
+
+	~trim_play_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=13; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Play part",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_trim_on == 1, {
 			if(("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size != nil, {
@@ -1227,7 +1224,7 @@
 	});
 	~trim_play_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~test_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/9), (x=14; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Test Trim",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~test_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/9), (x=13; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Test Trim",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_trim_on == 1, {
 			if(("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size != nil, {
@@ -1241,7 +1238,7 @@
 	});
 	~test_trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~trim_stop_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/9*5), (x=14; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Stop",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~trim_stop_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/9*5), (x=13; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Stop",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_trim_on == 1, {
 			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
@@ -1249,19 +1246,17 @@
 	});
 	~trim_stop_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3+(~firstviewboundsWIDTH/9*2), (x=14; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Trim",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3+(~firstviewboundsWIDTH/9*2), (x=13; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Trim",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_trim_on == 1, {
 			~save_assist_project_button.valueAction = 0;
 			if(~trimviewtext2 != nil, {~trimviewtext2.close; ~trimviewtext2 = nil;});
-			~trimviewtext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*3+(~firstviewboundsWIDTH/9*2) +(~firstviewboundsWIDTH/14), (x=14; ~button_base.value;), ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21));
+			~trimviewtext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*3+(~firstviewboundsWIDTH/9*2) +(~firstviewboundsWIDTH/14), (x=13; ~button_base.value;), ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21));
 			~trimviewtext2.background=~backgroundcolor;
 			~trimviewtext2.stringColor_(~stringcolor);
 			~trimviewtext2.string = "- old proj. saved";
 			~trimviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
 			AppClock.sched(3, {~trimviewtext2.close; ~trimviewtext2 = nil;});
-
-			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 
 			~number_of_instruments.do(s = 0; {
 				s=s+1;
@@ -1270,12 +1265,12 @@
 					("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
 				);
 
 
@@ -1288,32 +1283,27 @@
 
 				(~cut_to - ~cut_from + 1).do(t = ~cut_from - 2; ~new_array = []; {
 					~new_array = ~new_array.add(
-						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(t=t+1);
+						("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet.at(t=t+1);
 					);
 				});
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirPut(~new_array);
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(~new_array);
 
 				(~cut_to - ~cut_from + 1).do(t = ~cut_from - 2; ~new_array = []; {
 					~new_array = ~new_array.add(
-						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(t=t+1);
+						("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet.at(t=t+1);
 					);
 				});
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirPut(~new_array);
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(~new_array);
 
 			});
 
-
-			"trim performed".postln;
 		});
-
 	});
 	~trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~undo_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=15; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=14; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_trim_on == 1, {
-
-			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 
 			~number_of_instruments.do(s = 0; {
 				s=s+1;
@@ -1328,38 +1318,35 @@
 					("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_trim_save_2").asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_trim_save_2").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_save_2").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_trim_save_2").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_save_2").asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_trim_save_2").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_save_2").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_trim_save_2").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_save_2").asSymbol.envirGet;
 				);
 
 			});
 
-			"undo trim performed".postln;
 		});
 	});
 	~undo_trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~set_back_original_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/15), (x=15; ~button_base.value;), ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Set back to original",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~set_back_original_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/15), (x=14; ~button_base.value;), ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Set back to original",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_trim_on == 1, {
-
-			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 
 			~number_of_instruments.do(s = 0; {
 				s=s+1;
@@ -1371,22 +1358,20 @@
 					("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_trim_original").asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)++"_trim_original").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part"++(~assist_part_number)++"_trim_original").asSymbol.envirGet;
 				);
 
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_save_1").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirGet;
 				);
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirPut(
-					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)++"_trim_original").asSymbol.envirGet;
+				("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)).asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part"++(~assist_part_number)++"_trim_original").asSymbol.envirGet;
 				);
 			});
-
-			"original before trim performed".postln;
 		});
 	});
 	~set_back_original_trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
