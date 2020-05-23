@@ -243,7 +243,16 @@
 				);
 
 				("comp_int_2_inst_"++(n)++"part_"++((~assist_part_number))).asSymbol.envirPut(
-					("comp_int_2_inst_"++(n)++"part_"++(~last_part_num)).asSymbol.envirGet;
+					if(("comp_int_2_inst_"++(n)++"part_"++(~last_part_num)).asSymbol.envirGet != nil, {
+						("comp_int_2_inst_"++(n)++"part_"++(~last_part_num)).asSymbol.envirGet;
+					}, {
+						("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.at(
+						(("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.size-1).round;
+					);
+					});/*{("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.at(
+						(("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.size-1).round;
+					);
+					}*/
 				);
 			});
 		}, {
@@ -298,7 +307,7 @@
 
 						~comp_choice = ~blend_choice_array.wchoose(
 							~ml_data_array.at(
-								("comp_int_1_inst_"++(n)).asSymbol.envirGet*(~blend_choice_array.size-1)+("comp_int_2_inst_"++(n)++"part_"++((~assist_part_number))).asSymbol.envirGet;
+								("comp_int_1_inst_"++(n)).asSymbol.envirGet*(~blend_choice_array.size-1)+("comp_int_2_inst_"++(n)++"part_"++((~assist_part_number))).asSymbol.envirGet.round;
 
 							).normalizeSum;
 
@@ -322,7 +331,7 @@
 
 					("instrument_"++(n)++"_array_blended").asSymbol.envirPut(("instrument_"++(n)++"_array_blended").asSymbol.envirGet.add(("comp_result_"++(n)).asSymbol.envirGet;));
 
-					("assist_inst_"++(n)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet));
+					("assist_inst_"++(n)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet.add(("comp_int_1_inst_"++(n)).asSymbol.envirGet.round));
 
 					("assist_inst_"++(n)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirPut(("assist_inst_"++(n)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet.add(~comp_choice.value));
 

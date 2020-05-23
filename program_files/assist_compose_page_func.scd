@@ -131,7 +131,7 @@
 		}, {
 			g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++"_trim.scd", "w");
 		});
-		g.write("~num_assist_parts = "++(~num_assist_parts.asString)++";");
+		g.write("~num_assist_parts = "++(~num_assist_parts.asString)++";\n~line_multiple1 = "++(~line_multiple1.asString)++";\n~line_multiple2 = "++(~line_multiple2.asString)++";");
 		~num_assist_parts.do(j = 0; {
 			j=j+1;
 			~number_of_instruments.do(s = 0; {
@@ -183,6 +183,15 @@
 		FileDialog.new(
 			{arg path;
 				File.readAllString(path, r).interpret.value;
+				~num_assist_parts.do(j = 0; {
+					j=j+1;
+					~number_of_instruments.do(s = 0; {
+						s=s+1;
+						("assist_inst_"++(s)++"_array_part_"++(j)++"_midi").asSymbol.envirPut(
+							("assist_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirGet.cpsmidi;
+						);
+					});
+				});
 				w.close;
 				~duranduranbot_GUI_func.value;
 				"project loaded".postln;
