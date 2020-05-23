@@ -1222,7 +1222,7 @@
 		if(~set_trim_on == 1, {
 			~cutslider_2_position = timeselect.value;
 			~cut_case_func.value;
-			~trimviewtext3.string = "Cut from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";
+			~trimviewtext3.string = "Keep from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";
 		});
 	});
 	~cutslider2.setColors(~stringcolor,~stringcolor);
