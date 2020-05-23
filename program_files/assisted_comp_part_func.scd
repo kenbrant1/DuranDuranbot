@@ -9,7 +9,7 @@
 
 	});
 	~last_part_num = c-1;
-	if(e != nil, {
+	if(e.flatten.at(0).isNumber == true, {
 		~number_of_instruments.do(~inst_num = 0; {
 
 			~inst_num = ~inst_num + 1;
@@ -22,7 +22,7 @@
 				);
 			);
 
-			("instrument_"++(~inst_array.wrapAt(~inst_num-1))++"_freq").asSymbol.envirPut(
+			("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(
 				("assist_inst_"++(~inst_num)++"_last_note").asSymbol.envirGet;
 			);
 
@@ -129,7 +129,7 @@
 		c = c + 1;
 		e = a.value;
 	});
-	if(e != nil, {
+	if(e.flatten.at(0).isNumber == true, {
 		~number_of_instruments.do(~inst_num = 0; {
 			~inst_num = ~inst_num + 1;
 			("assist_inst_"++(~inst_num)++"_first_note").asSymbol.envirPut(

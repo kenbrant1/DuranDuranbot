@@ -85,7 +85,7 @@
 		~piece_generator_func.value;*/
 
 		~load_piece_to_main_page_button.valueAction = 0;
-		if(("instrument_"++(1)++"_full").asSymbol.envirGet.at(0).isNumber == true, {
+		if(("instrument_"++(1)++"_full").asSymbol.envirGet.flatten.at(0).isNumber == true, {
 			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 			~load_assist = 1;
 			~playbutton.valueAction = 1;
@@ -284,10 +284,12 @@
 					});
 				});
 				if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-				if(("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet != nil, {
+				if(("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.flatten.at(0).isNumber == true, {
 
 					~assist_slider_lenth_func.value;
-					AppClock.sched(0.25, {~playbutton.valueAction = 1;});});
+					AppClock.sched(0.25, {~playbutton.valueAction = 1;});
+
+				});
 			});
 		);
 		("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -458,7 +460,7 @@
 			});
 		});
 
-		if(("instrument_"++(1)++"_full").asSymbol.envirGet.at(0).at(0).isNumber == true, {
+		if(("instrument_"++(1)++"_full").asSymbol.envirGet.flatten.at(0).isNumber == true, {
 
 			~full_piece_part_array = ~full_piece_part_array.flatten;
 
@@ -684,7 +686,7 @@
 					// machine learning training on duplicate
 
 					("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-						("assist_inst_"++(s)++"_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_array_part_"++(~dup_1_part_num)++"_midi").asSymbol.envirGet;
 					);
 					("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
@@ -896,7 +898,7 @@
 
 							("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
 								("instrument_"++(s)++"_full_midi_ml").asSymbol.envirGet.add(
-									("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet;
+									("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+dup_num)++"_midi").asSymbol.envirGet;
 								)
 							);
 							("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
