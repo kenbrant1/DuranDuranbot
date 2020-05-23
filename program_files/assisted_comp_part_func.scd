@@ -3,7 +3,7 @@
 	c = ~assist_part_number;
 	a = {("assist_inst_"++(1)++"_array_part_"++(c-1)++"_midi").asSymbol.envirGet;};
 	e = a.value;
-	while({((e == nil) and: (c > 2))}, {
+	while({(((e == nil) or: (e == [])) and: (c > 2))}, {
 		c = c - 1;
 		e = a.value;
 
@@ -125,7 +125,7 @@
 	c = ~assist_part_number;
 	a = {("assist_inst_"++(1)++"_array_part_"++(c+1)++"_midi").asSymbol.envirGet;};
 	e = a.value;
-	while({((e == nil) and: (c < ~num_assist_parts))}, {
+	while({(((e == nil) or: (e == [])) and: (c < ~num_assist_parts))}, {
 		c = c + 1;
 		e = a.value;
 	});
