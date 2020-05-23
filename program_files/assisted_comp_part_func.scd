@@ -9,7 +9,7 @@
 
 	});
 	~last_part_num = c-1;
-	if(e.flatten.at(0).isNumber == true, {
+	if(((e != nil) and: (e != [])), {
 		~number_of_instruments.do(~inst_num = 0; {
 
 			~inst_num = ~inst_num + 1;
@@ -129,7 +129,7 @@
 		c = c + 1;
 		e = a.value;
 	});
-	if(e.flatten.at(0).isNumber == true, {
+	if(((e != nil) and: (e != [])), {
 		~number_of_instruments.do(~inst_num = 0; {
 			~inst_num = ~inst_num + 1;
 			("assist_inst_"++(~inst_num)++"_first_note").asSymbol.envirPut(
@@ -287,7 +287,7 @@
 						);
 
 						("comp_int_1_inst_"++(n)).asSymbol.envirPut(
-							("note_1_inst_"++(n)++"_part_"++(~assist_part_number)).asSymbol.envirGet - ("note_2_inst_"++(n)++"_part_"++(~assist_part_number)).asSymbol.envirGet;
+							(("note_1_inst_"++(n)++"_part_"++(~assist_part_number)).asSymbol.envirGet - ("note_2_inst_"++(n)++"_part_"++(~assist_part_number)).asSymbol.envirGet).round;
 
 						);
 
@@ -298,7 +298,7 @@
 							)
 						});
 
-						while({("comp_int_1_inst_"++(n)).asSymbol.envirGet >= 12}, {
+						while({("comp_int_1_inst_"++(n)).asSymbol.envirGet > 11}, {
 							("comp_int_1_inst_"++(n)).asSymbol.envirPut(
 								("comp_int_1_inst_"++(n)).asSymbol.envirGet - 12
 

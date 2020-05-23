@@ -284,7 +284,7 @@
 					});
 				});
 				if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-				if(("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.flatten.at(0).isNumber == true, {
+				if(((("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet != nil) and: (("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet != [])), {
 
 					~assist_slider_lenth_func.value;
 					AppClock.sched(0.25, {~playbutton.valueAction = 1;});
