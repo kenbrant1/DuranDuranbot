@@ -1,45 +1,33 @@
-~last_notes_func = {
+~find_notes_func = {
 
-	c = ~assist_part_number;
-	a = {("assist_inst_"++(1)++"_array_part_"++(c-1)++"_midi").asSymbol.envirGet;};
-	e = a.value;
-	while({(((e == nil) or: (e == [])) and: (c > 2))}, {
-		c = c - 1;
-		e = a.value;
-
-	});
-	~last_part_num = c-1;
 	if(((e != nil) and: (e != [])), {
+
 		~number_of_instruments.do(~inst_num = 0; {
 
 			~inst_num = ~inst_num + 1;
 
 			// find old notes of instrument
 
-			("assist_inst_"++(~inst_num)++"_last_note").asSymbol.envirPut(
-				("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at(
-					("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.size - 1;
+			("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(
+				~find_notes_array.value.at(
+					~find_notes_array.value.size - 1;
 				);
 			);
 
-			("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(
-				("assist_inst_"++(~inst_num)++"_last_note").asSymbol.envirGet;
-			);
-
 			u = 0;
-			q = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.size;
+			q = ~find_notes_array.value.size;
 			(case
 				{~number_of_instruments == 1}{2}
 				{~number_of_instruments == 2}{1}
 				{~number_of_instruments == 3}{1};).do({
 				//find last notes
-				c = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at((q-1));
-				b = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at((q-2));
+				c = ~find_notes_array.value.at((q-1));
+				b = ~find_notes_array.value.at((q-2));
 				if(((b != 0) and: (b != nil) and: (c != 0) and: (c != nil)), {
 					while({c == b}, {
 						q=q-1;
-						c = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at((q-1));
-						b = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at((q-2));
+						c = ~find_notes_array.value.at((q-1));
+						b = ~find_notes_array.value.at((q-2));
 					});
 					if(((b != 0) and: (b != nil)), {
 						q=q-1;
@@ -57,42 +45,44 @@
 			~inst_num = ~inst_num + 1;
 
 			u = 0;
-			q = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.size;
+			q = ~find_notes_array.value.size;
 			(case
 				{~number_of_instruments == 1}{2}
 				{~number_of_instruments == 2}{1}
 				{~number_of_instruments == 3}{1};).do({
 
 				k = 1;
-				c = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-				b = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+				c = ~find_notes_array.value.at(~rate_selection_start+(q-1));
+				b = ~find_notes_array.value.at(~rate_selection_start+(q-2));
 				if(((b != 0) and: (b != nil) and: (c != 0) and: (c != nil)), {
 					while({c == b}, {
 						q=q-1;
-						c = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at(~rate_selection_start+(q-1));
-						b = ("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet.at(~rate_selection_start+(q-2));
+						c = ~find_notes_array.value.at(~rate_selection_start+(q-1));
+						b = ~find_notes_array.value.at(~rate_selection_start+(q-2));
 						k = k + 1;
 					});
 					("length"++(u=u+1)).asSymbol.envirPut(k);
+					q=q-1;
 				}, {
 					("length"++(u=u+1)).asSymbol.envirPut((("length"++(u-1)).asSymbol.envirGet));
 				});
 
-				("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_place").asSymbol.envirPut(
+				("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_choice").asSymbol.envirPut(
 					("length"++(1)).asSymbol.envirGet;
 				);
 				if(("length"++(2)).asSymbol.envirGet != nil, {
-					("old_bit_clock_"++(~inst_num)++"_place_1").asSymbol.envirPut(
+					("old_bit_clock_"++(~inst_num)++"_choice_1").asSymbol.envirPut(
 						("length"++(2)).asSymbol.envirGet;
 					);
 				});
 			});
 
 		});
+
 	}, {
 		~number_of_instruments.do(~inst_num = 0; {
 			~inst_num = ~inst_num + 1;
-			("assist_inst_"++(~inst_num)++"_last_note").asSymbol.envirPut(rrand(~midi_low_limit, ~midi_high_limit));
+			("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(rrand(~midi_low_limit, ~midi_high_limit));
 		});
 
 		~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut((-1));});
@@ -118,6 +108,23 @@
 		~number_of_instruments.do(s = 0; {("old_instrument_"++(s=s+1)++"_freq_1").asSymbol.envirPut(("instrument_"++(s)++"_array").asSymbol.envirGet.at(0).asInteger + 12)});
 
 	});
+
+};
+
+~last_notes_func = {
+
+	c = ~assist_part_number;
+	a = {("assist_inst_"++(1)++"_array_part_"++(c-1)++"_midi").asSymbol.envirGet;};
+	e = a.value;
+	while({(((e == nil) or: (e == [])) and: (c > 2))}, {
+		c = c - 1;
+		e = a.value;
+
+	});
+	~last_part_num = c-1;
+	~find_notes_array = {("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet;};
+	~find_notes_func.value;
+
 };
 
 ~next_notes_func = {
@@ -129,19 +136,9 @@
 		c = c + 1;
 		e = a.value;
 	});
-	if(((e != nil) and: (e != [])), {
-		~number_of_instruments.do(~inst_num = 0; {
-			~inst_num = ~inst_num + 1;
-			("assist_inst_"++(~inst_num)++"_first_note").asSymbol.envirPut(
-				("assist_inst_"++(~inst_num)++"_array_part_"++(c+1)++"_midi").asSymbol.envirGet.at(0);
-			);
-		});
-	}, {
-		~number_of_instruments.do(~inst_num = 0; {
-			~inst_num = ~inst_num + 1;
-			("assist_inst_"++(~inst_num)++"_first_note").asSymbol.envirPut(rrand(~midi_low_limit, ~midi_high_limit));
-		});
-	});
+	~next_part_num = c+1;
+	~find_notes_array = {("assist_inst_"++(~inst_num)++"_array_part_"++(~next_part_num)++"_midi").asSymbol.envirGet.reverse;};
+	~find_notes_func.value;
 };
 
 ~assisted_comp_part_func = {
@@ -173,24 +170,11 @@
 	}
 	{~composition_process_setting == 1}{
 
-		thisThread.randSeed = ~randseed_1;
-
 		// find last notes of last sequence
 
 		~last_notes_func.value;
 
-		// find first notes of next sequence
-
-		~next_notes_func.value;
-
-		// "put" last notes into ~instrument_n_freq's... and generate sequence
-
-		~number_of_instruments.do(~inst_num = 0; {
-			~inst_num = ~inst_num + 1;
-			("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(("assist_inst_"++(~inst_num)++"_last_note").asSymbol.envirGet;);
-		});
-
-		thisThread.randSeed = ~randseed_2;
+		thisThread.randSeed = ~randseed_1;
 
 		~number_of_instruments.do(n = 0; {
 			n=n+1;
@@ -202,10 +186,7 @@
 
 		// same with first notes
 
-		~number_of_instruments.do(~inst_num = 0; {
-			~inst_num = ~inst_num + 1;
-			("instrument_"++(~inst_num)++"_freq").asSymbol.envirPut(("assist_inst_"++(~inst_num)++"_first_note").asSymbol.envirGet;);
-		});
+		~next_notes_func.value;
 
 		~number_of_instruments.do(n = 0; {
 			n=n+1;
@@ -247,10 +228,10 @@
 						("comp_int_2_inst_"++(n)++"part_"++(~last_part_num)).asSymbol.envirGet;
 					}, {
 						("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.at(
-						(("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.size-1).round;
-					);
+							(("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.size-1).round;
+						);
 					});/*{("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.at(
-						(("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.size-1).round;
+					(("assist_inst_"++(n)++"_comp_interval_array_part_"++(~last_part_num)).asSymbol.envirGet.size-1).round;
 					);
 					}*/
 				);

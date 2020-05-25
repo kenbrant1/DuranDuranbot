@@ -32,4 +32,4 @@ add 3rd vector to machine learning for 1 and 2 instruemnts
 - allow for creation of multiple training data sets
 
 
-replace _comp_interval_array_part
+make sure that "connecting" parts works. a part gets data from previous part.
