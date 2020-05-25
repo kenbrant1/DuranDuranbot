@@ -196,6 +196,8 @@ s = ~bit_duration;
 	});
 
 	("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirPut(~new_time);
+
+	("bit_clock_"++(~inst_num)).asSymbol.envirPut(0);
 };
 
 ~inst_clock_func = {
@@ -205,8 +207,7 @@ s = ~bit_duration;
 		~inst_num = ~inst_num + 1;
 		("instrument_"++(~inst_num)++"_array").asSymbol.envirPut(
 			("instrument_"++(~inst_num)++"_array").asSymbol.envirGet.add(
-				if(("bit_clock_"++(~inst_num)).asSymbol.envirGet == ("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirGet, {
-					("bit_clock_"++(~inst_num)).asSymbol.envirPut((-1));
+				if(("bit_clock_"++(~inst_num)).asSymbol.envirGet >= ("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirGet, {
 					("instrument_"++(~inst_num)++"_if_zero").asSymbol.envirPut("false");
 					~note_generator_func.value; //find new interval for current instrument
 					~time_generator_func.value; //find new bit duration for current instrument
@@ -401,7 +402,7 @@ s = ~bit_duration;
 
 						thisThread.randSeed = ~randseed_3;
 
-						~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut((-1));});
+						~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut(0);});
 						~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)++"_choice").asSymbol.envirPut(~bit_choice_array.choose)});
 						~number_of_instruments.do(n = 0; {("old_bit_clock_"++(n=n+1)++"_choice_1").asSymbol.envirPut(("bit_clock_"++(n)++"_choice").asSymbol.envirGet)});
 						~number_of_instruments.do(x = 0; {("instrument_"++(x=x+1)++"_if_zero").asSymbol.envirPut("false");});
