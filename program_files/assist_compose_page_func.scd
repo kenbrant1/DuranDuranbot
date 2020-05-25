@@ -544,8 +544,12 @@
 
 		AppClock.sched(0.25, {
 
+			~gen_new = 1;
+			~gen_assist_part_number = ~assist_part_number;
 			~assist_slider_lenth_func.value;
-			~playbutton.valueAction = 1;});
+			~playbutton.valueAction = 1;
+
+		});
 	});
 	~generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -1109,7 +1113,7 @@
 			~number_of_instruments.do(s = 0; {
 				s=s+1;
 				("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)).asSymbol.envirGet;
+					("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)++"_midi").asSymbol.envirGet;
 				);
 				("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)).asSymbol.envirGet;
@@ -1340,7 +1344,7 @@
 				~number_of_instruments.do(s = 0; {
 					s=s+1;
 					("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-						("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+						("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet;
 					);
 					("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;

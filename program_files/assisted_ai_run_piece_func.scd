@@ -2,6 +2,8 @@
 
 ~assisted_ai_run_piece_func = {
 
+	if(~gen_new == 1, {~gen_new = 0; ~gen_new1 = 1;});
+
 	if(~test_trim != 1, {
 		~size_val = (("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1);
 	}, {
@@ -179,6 +181,49 @@
 					1.wait; */
 					AppClock.sched(0, {
 						~stop_func.value;
+
+						if(~gen_new1 == 1, {
+							~gen_new1 = 0;
+
+							if(("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.isPlaying == true, {
+								("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.stop;
+							});
+
+							("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirPut(
+
+								Routine({
+
+									1.do({
+
+										30.wait;
+
+										if(~assist_ml_on == 1, {
+
+											~number_of_instruments.do(s = 0; {
+												s=s+1;
+												("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
+													("assist_inst_"++(s)++"_array_part_"++(~gen_assist_part_number)++"_midi").asSymbol.envirGet;
+												);
+												("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
+													("assist_inst_"++(s)++"_comp_interval_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
+												);
+												("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
+													("assist_inst_"++(s)++"_comp_choice_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
+												);
+											});
+
+											~rate_selection_start = 0;
+											~rate_selection_end = ("instrument_"++(1)++"_full_midi_ml").asSymbol.envirGet.size - 1;
+											~dup_ml_on = 1;
+											~machine_learning_func.value;
+											~dup_ml_on = 0;
+										});
+									});
+								});
+							);
+
+							("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.play;
+						});
 
 						if(~test_trim2 == 1, {
 							~test_trim2 = 0;
