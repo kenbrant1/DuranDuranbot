@@ -2,7 +2,7 @@
 
 ~assisted_ai_run_piece_func = {
 
-	if(~gen_new == 1, {~gen_new = 0; ~gen_new1 = 1;});
+	if(~gen_new == 1, {~gen_new = 0; ~gen_new1 = 1;}, {~gen_new = 0; ~gen_new1 = 0;});
 
 	if(~test_trim != 1, {
 		~size_val = (("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size-1);
