@@ -1104,6 +1104,28 @@
 
 		});
 
+		if(~assist_ml_on == 1, {
+
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)).asSymbol.envirGet;
+				);
+				("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)).asSymbol.envirGet;
+				);
+				("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
+					("assist_inst_"++(s)++"_comp_choice_array_part_"++(~merge_into_part)).asSymbol.envirGet;
+				);
+			});
+
+			~rate_selection_start = 0;
+			~rate_selection_end = ("instrument_"++(1)++"_full_midi_ml").asSymbol.envirGet.size - 1;
+			~dup_ml_on = 1;
+			~machine_learning_func.value;
+			~dup_ml_on = 0;
+		});
+
 		("merge into part"++(~merge_into_part)++" performed").postln;
 	});
 	~set_merge_button.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -1313,6 +1335,27 @@
 
 			});
 
+			if(~assist_ml_on == 1, {
+
+				~number_of_instruments.do(s = 0; {
+					s=s+1;
+					("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
+						("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+					);
+					("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
+						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+					);
+					("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
+						("assist_inst_"++(s)++"_comp_choice_array_part_"++(~assist_part_number)).asSymbol.envirGet;
+					);
+				});
+
+				~rate_selection_start = 0;
+				~rate_selection_end = ("instrument_"++(1)++"_full_midi_ml").asSymbol.envirGet.size - 1;
+				~dup_ml_on = 1;
+				~machine_learning_func.value;
+				~dup_ml_on = 0;
+			});
 
 			"trim performed".postln;
 		});
