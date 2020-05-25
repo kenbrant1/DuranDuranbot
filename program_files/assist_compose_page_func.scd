@@ -636,6 +636,7 @@
 
 			~gen_new = 1;
 			~gen_assist_part_number = ~assist_part_number;
+			~assist_slider_lenth_func.value;
 			~playbutton.valueAction = 1;
 
 		});
