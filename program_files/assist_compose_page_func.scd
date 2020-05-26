@@ -541,7 +541,7 @@
 							~number_of_instruments.do(s = 0; {
 								s=s+1;
 								("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-									("assist_inst_"++(s)++"_array_part_"++(~gen_assist_part_number)++"_midi").asSymbol.envirGet;
+									("assist_inst_"++(s)++"_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet.cpsmidi;
 								);
 								("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 									("assist_inst_"++(s)++"_comp_interval_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
@@ -740,7 +740,7 @@
 					// machine learning training on duplicate
 
 					("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-						("assist_inst_"++(s)++"_array_part_"++(~dup_1_part_num)++"_midi").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_array_part_"++(~dup_1_part_num)).asSymbol.envirGet.cpsmidi;
 					);
 					("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~dup_1_part_num)).asSymbol.envirGet;
@@ -952,7 +952,7 @@
 
 							("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
 								("instrument_"++(s)++"_full_midi_ml").asSymbol.envirGet.add(
-									("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+dup_num)++"_midi").asSymbol.envirGet;
+									("assist_inst_"++(s)++"_array_part_"++(~batch_dup_1+dup_num)).asSymbol.envirGet.cpsmidi;
 								)
 							);
 							("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
@@ -1163,7 +1163,7 @@
 			~number_of_instruments.do(s = 0; {
 				s=s+1;
 				("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-					("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)++"_midi").asSymbol.envirGet;
+					("assist_inst_"++(s)++"_array_part_"++(~merge_into_part)).asSymbol.envirGet.cpsmidi;
 				);
 				("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 					("assist_inst_"++(s)++"_comp_interval_array_part_"++(~merge_into_part)).asSymbol.envirGet;
@@ -1394,7 +1394,7 @@
 				~number_of_instruments.do(s = 0; {
 					s=s+1;
 					("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-						("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)++"_midi").asSymbol.envirGet;
+						("assist_inst_"++(s)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.cpsmidi;
 					);
 					("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 						("assist_inst_"++(s)++"_comp_interval_array_part_"++(~assist_part_number)).asSymbol.envirGet;

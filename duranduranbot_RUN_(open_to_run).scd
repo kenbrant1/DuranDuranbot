@@ -54,6 +54,8 @@ if(~assist_ml_data_on == nil, {~assist_ml_data_on = FileReader.read((~ddbot_root
 if(~fullscreenon == nil, {~fullscreenon = FileReader.read((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~composition_process_setting == nil, {~composition_process_setting = FileReader.read((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", false, true).flatten.at(0).asString.asFloat;});
 
+/*Platform.userExtensionDir;*/
+
 if(FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true) != nil, {
 	case
 	{FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true).flatten.at(0) == 0.asString}{
