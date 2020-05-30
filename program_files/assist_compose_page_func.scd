@@ -524,44 +524,44 @@
 
 	~ml_gen_func = {
 
-			if(("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.isPlaying == true, {
-				("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.stop;
-			});
+		if(("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.isPlaying == true, {
+			("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.stop;
+		});
 
-			("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirPut(
+		("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirPut(
 
-				Routine({
+			Routine({
 
-					1.do({
+				1.do({
 
-						30.wait;
+					(60*2.5).wait;
 
-						if(~assist_ml_on == 1, {
+					if(~assist_ml_on == 1, {
 
-							~number_of_instruments.do(s = 0; {
-								s=s+1;
-								("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-									("assist_inst_"++(s)++"_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet.cpsmidi;
-								);
-								("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
-									("assist_inst_"++(s)++"_comp_interval_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
-								);
-								("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
-									("assist_inst_"++(s)++"_comp_choice_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
-								);
-							});
-
-							~rate_selection_start = 0;
-							~rate_selection_end = ("instrument_"++(1)++"_full_midi_ml").asSymbol.envirGet.size - 1;
-							~dup_ml_on = 1;
-							~machine_learning_func.value;
-							~dup_ml_on = 0;
+						~number_of_instruments.do(s = 0; {
+							s=s+1;
+							("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
+								("assist_inst_"++(s)++"_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet.cpsmidi;
+							);
+							("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
+								("assist_inst_"++(s)++"_comp_interval_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
+							);
+							("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
+								("assist_inst_"++(s)++"_comp_choice_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
+							);
 						});
+
+						~rate_selection_start = 0;
+						~rate_selection_end = ("instrument_"++(1)++"_full_midi_ml").asSymbol.envirGet.size - 1;
+						~dup_ml_on = 1;
+						~machine_learning_func.value;
+						~dup_ml_on = 0;
 					});
 				});
-			);
+			});
+		);
 
-			("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.play;
+		("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.play;
 	};
 
 	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
