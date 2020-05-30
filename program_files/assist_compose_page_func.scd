@@ -294,6 +294,11 @@
 		);
 		("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(size: ~firstviewboundsWIDTH/48);
 
+		if(~pieceload != 1, {
+			("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
+			~assist_part_number = ~num_assist_parts;
+			("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 1;
+		});
 	});
 	~new_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -301,6 +306,7 @@
 	if(~line_multiple2 == nil, {~line_multiple2 = 0});
 
 	if(~num_assist_parts == nil, {~num_assist_parts = 0}, {
+		~pieceload = 1;
 		~num_assist_parts_backup = ~num_assist_parts;
 		~line_multiple1_back_up = ~line_multiple1;
 		~line_multiple2_back_up = ~line_multiple2;
@@ -311,6 +317,7 @@
 		~num_assist_parts = ~num_assist_parts_backup;
 		~line_multiple1 = ~line_multiple1_back_up;
 		~line_multiple2 = ~line_multiple2_back_up;
+		~pieceload = 0;
 	});
 
 	/*~num_assist_parts = 0;
