@@ -107,7 +107,7 @@
 				}, {/*~timer_routine.resume;*/
 					~amp = 1;
 					Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, ~amp);});});
-					~duranduranbot_routine.resume; "Piece Resumed".postln; if(~will_record == 1, {s.record;});});
+					~duranduranbot_routine.resume; "Piece Resumed".postln; if(~will_record == 1, {Server.default.record;});});
 				~pause_piece = 0;
 			}, {
 				/*~timer_routine.pause;*/
@@ -115,7 +115,7 @@
 				~duranduranbot_routine.pause;
 				/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.set(\freq, 0);});});
 				*/if(~ai_assist_compose != 1, {"Piece Paused".postln;});
-				if(~will_record == 1, {s.pauseRecording;});
+				/*if(~will_record == 1, {Server.default.pauseRecording;});*/
 				~pause_piece = 1;
 				~playbutton.string = "Resume";
 			});

@@ -175,8 +175,8 @@
 						~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
 							\amp, 0
 						);});
-					});*/
-					~amp = 1;
+					});
+					~amp = 1;*/
 					AppClock.sched(0, {~stop_func.value;});
 					"piece finished".postln;
 					if(~ai_assist_compose != 1, {
