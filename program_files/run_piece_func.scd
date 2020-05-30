@@ -161,7 +161,7 @@
 				~bit_duration.wait;
 
 				if((~piece_position >= ~size_val) or: (numberofloops >= ~num_loops), {
-					var amp = ~amp;
+					/*var amp = ~amp;
 					150.do({~number_of_instruments.do({
 
 						~amp = ~amp - (~amp/40);
@@ -175,7 +175,7 @@
 						~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
 							\amp, 0
 						);});
-					});
+					});*/
 					~amp = 1;
 					AppClock.sched(0, {~stop_func.value;});
 					"piece finished".postln;
