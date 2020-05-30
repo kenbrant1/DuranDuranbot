@@ -20,6 +20,7 @@
 		});
 		if(((b != 0) and: (b != nil)), {
 			e = c - b;
+			e = e.round;
 			if(e.isNegative == true, {e = e.neg});
 			while({e > 12}, {e = e - 12});
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
@@ -39,6 +40,7 @@
 	if(~number_of_instruments > 1, {
 		(~number_of_instruments-1).do(t = 1; {
 			e = j - ("instrument_"++(~inst_array.wrapAt(~inst_num-(t=t-1)))++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(x-1));
+			e = e.round;
 			if(e.isNegative == true, {e = e.neg});
 			while({e > 12}, {e = e - 12});
 			("interval_diff"++(u=u+1)).asSymbol.envirPut(e.value;);
@@ -84,13 +86,14 @@
 				x=x+1;
 				j = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+(x-1));
 				v = ("instrument_"++(~inst_num)++"_full_midi_ml").asSymbol.envirGet.at(~rate_selection_start+x);
-				if(((v != j) and: (v != 0) and: (j != 0) and: (j != nil)), {
+				if(((v != j) and: (v != 0) and: (j != 0) and: (j != nil) and: ((v - j).round != 0)), {
 
 					u = 0;
 
 					// find interval of "newer" notes
 
 					e = v - j;
+					e = e.round;
 					if(e.isNegative == true, {e = e.neg});
 					while({e > 12}, {e = e - 12});
 					("interval_diff"++(u)).asSymbol.envirPut(e.value;);
