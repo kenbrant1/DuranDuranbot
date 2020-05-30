@@ -669,6 +669,7 @@
 			~avg_part_length.postln;
 			g = File((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_length.scd", "w");
 			g.write(~avg_part_length.asString;);
+			g.close;
 		}, {~partavgdurtextfield_1.string = "number".asString;});
 	};
 
@@ -693,6 +694,7 @@
 			~avg_part_range.postln;
 			g = File((~ddbot_root)++"/program_files/other_program_files/assist_avg_part_range.scd", "w");
 			g.write(~avg_part_range.asString;);
+			g.close;
 		}, {~partavgdurtextfield_2.string = "number".asString;});
 	};
 
