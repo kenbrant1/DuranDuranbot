@@ -2,6 +2,8 @@
 
 ~run_piece_func = {
 
+	~amp = 1;
+
 	~size_val = ~instrument_1_full.size-1;
 
 	~synthdefs_func.value;

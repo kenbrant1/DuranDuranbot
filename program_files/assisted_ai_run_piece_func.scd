@@ -2,6 +2,8 @@
 
 ~assisted_ai_run_piece_func = {
 
+	~amp = 1;
+
 	if(~gen_new == 1, {~gen_new = 0; ~gen_new1 = 1;}, {~gen_new = 0; ~gen_new1 = 0;});
 
 	if(~test_trim != 1, {
