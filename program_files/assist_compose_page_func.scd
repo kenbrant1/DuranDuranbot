@@ -486,7 +486,7 @@
 			"full piece loaded to main page".postln;
 		});
 
-		~firstviewtext2.valueAction = 0; // back button
+		/*if(~load_to_main_play == 1, {~firstviewtext2.valueAction = 0;}); // back button*/
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
