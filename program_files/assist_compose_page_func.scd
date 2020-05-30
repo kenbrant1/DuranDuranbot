@@ -485,6 +485,8 @@
 			~timeslider.controlSpec = ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits");
 			"full piece loaded to main page".postln;
 		});
+
+		~firstviewtext2.valueAction = 0; // back button
 	});
 	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
