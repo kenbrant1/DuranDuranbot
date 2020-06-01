@@ -132,7 +132,7 @@
 					1.wait;
 				});
 
-				"piece currently running".postln;
+				if(~ai_assist_compose != 1, {"piece currently running".postln;});
 
 				0.5.wait;
 
@@ -178,8 +178,8 @@
 					});
 					~amp = 1;*/
 					AppClock.sched(0, {~stop_func.value;});
-					"piece finished".postln;
 					if(~ai_assist_compose != 1, {
+						"piece finished".postln;
 						if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {AppClock.sched(0, {~quicknewpiecebutton.valueAction = 0;});});
 					});
 					~duranduranbot_routine.stop;

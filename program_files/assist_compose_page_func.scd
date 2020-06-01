@@ -131,7 +131,16 @@
 		}, {
 			g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++"_trim.scd", "w");
 		});
-		g.write("~num_assist_parts = "++(~num_assist_parts.asString)++";\n~line_multiple1 = "++(~line_multiple1.asString)++";\n~line_multiple2 = "++(~line_multiple2.asString)++";");
+		g.write(
+			"~number_of_instruments = "++(~number_of_instruments.asString)++
+			";\ng = File((~ddbot_root)++"++"/program_files/other_program_files/numberofvoices.scd".quote++", "++"w".quote++")"++
+			";\ng.write(~number_of_instruments.asString)"++
+			";\ng.close"++
+			";\n~num_assist_parts = "++(~num_assist_parts.asString)++
+			";\n~line_multiple1 = "++(~line_multiple1.asString)++
+			";\n~line_multiple2 = "++(~line_multiple2.asString)++";";
+
+		);
 		~num_assist_parts.do(j = 0; {
 			j=j+1;
 			~number_of_instruments.do(s = 0; {
@@ -543,6 +552,19 @@
 
 				1.do({
 
+					var gen_assist_part_number, last_part_num, next_part_num, e_last, e_next;
+
+					~c_assist_part_number = ~gen_assist_part_number;
+					~gen_c_on = 1;
+					~last_notes_func.value;
+					~next_notes_func.value;
+					~gen_c_on = 0;
+					gen_assist_part_number = ~gen_assist_part_number;
+					last_part_num = ~last_part_num;
+					next_part_num = ~next_part_num;
+					e_last = ~e_last;
+					e_next = ~e_next;
+
 					(60*2.5).wait;
 
 					if(~assist_ml_on == 1, {
@@ -550,13 +572,19 @@
 						~number_of_instruments.do(s = 0; {
 							s=s+1;
 							("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
-								("assist_inst_"++(s)++"_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet.cpsmidi;
+								if(((e_last != nil) and: (e_last != [])), {(("assist_inst_"++(s)++"_array_part_"++(last_part_num)).asSymbol.envirGet.cpsmidi);})++
+								(("assist_inst_"++(s)++"_array_part_"++(gen_assist_part_number)).asSymbol.envirGet.cpsmidi)++
+								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_array_part_"++(next_part_num)).asSymbol.envirGet.cpsmidi);});
 							);
 							("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
-								("assist_inst_"++(s)++"_comp_interval_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
+								if(((e_last != nil) and: (e_last != [])), {(("assist_inst_"++(s)++"_comp_interval_array_part_"++(last_part_num)).asSymbol.envirGet;);})++
+								(("assist_inst_"++(s)++"_comp_interval_array_part_"++(gen_assist_part_number)).asSymbol.envirGet;)++
+								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_comp_interval_array_part_"++(next_part_num)).asSymbol.envirGet;);});
 							);
 							("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
-								("assist_inst_"++(s)++"_comp_choice_array_part_"++(~gen_assist_part_number)).asSymbol.envirGet;
+								if(((e_last != nil) and: (e_last != [])), {(("assist_inst_"++(s)++"_comp_choice_array_part_"++(last_part_num)).asSymbol.envirGet;);})++
+								(("assist_inst_"++(s)++"_comp_choice_array_part_"++(gen_assist_part_number)).asSymbol.envirGet;)++
+								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_comp_choice_array_part_"++(next_part_num)).asSymbol.envirGet;);});
 							);
 						});
 

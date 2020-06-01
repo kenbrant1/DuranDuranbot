@@ -111,32 +111,39 @@
 
 ~last_notes_func = {
 
-	c = ~assist_part_number;
+	c = ~c_assist_part_number;
 	a = {("assist_inst_"++(1)++"_array_part_"++(c-1)++"_midi").asSymbol.envirGet;};
 	e = a.value;
-	while({(((e == nil) or: (e == [])) and: (c > 2))}, {
+	while({(((e == nil) or: (e == [])) and: (c >= 2))}, {
 		c = c - 1;
 		e = a.value;
 
 	});
+	~e_last = e;
 	~last_part_num = c-1;
-	~find_notes_array = {("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet;};
-	~find_notes_func.value;
-
+	if(~gen_c_on != 1, {
+		~find_notes_array = {("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet;};
+		~find_notes_func.value;
+	});
+	~gen_c_on = 0;
 };
 
 ~next_notes_func = {
 
-	c = ~assist_part_number;
+	c = ~c_assist_part_number;
 	a = {("assist_inst_"++(1)++"_array_part_"++(c+1)++"_midi").asSymbol.envirGet;};
 	e = a.value;
 	while({(((e == nil) or: (e == [])) and: (c < ~num_assist_parts))}, {
 		c = c + 1;
 		e = a.value;
 	});
+	~e_next = e;
 	~next_part_num = c+1;
-	~find_notes_array = {("assist_inst_"++(~inst_num)++"_array_part_"++(~next_part_num)++"_midi").asSymbol.envirGet.reverse;};
-	~find_notes_func.value;
+	if(~gen_c_on != 1, {
+		~find_notes_array = {("assist_inst_"++(~inst_num)++"_array_part_"++(~next_part_num)++"_midi").asSymbol.envirGet.reverse;};
+		~find_notes_func.value;
+	});
+	~gen_c_on = 0;
 };
 
 ~assisted_comp_part_func = {
@@ -169,6 +176,8 @@
 	{~composition_process_setting == 1}{
 
 		// find last notes of last sequence
+
+		~c_assist_part_number = ~assist_part_number;
 
 		~last_notes_func.value;
 
