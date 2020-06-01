@@ -557,13 +557,13 @@
 					~c_assist_part_number = ~gen_assist_part_number;
 					~gen_c_on = 1;
 					~last_notes_func.value;
-					~next_notes_func.value;
+					/*~next_notes_func.value;*/
 					~gen_c_on = 0;
 					gen_assist_part_number = ~gen_assist_part_number;
 					last_part_num = ~last_part_num;
-					next_part_num = ~next_part_num;
+					/*next_part_num = ~next_part_num;*/
 					e_last = ~e_last;
-					e_next = ~e_next;
+					/*e_next = ~e_next;*/
 
 					(60*2.5).wait;
 
@@ -573,18 +573,18 @@
 							s=s+1;
 							("instrument_"++(s)++"_full_midi_ml").asSymbol.envirPut(
 								if(((e_last != nil) and: (e_last != [])), {(("assist_inst_"++(s)++"_array_part_"++(last_part_num)).asSymbol.envirGet.cpsmidi);})++
-								(("assist_inst_"++(s)++"_array_part_"++(gen_assist_part_number)).asSymbol.envirGet.cpsmidi)++
-								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_array_part_"++(next_part_num)).asSymbol.envirGet.cpsmidi);});
+								(("assist_inst_"++(s)++"_array_part_"++(gen_assist_part_number)).asSymbol.envirGet.cpsmidi)/*++
+								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_array_part_"++(next_part_num)).asSymbol.envirGet.cpsmidi);})*/;
 							);
 							("instrument_"++(s)++"_comp_interval_array_ml").asSymbol.envirPut(
 								if(((e_last != nil) and: (e_last != [])), {(("assist_inst_"++(s)++"_comp_interval_array_part_"++(last_part_num)).asSymbol.envirGet;);})++
-								(("assist_inst_"++(s)++"_comp_interval_array_part_"++(gen_assist_part_number)).asSymbol.envirGet;)++
-								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_comp_interval_array_part_"++(next_part_num)).asSymbol.envirGet;);});
+								(("assist_inst_"++(s)++"_comp_interval_array_part_"++(gen_assist_part_number)).asSymbol.envirGet;)/*++
+								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_comp_interval_array_part_"++(next_part_num)).asSymbol.envirGet;);})*/;
 							);
 							("instrument_"++(s)++"_comp_choice_array_ml").asSymbol.envirPut(
 								if(((e_last != nil) and: (e_last != [])), {(("assist_inst_"++(s)++"_comp_choice_array_part_"++(last_part_num)).asSymbol.envirGet;);})++
-								(("assist_inst_"++(s)++"_comp_choice_array_part_"++(gen_assist_part_number)).asSymbol.envirGet;)++
-								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_comp_choice_array_part_"++(next_part_num)).asSymbol.envirGet;);});
+								(("assist_inst_"++(s)++"_comp_choice_array_part_"++(gen_assist_part_number)).asSymbol.envirGet;)/*++
+								if(((e_next != nil) and: (e_next != [])), {(("assist_inst_"++(s)++"_comp_choice_array_part_"++(next_part_num)).asSymbol.envirGet;);})*/;
 							);
 						});
 
