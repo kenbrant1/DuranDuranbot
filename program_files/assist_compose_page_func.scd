@@ -565,7 +565,7 @@
 					e_last = ~e_last;
 					/*e_next = ~e_next;*/
 
-					(60*2.5).wait;
+					(60*3).wait;
 
 					if(~assist_ml_on == 1, {
 
