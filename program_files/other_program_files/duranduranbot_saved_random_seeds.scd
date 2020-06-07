@@ -244,3 +244,13 @@ Sun May 31 18:34:19 2020
 random seed 1 - 52696054
 random seed 2 - 77710515
 random seed 3 - 62275836
+
+Sun May 31 19:11:59 2020
+random seed 1 - 17156485
+random seed 2 - 62642584
+random seed 3 - 67378387
+
+Sat Jun  6 23:42:36 2020
+random seed 1 - 36855928
+random seed 2 - 49767372
+random seed 3 - 43908330

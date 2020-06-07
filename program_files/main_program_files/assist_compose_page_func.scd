@@ -187,7 +187,32 @@
 	});
 	~save_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
+	~assist_clear_all_func = {
+
+		~save_assist_project_button.valueAction = 0;
+
+		~num_assist_parts.do(j = 0; {
+			j=j+1;
+			~number_of_instruments.do(s = 0; {
+				s=s+1;
+				("assist_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirPut(nil);
+				("assist_inst_"++(s)++"_array_part_"++(j)++"_midi").asSymbol.envirPut(nil);
+
+				("assist_inst_"++(s)++"_comp_interval_array_part_"++(j)).asSymbol.envirPut(nil);
+
+				("assist_inst_"++(s)++"_comp_choice_array_part_"++(j)).asSymbol.envirPut(nil);
+
+			});
+		});
+		~num_assist_parts = nil;
+		~line_multiple1 = nil;
+		~line_multiple2 = nil;
+
+	};
+
 	~load_saved_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21*2), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Saved Project",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		~assist_clear_all_func.value;
 
 		FileDialog.new(
 			{arg path;
@@ -213,22 +238,7 @@
 	~new_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21*3), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["New Proj. (will save curr.)",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-		~save_assist_project_button.valueAction = 0;
-		~num_assist_parts.do(j = 0; {
-			j=j+1;
-			~number_of_instruments.do(s = 0; {
-				s=s+1;
-				("assist_inst_"++(s)++"_array_part_"++(j)).asSymbol.envirPut(nil);
-
-				("assist_inst_"++(s)++"_comp_interval_array_part_"++(j)).asSymbol.envirPut(nil);
-
-				("assist_inst_"++(s)++"_comp_choice_array_part_"++(j)).asSymbol.envirPut(nil);
-
-			});
-		});
-		~num_assist_parts = nil;
-		~line_multiple1 = nil;
-		~line_multiple2 = nil;
+		~assist_clear_all_func.value;
 		w.close;
 		~duranduranbot_GUI_func.value;
 		"project loaded".postln;
