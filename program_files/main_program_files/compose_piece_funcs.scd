@@ -202,9 +202,11 @@ s = ~bit_duration;
 
 ~inst_clock_func = {
 
-	~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut(("bit_clock_"++(n)).asSymbol.envirGet+1);});
+	/*((("bit_clock_"++(~inst_num)).asSymbol.envirGet.asString)++" "++(("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirGet.asString)++"   "++(~inst_num.asString)++" before").postln;
+*/
 	~number_of_instruments.do(~inst_num = 0; {
 		~inst_num = ~inst_num + 1;
+		("bit_clock_"++(~inst_num)).asSymbol.envirPut(("bit_clock_"++(~inst_num)).asSymbol.envirGet+1);
 		("instrument_"++(~inst_num)++"_array").asSymbol.envirPut(
 			("instrument_"++(~inst_num)++"_array").asSymbol.envirGet.add(
 				if(("bit_clock_"++(~inst_num)).asSymbol.envirGet >= ("bit_clock_"++(~inst_num)++"_choice").asSymbol.envirGet, {

@@ -70,6 +70,11 @@
 				("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_choice").asSymbol.envirPut(
 					("length"++(1)).asSymbol.envirGet;
 				);
+
+				("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))).asSymbol.envirPut(
+					("length"++(1)).asSymbol.envirGet;
+				);
+
 				if(("length"++(2)).asSymbol.envirGet != nil, {
 					("old_bit_clock_"++(~inst_num)++"_choice_1").asSymbol.envirPut(
 						("length"++(2)).asSymbol.envirGet;
@@ -147,6 +152,8 @@
 };
 
 ~assisted_comp_part_func = {
+
+	~number_of_instruments.do(n = 0; {("bit_clock_"++(n=n+1)).asSymbol.envirPut(0);});
 
 	x = 0;
 	~inst_array = Array.fill(~number_of_instruments, {x=x+1});
