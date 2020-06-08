@@ -167,6 +167,8 @@
 
 		thisThread.randSeed = ~randseed_1;
 
+		~c_assist_part_number = ~assist_part_number;
+
 		~last_notes_func.value;
 
 		thisThread.randSeed = ~randseed_2;
