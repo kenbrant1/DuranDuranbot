@@ -20,7 +20,14 @@
 			/*CompanderD.ar(in: sig, thresh: 0.0001, slopeBelow: 1, slopeAbove: 1, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);*/
 			/*Normalizer.ar(in: sig, level: 0.01, dur: 0.01);*/
 			/*Limiter.ar(in: sig, level: 0.0001, dur: 0.01);*/
-			sig = Compander.ar(in: sig, control: sig, thresh: /*MouseY.kr(0.01, 1).poll*/ 0.1, slopeBelow: /*MouseY.kr(0.0001, 3.0).poll*/ 1, slopeAbove: /*MouseX.kr(0.0000001, 1).poll*/ 0.31, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);
+			sig = Compander.ar(in: sig, control: sig,
+				thresh: /*MouseY.kr(0.01, 1).poll*/
+				case
+				{~number_of_instruments == 1}{0.1}
+				{~number_of_instruments == 2}{0.1}
+				{~number_of_instruments == 3}{0.07};
+					,
+				slopeBelow: /*MouseY.kr(0.0001, 3.0).poll*/ 1, slopeAbove: /*MouseX.kr(0.0000001, 1).poll*/ 0.31, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);
 			sig = sig * EnvGen.kr(Env.asr(0.1, 1, 0.1), doneAction: Done.freeSelf);
 			/*sig = Limiter.ar(in: sig, level: MouseX.kr(0.01, 1).poll, dur: MouseY.kr(0.01, 1).poll);*/
 			OffsetOut.ar(0, sig.dup*amp);

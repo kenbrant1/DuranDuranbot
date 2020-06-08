@@ -153,8 +153,11 @@
 			/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
 			*/	/*~piece_position = 0;*/
 			Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.free;});});
-			if(~will_record == 1, {Server.default.stopRecording;});
-			Server.default.freeAll;/*
+			AppClock.sched(0.25, {
+				if(~will_record == 1, {Server.default.stopRecording;});
+			});
+			AppClock.sched(0.25, {Server.default.freeAll;});
+				/*
 			Server.hardFreeAll;*/
 		});
 	};
