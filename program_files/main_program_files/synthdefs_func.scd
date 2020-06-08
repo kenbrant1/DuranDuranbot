@@ -25,7 +25,7 @@
 				case
 				{~number_of_instruments == 1}{0.1}
 				{~number_of_instruments == 2}{0.1}
-				{~number_of_instruments == 3}{0.07};
+				{~number_of_instruments == 3}{0.06};
 					,
 				slopeBelow: /*MouseY.kr(0.0001, 3.0).poll*/ 1, slopeAbove: /*MouseX.kr(0.0000001, 1).poll*/ 0.31, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);
 			sig = sig * EnvGen.kr(Env.asr(0.1, 1, 0.1), doneAction: Done.freeSelf);
