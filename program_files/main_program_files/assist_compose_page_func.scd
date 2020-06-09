@@ -229,7 +229,7 @@
 				"project loaded".postln;
 				if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
 				~assist_compose_page_func.value;
-		}, {}, 0, 0, stripResult: true);
+		}, {}, 0, 0, stripResult: true, path: ((~ddbot_root)++"/program_files/saved_projects"));
 	});
 	~load_saved_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -659,7 +659,7 @@
 		("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.play;
 	};
 
-	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",Color.green,~backgroundcolor]]).action_({arg button;
+	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~number_of_instruments.do(s = 0; {

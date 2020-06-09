@@ -12,7 +12,7 @@
 	if(~firstview != nil, {~firstview.close;});
 	if(~firstview2 != nil, {~firstview2.close;});
 
-	~firstview = View(w, Rect(0, 0, w.bounds.width, w.bounds.height));
+	~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height));
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;
 	~firstviewboundsWIDTH = ~firstview.bounds.width;
@@ -31,13 +31,13 @@
 	~firstviewtext1.align = \topLeft;
 	~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.3584905660377, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Click Here For Instructions",~stringcolor,~backgroundcolor],["Click Here For Instructions",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~firstviewtext3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Click Here For Instructions",~stringcolor,~backgroundcolor],["Click Here For Instructions",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~instructions_page_func.value;
 
 	});
 	~firstviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~fullscreenbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.3584905660377, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Enter Fullscreen",~stringcolor,~backgroundcolor],["Exit Fullscreen",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~fullscreenbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Enter Fullscreen",~stringcolor,~backgroundcolor],["Exit Fullscreen",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(button.value == 1, {
 			w.close;
@@ -105,7 +105,6 @@
 					{(~ai_assist_compose == 0) or: (~load_assist == 1)}{~run_piece_func.value;}
 					{~ai_assist_compose == 1}{~assisted_ai_run_piece_func.value;}
 				}, {/*~timer_routine.resume;*/
-					~amp = 1;
 					Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, ~amp);});});
 					~duranduranbot_routine.resume; "Piece Resumed".postln; if(~will_record == 1, {Server.default.record;});});
 				~pause_piece = 0;
@@ -148,27 +147,24 @@
 		~pause_piece = 0;
 		~playbutton.string = "Play Piece";
 		~duranduranbot_routine.stop;
-		AppClock.sched(0.25, {
+		AppClock.sched(0, {
 			/*~timer_routine.stop;*/
 			/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
 			*/	/*~piece_position = 0;*/
 			Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.free;});});
-			if(~will_record != 1, {
-				Server.freeAll;
-			}, {
+			if(~will_record == 1, {
 				AppClock.sched(0.5, {
 					Server.default.stopRecording;
-					Server.freeAll;
 				});
 			});
-				/*
-			Server.hardFreeAll;*/
-		});
+		});/*
+		if(~num_inst_menu_num == 1, {~num_insts_menu_func.value; ~num_inst_menu_num = nil;});*/
 	};
 
-	~stopbuttonfunc = {~stopbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.93, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Stop piece",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~stop_func.value;
-	});
+	~stopbuttonfunc = {
+		~stopbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.93, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Stop piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+			~stop_func.value;
+		});
 
 	~stopbutton.font = Font(size: ~firstviewboundsWIDTH/48);
 	};
@@ -703,7 +699,7 @@
 				~generatepiecebutton.valueAction = 1;
 				~loadscoretext.string = "Score has been loaded. Press "++"Play Piece".quote++" to run.";
 				AppClock.sched(5, {~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";});
-		}, {}, 0, 0, stripResult: true);
+		}, {}, 0, 0, stripResult: true, path: ((~ddbot_root)++"/program_files/saved_scores"));
 	});
 	~loadscorebuttonbutton.font = Font(size: ~firstviewboundsWIDTH/48);
 
@@ -713,18 +709,12 @@
 	~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";
 	~loadscoretext.font = Font(size: ~firstviewboundsWIDTH/55);
 
-	~loadscoretext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.08, ~firstviewboundsWIDTH/1.6, ~firstviewboundsHEIGHT/21));
-	~loadscoretext2.background=~backgroundcolor;
-	~loadscoretext2.stringColor=~stringcolor;
-	~loadscoretext2.string = "Saved scores are in "++"/DuranDuranbot/program_files/saved_scores".quote;
-	~loadscoretext2.font = Font(size: ~firstviewboundsWIDTH/55);
-
 	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.33, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~player_settings_page_func.value;
 	});
 	~training_settings_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~playerchoicetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/12, ~firstviewboundsWIDTH/2.6, ~firstviewboundsHEIGHT/21));
+	~playerchoicetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/12, ~firstviewboundsWIDTH/2.8, ~firstviewboundsHEIGHT/21));
 	~playerchoicetext.background=~backgroundcolor;
 	~playerchoicetext.stringColor=~stringcolor;
 	~playerchoicetext.string = "Settings - "++(

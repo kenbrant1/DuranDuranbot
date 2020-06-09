@@ -14,7 +14,7 @@
 
 	if(~startprogram == nil, {~save_random_seeds_func.value; ~startprogram = 1;});
 
-	~main_page_func.value;
+	if(~ai_assist_compose != 1, {~main_page_func.value;}, {~assist_compose_page_func.value;});
 
 	if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
 

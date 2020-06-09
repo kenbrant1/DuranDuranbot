@@ -118,8 +118,12 @@
 	~num_instruments_menu.value = FileReader.read((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", false, true);
 	~num_instruments_menu.action = { arg menu;
 
-		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-		Server.default.freeAll;
+		if(~duranduranbot_routine.isPlaying == true, {
+			~stopbutton.close;
+			~playbutton.value = 0;
+			~duranduranbot_routine.stop;
+			Server.default.freeAll;
+		});
 		w.close;
 
 		case
@@ -144,7 +148,7 @@
 		};
 
 		~duranduranbot_GUI_func.value;
-		if(~ai_assist_compose != 1, {~main_page_func.value;}, {~assist_compose_page_func.value;});
+
 	};
 	~num_instruments_menu.font = Font(size: ~firstviewboundsWIDTH/48);
 
