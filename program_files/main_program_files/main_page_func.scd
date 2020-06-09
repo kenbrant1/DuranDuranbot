@@ -76,7 +76,7 @@
 
 	if(~fullscreenon == 1, {~fullscreenbutton.value = 1;});
 
-	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		var piecegenerated;
 		~piecegenerated = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695652174, ~firstviewboundsWIDTH/36));
 		~piecegenerated.background=~backgroundcolor;
@@ -95,7 +95,7 @@
 	~play_visible_func_verify*/
 
 	~playbutton_func = {
-		~playbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/4.95, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {6.2428571428571}, {7.5})), ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Play Piece",~stringcolor,~backgroundcolor],["Pause Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~playbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/4.95, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {6.24286}, {7.5})), ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Play Piece",~stringcolor,~backgroundcolor],["Pause Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 			var pause_piece;
 			if(button.value == 1, {
 				if(~pause_piece != 1, {
@@ -123,7 +123,7 @@
 		});
 		~playbutton.font = Font(size: ~firstviewboundsWIDTH/48);
 		/*};*/
-		~arrow = StaticText(~firstview, Rect(~firstviewboundsWIDTH/5.7016393442623, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {6.2428571428571}, {7.5})), ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/21));
+		~arrow = StaticText(~firstview, Rect(~firstviewboundsWIDTH/5.7016393442623, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {6.24286}, {7.5})), ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/21));
 		~arrow.background=~backgroundcolor;
 		~arrow.stringColor_(~stringcolor);
 		~arrow.string = "---";
@@ -166,7 +166,7 @@
 		});
 	};
 
-	~stopbuttonfunc = {~stopbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.93, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Stop piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~stopbuttonfunc = {~stopbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.93, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Stop piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~stop_func.value;
 	});
 
@@ -301,7 +301,7 @@
 	rangeslider.setColors(~stringcolor,~stringcolor, ~stringcolor(0.7),~stringcolor, ~stringcolor, Color.yellow);
 	rangeslider.font = Font(size: ~firstviewboundsWIDTH/55);*/
 
-	/*rate_selectionstatictext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.502222222222 /*~firstviewboundsHEIGHT/6.2428571428571*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
+	/*rate_selectionstatictext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.502222222222 /*~firstviewboundsHEIGHT/6.24286*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
 	rate_selectionstatictext.background=~stringcolor;
 	rate_selectionstatictext.string = if(~fullpiecedur != nil, {~fullpiecedur}, {"piece length - --:-- mins"});
 	rate_selectionstatictext.font = Font(size: ~firstviewboundsWIDTH/48);*/
@@ -309,7 +309,7 @@
 	if(~piece_position == nil, {~piece_position = 0});
 
 	~timeslider_func = {
-		~timeslider = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {2.073}, {5})), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits"), action: {
+		~timeslider = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {2.073}, {5})), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 0, "bits"), action: {
 			|timeselect|
 			var selection1;
 			~piece_position = timeselect.value/**(~instrument_1_full.size/~piecedur_secs)*/; // works
@@ -400,13 +400,13 @@
 	if(~will_record == 1, {~recordtext.string = "All pieces WILL be recorded"; ~recordbutton.value = 1;},
 		{~recordtext.string = "All pieces will NOT be recorded"; ~recordbutton.value = 0;});
 
-	~piecedurationstatictext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.65 /*~firstviewboundsHEIGHT/6.2428571428571*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
+	~piecedurationstatictext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.65 /*~firstviewboundsHEIGHT/6.24286*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
 	~piecedurationstatictext.background=~backgroundcolor;
 	~piecedurationstatictext.stringColor=~stringcolor;
 	~piecedurationstatictext.string = if(~fullpiecedur != nil, {~fullpiecedur}, {"Piece Length - --:-- mins"});
 	~piecedurationstatictext.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~piecepositionstatictext = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72)+(~firstviewboundsWIDTH/2.95)+30, ~firstviewboundsHEIGHT/1.65 /*~firstviewboundsHEIGHT/6.2428571428571*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
+	~piecepositionstatictext = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72)+(~firstviewboundsWIDTH/2.95)+30, ~firstviewboundsHEIGHT/1.65 /*~firstviewboundsHEIGHT/6.24286*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
 	~piecepositionstatictext.background=~backgroundcolor;
 	~piecepositionstatictext.stringColor=~stringcolor;
 	~piecepositionstatictext.string = if(~instrument_1_full_midi != nil, {(
@@ -553,7 +553,51 @@
 	ctrlperiodtext.align = \topLeft;
 	ctrlperiodtext.font = Font(size: ~firstviewboundsWIDTH/70.454545454545);*/
 
-	~newrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Seeds",~stringcolor,~backgroundcolor],["New Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~volbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Volume",~stringcolor,~backgroundcolor],["Volume",~backgroundcolor,Color.green]]).action_({arg button;
+
+		var amp_before;
+
+		if(~volbutton.value == 1, {
+
+			~volview = View(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56, ~firstviewboundsHEIGHT/3));
+			~volview.background_(~backgroundcolor);
+
+			amp_before = ~amp;
+
+			~volslider = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/3)), controlSpec: ControlSpec(0, 2, \lin, 0.1, ~amp), action: {
+				|timeselect|
+				var selection1;
+				~amp = timeselect.value;
+				~voltext.string = "vol. - "++(~amp.asString);
+				/*~trimviewtext3.string = "Keep from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";*/
+			}, layout: 'vert');
+			~volslider.setColors(~stringcolor,~stringcolor);
+
+			~defaultvolbutton = Button.new(~volview, Rect(~firstviewboundsWIDTH/72 + (~firstviewboundsWIDTH/40*1.5), 0, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["set to default - 1.0",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+				~amp = 1;
+				~volslider.value = ~amp;
+				~voltext.string = "vol. - "++(~amp.asString);
+			});
+			~defaultvolbutton.font = Font(size: ~firstviewboundsWIDTH/55);
+		}, {
+			if(amp_before != ~amp, {
+				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
+				g.write(~amp.asString;);
+				g.close;
+			});
+			~volview.close;
+		});
+	});
+	~volbutton.font = Font(size: ~firstviewboundsWIDTH/55);
+
+	~voltext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/72), ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~voltext.background_(~backgroundcolor);
+	~voltext.stringColor_(~stringcolor);
+	~voltext.string = "vol. - "++(~amp.asString);
+	~voltext.font = Font(size: ~firstviewboundsWIDTH/55);
+
+	~newrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Seeds",~stringcolor,~backgroundcolor],["New Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~randseed_1_backup = ~randseed_1;
 		~randseed_2_backup = ~randseed_2;
 		~randseed_3_backup = ~randseed_3;
@@ -575,7 +619,7 @@
 	});
 	~newrandomseedsbutton.font = Font(size: ~firstviewboundsWIDTH/55);
 
-	~reversenewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.209907834101, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Revert",~stringcolor,~backgroundcolor],["Revert",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~reversenewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.209907834101, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Revert",~stringcolor,~backgroundcolor],["Revert",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~randseed_1_backup2 = ~randseed_1;
 		~randseed_2_backup2 = ~randseed_2;
 		~randseed_3_backup2 = ~randseed_3;
@@ -599,13 +643,13 @@
 	});
 	~reversenewrandomseedsbutton.font = Font(size: ~firstviewboundsWIDTH/55);
 
-	~setnewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.1059907834101, ~firstviewboundsHEIGHT/6.2428571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Set Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~setnewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.1059907834101, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Set Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~firstview.close;
 		~set_seeds_page_func.value;
 	});
 	~setnewrandomseedsbutton.font = Font(size: ~firstviewboundsWIDTH/55);
 
-	~currentrandomseedstrext = TextView(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.6, ~firstviewboundsWIDTH/3.56, ~firstviewboundsHEIGHT/2.6));
+	~currentrandomseedstrext = TextView(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/3.5, ~firstviewboundsWIDTH/3.56, ~firstviewboundsHEIGHT/2.6));
 	~currentrandomseedstrext.background=~backgroundcolor;
 	~currentrandomseedstrext.string ="Current random seeds:\n"++
 	"randseed 1 - "++~randseed_1++"\n"++
@@ -617,7 +661,7 @@
 	~currentrandomseedstrext.stringColor=~stringcolor;
 	~currentrandomseedstrext.font = Font(size: ~firstviewboundsWIDTH/58.384615384615);
 
-	~see_saved_seeds_file_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.6, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["See Saved Random Seeds",~stringcolor,~backgroundcolor],["See Saved Random Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~see_saved_seeds_file_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.45, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["See Saved Random Seeds",~stringcolor,~backgroundcolor],["See Saved Random Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		h = Document.open((~ddbot_root)++"/program_files/other_program_files/duranduranbot_saved_random_seeds.scd");
 
@@ -675,7 +719,7 @@
 	~loadscoretext2.string = "Saved scores are in "++"/DuranDuranbot/program_files/saved_scores".quote;
 	~loadscoretext2.font = Font(size: ~firstviewboundsWIDTH/55);
 
-	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.45, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.33, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~player_settings_page_func.value;
 	});
 	~training_settings_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
@@ -697,43 +741,6 @@
 	)++", A4 "++(~tuning_frequency)++" hz";
 	~playerchoicetext.align = \topLeft;
 	~playerchoicetext.font = Font(size: ~firstviewboundsWIDTH/55);
-
-	~color_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.33, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
-	~color_menu.items = [
-		"GUI color - "++(
-			case
-			{FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true).flatten.at(0) == 0.asString}{"Black"}
-			{FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true).flatten.at(0) == 1.asString}{"White"};
-		),
-		"Black", "White"];
-	~color_menu.background_(~backgroundcolor);
-	~color_menu.stringColor_(~stringcolor);
-	~color_menu.value = FileReader.read((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", false, true);
-	~color_menu.action = { arg menu;
-		g = File((~ddbot_root)++"/program_files/other_program_files/gui_color.scd", "w");
-		g.write(
-			case
-			{~color_menu.value == 0}{nil}
-			{~color_menu.value == 1}{"0".asString}
-			{~color_menu.value == 2}{"1".asString};
-
-		);
-		g.close;
-		case
-		{~color_menu.value == 0}{nil}
-		{~color_menu.value == 1}{
-			~backgroundcolor = Color.black;
-			~stringcolor = Color.white;
-		}
-		{~color_menu.value == 2}{
-			~backgroundcolor = Color.white;
-			~stringcolor = Color.black;
-		};
-		w.close;
-		~duranduranbot_GUI_func.value;
-		~main_page_func.value;
-	};
-	~color_menu.font = Font(size: ~firstviewboundsWIDTH/48);
 
 	~save_current_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.23, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21)).states_([["Save Current Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 

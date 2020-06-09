@@ -1,8 +1,8 @@
 ~assist_slider_lenth_func = {
 
-	~timeslider.controlSpec = ControlSpec(0, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size - 1, \lin, 1, 50, "bits");
-	~cutslider1.controlSpec = ControlSpec(0, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size - 1, \lin, 1, 50, "bits");
-	~cutslider2.controlSpec = ControlSpec(0, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size - 1, \lin, 1, 50, "bits");
+	~timeslider.controlSpec = ControlSpec(0, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size - 1, \lin, 1, 0, "bits");
+	~cutslider1.controlSpec = ControlSpec(0, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size - 1, \lin, 1, 0, "bits");
+	~cutslider2.controlSpec = ControlSpec(0, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size - 1, \lin, 1, 0, "bits");
 };
 
 ~assist_compose_page_func = {var fillertext,fillertext2;
@@ -424,25 +424,74 @@
 	});
 	~undo_delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~ml_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
+	~volbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Volume",~stringcolor,~backgroundcolor],["Volume",~backgroundcolor,Color.green]]).action_({arg button;
+
+		var amp_before;
+
+		amp_before = ~amp;
+
+		if(~volbutton.value == 1, {
+
+			~volview = View(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/3));
+			~volview.background_(~backgroundcolor);
+
+			~volslider = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/3)), controlSpec: ControlSpec(0, 2, \lin, 0.1, ~amp), action: {
+				|timeselect|
+				var selection1;
+				~amp = timeselect.value;
+				~voltext.string = "vol. - "++(~amp.asString);
+				/*~trimviewtext3.string = "Keep from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";*/
+			}, layout: 'vert');
+			~volslider.setColors(~stringcolor,~stringcolor);
+
+			~defaultvolbutton = Button.new(~volview, Rect(~firstviewboundsWIDTH/72 + (~firstviewboundsWIDTH/40*1.5), 0, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["set to default - 1.0",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+				~amp = 1;
+				~volslider.value = ~amp;
+				~voltext.string = "vol. - "++(~amp.asString);
+			});
+			~defaultvolbutton.font = Font(size: ~firstviewboundsWIDTH/55);
+		}, {
+			if(amp_before != ~amp, {
+				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
+				g.write(~amp.asString;);
+				g.close;
+			});
+			~volview.close;
+		});
+	});
+	~volbutton.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~voltext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/72), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~voltext.background_(~backgroundcolor);
+	~voltext.stringColor_(~stringcolor);
+	~voltext.string = "vol. - "++(~amp.asString);
+	~voltext.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~ml_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
 	~ml_static.background_(~backgroundcolor);
 	~ml_static.stringColor_(~stringcolor);
 	if(~assist_ml_on == 1, {~ml_static.string = "Machine learning is ON";}, {~ml_static.string = "Machine learning is OFF";});
 	~ml_static.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~ml_data_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
+	~ml_data_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
 	~ml_data_static.background_(~backgroundcolor);
 	~ml_data_static.stringColor_(~stringcolor);
 	if(~assist_ml_data_on == 1, {~ml_data_static.string = "Using ML data is ON";}, {~ml_data_static.string = "Using ML data is OFF";});
 	~ml_data_static.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~ai_assist_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~ai_assist_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Assist Comp. Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		~ai_assist_settings_page_func.value;
 	});
 	~ai_assist_settings_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
 
-	~load_piece_to_main_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Piece To Main Page",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Player Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~player_settings_page_func.value;
+	});
+	~training_settings_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	~load_piece_to_main_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Piece To Main Page",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		~number_of_instruments.do(s = 0; {
 			s=s+1;
@@ -500,7 +549,7 @@
 			});
 			~create_pseq_arrays_func.value;
 			~full_midi_to_ml_func.value;
-			~timeslider.controlSpec = ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits");
+			~timeslider.controlSpec = ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 0, "bits");
 			"full piece loaded to main page".postln;
 		});
 
@@ -510,7 +559,7 @@
 
 	~train_button_func = {
 
-		~train_full_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Machine Learn Full Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~train_full_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=6; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Machine Learn Full Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 			~mlfullpieceprompt = View(~firstview, Rect((~firstviewboundsWIDTH/3), ~firstviewboundsHEIGHT/25, ~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/3));
 			~mlfullpieceprompt.background_(~backgroundcolor);
@@ -610,7 +659,7 @@
 		("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.play;
 	};
 
-	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",Color.green,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~number_of_instruments.do(s = 0; {
@@ -860,6 +909,11 @@
 		});
 	});
 	~undo_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
+
+	if(~batch_dup_1 == nil, {~batch_dup_1 = "";});
+	if(~batch_dup_2 == nil, {~batch_dup_2 = "";});
+	if(~batch_dup_3 == nil, {~batch_dup_3 = "";});
+	if(~batch_dup_4 == nil, {~batch_dup_4 = "";});
 
 	~batchduptext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/6.2, ~firstviewboundsHEIGHT/21));
 	~batchduptext.background=~backgroundcolor;
@@ -1116,6 +1170,10 @@
 	~mergetext1.string = "Beginning part";
 	~mergetext1.font = Font(size: ~firstviewboundsWIDTH/48);
 
+	if(~merge_beg_part == nil, {~merge_beg_part = "";});
+	if(~merge_end_part == nil, {~merge_end_part = "";});
+	if(~merge_into_part == nil, {~merge_into_part = "";});
+
 	~mergetextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72*3+(~firstviewboundsWIDTH/13)+(~firstviewboundsWIDTH/7), (x=8; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~mergetextfield_1.string = ~merge_beg_part.asString;
 	~mergetextfield_1.background_(~backgroundcolor);
@@ -1328,7 +1386,7 @@
 		{~cutslider_1_position == ~cutslider_2_position}{~cut_from = ~cutslider_1_position + 1; ~cut_to = ~cutslider_1_position + 1;};
 	};
 
-	~cutslider1 = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits"), action: {
+	~cutslider1 = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 0, "bits"), action: {
 		|timeselect|
 		var selection1;
 		if(~set_trim_on == 1, {
@@ -1340,7 +1398,7 @@
 	});
 	~cutslider1.setColors(~stringcolor,~stringcolor);
 
-	~cutslider2 = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, (x=13; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 50, "bits"), action: {
+	~cutslider2 = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, (x=13; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 0, "bits"), action: {
 		|timeselect|
 		var selection1;
 		if(~set_trim_on == 1, {
