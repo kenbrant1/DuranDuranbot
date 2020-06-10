@@ -387,7 +387,7 @@
 	});
 	~recordbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~recordtext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/6.8, ~firstviewboundsHEIGHT/1.35, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
+	~recordtext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/7.3, ~firstviewboundsHEIGHT/1.35, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
 	~recordtext.background=~backgroundcolor;
 	~recordtext.stringColor=~stringcolor;
 	~recordtext.string = "All pieces will NOT be recorded";
@@ -514,7 +514,7 @@
 
 	if(~loop_on == nil, {~loop_on = 0});
 
-	~loopsetbutton =  Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/11, ~firstviewboundsHEIGHT/21)).states_([["Loop is OFF",~stringcolor,~backgroundcolor],["Loop is ON",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~loopsetbutton =  Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21)).states_([["Loop is OFF",~stringcolor,~backgroundcolor],["Loop is ON",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(button.value == 1, {~loop_on = 1;}, {~loop_on = 0;});
 		/*if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
@@ -681,7 +681,7 @@
 	});
 	~newpieceautobutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~newpieceautotext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/4.3, ~firstviewboundsHEIGHT/1.25, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
+	~newpieceautotext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/4.5, ~firstviewboundsHEIGHT/1.25, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
 	~newpieceautotext.background=~backgroundcolor;
 	~newpieceautotext.stringColor=~stringcolor;
 	if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {
