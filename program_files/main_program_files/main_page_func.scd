@@ -147,7 +147,7 @@
 		~pause_piece = 0;
 		~playbutton.string = "Play Piece";
 		~duranduranbot_routine.stop;
-		AppClock.sched(0, {
+		AppClock.sched(0.25, {
 			/*~timer_routine.stop;*/
 			/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
 			*/	/*~piece_position = 0;*/

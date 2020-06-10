@@ -34,8 +34,6 @@
     ~firstviewtext4.background=~backgroundcolor;
 	~firstviewtext4.string = "(Scroll down for more)
 
-Saved projects found in - are in "++"/DuranDuranbot/program_files/saved_projects".quote++"
-
 Quick youtube tutorials/demonstrations -
 https://www.youtube.com/watch?v=WEjo4IdC0hs
 https://www.youtube.com/watch?v=ccNjaQmctoQ
