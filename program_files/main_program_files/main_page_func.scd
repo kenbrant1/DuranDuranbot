@@ -106,7 +106,11 @@
 					{~ai_assist_compose == 1}{~assisted_ai_run_piece_func.value;}
 				}, {/*~timer_routine.resume;*/
 					Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, ~amp);});});
-					~duranduranbot_routine.resume; "Piece Resumed".postln; if(~will_record == 1, {Server.default.record;});});
+					~duranduranbot_routine.resume;
+					"Piece Resumed".postln;
+					if(~will_record == 1, {Server.default.record;});
+
+				});
 				~pause_piece = 0;
 			}, {
 				/*~timer_routine.pause;*/
@@ -169,7 +173,7 @@
 	~stopbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	};
 
-	if(~duranduranbot_routine.isPlaying == true, {~playbutton.value = 1; ~stopbuttonfunc.value}, {~playbutton.value = 0});
+	if(~duranduranbot_routine.isPlaying == true, {~playbutton.value = 1; ~stopbutton.close; ~stopbuttonfunc.value}, {~playbutton.value = 0});
 
 	~net_change_mult_array = [1, 2, 4, 8, 16];
 

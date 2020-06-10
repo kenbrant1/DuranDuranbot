@@ -899,3 +899,13 @@ Tue Jun  9 20:36:35 2020
 random seed 1 - 50994888
 random seed 2 - 75151341
 random seed 3 - 79698608
+
+Tue Jun  9 20:42:37 2020
+random seed 1 - 53846829
+random seed 2 - 58741378
+random seed 3 - 78815091
+
+Tue Jun  9 20:42:42 2020
+random seed 1 - 50994888
+random seed 2 - 75151341
+random seed 3 - 79698608

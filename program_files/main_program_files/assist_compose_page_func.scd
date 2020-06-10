@@ -112,7 +112,7 @@
 		~stopbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	};
 
-	if(~duranduranbot_routine.isPlaying == true, {~playbutton.value = 1; ~stopbuttonfunc.value}, {~playbutton.value = 0});
+	if(~duranduranbot_routine.isPlaying == true, {~playbutton.value = 1; ~stopbutton.close; ~stopbuttonfunc.value}, {~playbutton.value = 0});
 
 	if(~piece_position == nil, {~piece_position = 0});
 
