@@ -57,13 +57,13 @@
 	~firstviewtext1.stringColor_(~stringcolor);
 	~firstviewtext1.string = "DDbot Assist Composition";
 	~firstviewtext1.align = \topLeft;
-	~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~firstviewtext11 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.75, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~firstviewtext11.background=~backgroundcolor;
 	~firstviewtext11.stringColor_(~stringcolor);
 	~firstviewtext11.string = "(scroll down to see more)";
-	~firstviewtext11.font = Font(size: ~firstviewboundsWIDTH/55);
+	~firstviewtext11.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
 	~firstviewtext2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/16, ~firstviewboundsHEIGHT/21)).states_([["back",~stringcolor,~backgroundcolor],["back",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~firstview.close;
@@ -71,15 +71,15 @@
 	});
 	~firstviewtext2.background=~stringcolor;
 	~firstviewtext2.string = "Back";
-	~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/6.5454545454545, ~firstviewboundsHEIGHT/21)).states_([["Play full piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/6.54, ~firstviewboundsHEIGHT/21)).states_([["Play full piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		var piecegenerated;
 		/*~piecegenerated = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695652174, ~firstviewboundsWIDTH/36));
 		~piecegenerated.background=~backgroundcolor;
 		~piecegenerated.stringColor_(~stringcolor);
 		"Please Wait".postln;
-		~piecegenerated.font = Font(size: ~firstviewboundsWIDTH/55);
+		~piecegenerated.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 		~piecegenerated.string = "Please Wait";/**/
 		if(~piece_created == "true", {~playbutton.close; ~arrow.close;});*//*
 		~piece_generator_func.value;*/
@@ -93,7 +93,7 @@
 		});
 
 	});
-	~generatepiecebutton.font = Font(size: ~firstviewboundsWIDTH/48);
+	~generatepiecebutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	/*if(playnil == nil, {nil}, {*/
 	/*~play_visible_func = {
@@ -104,11 +104,12 @@
 
 	if(~piece_created == nil, {~playbutton.close; ~arrow.close;});
 
-	~stopbuttonfunc = {~stopbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.93, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Stop piece",~stringcolor,~backgroundcolor]]).action_({arg button;
-		~stop_func.value;
-	});
+	~stopbuttonfunc = {
 
-	~stopbutton.font = Font(size: ~firstviewboundsWIDTH/48);
+		~stopbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.85, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Stop piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+			~stop_func.value;
+		});
+		~stopbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	};
 
 	if(~duranduranbot_routine.isPlaying == true, {~playbutton.value = 1; ~stopbuttonfunc.value}, {~playbutton.value = 0});
@@ -121,7 +122,7 @@
 		~ai_assist_instructions_page_func.value;
 
 	});
-	~firstviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~save_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Save Project",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -185,7 +186,7 @@
 
 		"project saved".postln;
 	});
-	~save_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~save_assist_project_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~assist_clear_all_func = {
 
@@ -231,7 +232,7 @@
 				~assist_compose_page_func.value;
 		}, {}, 0, 0, stripResult: true, path: ((~ddbot_root)++"/program_files/saved_projects"));
 	});
-	~load_saved_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~load_saved_assist_project_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~new_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21*3), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["New Proj. (will save curr.)",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -244,7 +245,7 @@
 		if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
 		~assist_compose_page_func.value;
 	});
-	~new_assist_project_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~new_assist_project_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 
 	/*~spacing1 = {(~firstviewboundsWIDTH2/72) + (~firstviewboundsWIDTH2/18 * ~line_multiple1)};
@@ -267,10 +268,10 @@
 	AppClock.sched(0.25, {~playbutton.valueAction = 1;});
 	});
 	);
-	("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(size: ~firstviewboundsWIDTH/48);
+	("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	});
-	~new_part_button.font = Font(size: ~firstviewboundsWIDTH/48);*/
+	~new_part_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);*/
 
 	~spacing1 = {(~firstviewboundsWIDTH2/18 * ~line_multiple2)};
 	~spacing2 = {(~firstviewboundsHEIGHT2/21 * ~line_multiple1)};
@@ -310,7 +311,7 @@
 				});
 			});
 		);
-		("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(size: ~firstviewboundsWIDTH/48);
+		("assist_comp_part_"++(~num_assist_parts)++"_button").asSymbol.envirGet.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 		if(~pieceload != 1, {
 			("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
@@ -318,7 +319,7 @@
 			("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 1;
 		});
 	});
-	~new_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~new_part_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~line_multiple1 == nil, {~line_multiple1 = 1});
 	if(~line_multiple2 == nil, {~line_multiple2 = 0});
@@ -359,7 +360,7 @@
 			});
 		});
 	});
-	~set_delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~set_delete_part_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -394,9 +395,9 @@
 			~set_delete_part_button.valueAction = 0;
 		});
 	});
-	~delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~delete_part_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_delete_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4 + (~firstviewboundsWIDTH/8)+ (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/6), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/5.3, ~firstviewboundsHEIGHT/21)).states_([["Undo Delete Parts",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_delete_part_button.value == 1, {
 			if(~delete_array_backup != [], {
@@ -422,7 +423,7 @@
 			~set_delete_part_button.valueAction = 0;
 		});
 	});
-	~undo_delete_part_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~undo_delete_part_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~volbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Volume",~stringcolor,~backgroundcolor],["Volume",~backgroundcolor,Color.green]]).action_({arg button;
 
@@ -450,7 +451,7 @@
 				~volslider.value = ~amp;
 				~voltext.string = "vol. - "++(~amp.asString);
 			});
-			~defaultvolbutton.font = Font(size: ~firstviewboundsWIDTH/55);
+			~defaultvolbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 		}, {
 			if(amp_before != ~amp, {
 				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
@@ -460,36 +461,36 @@
 			~volview.close;
 		});
 	});
-	~volbutton.font = Font(size: ~firstviewboundsWIDTH/48);
+	~volbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~voltext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/72), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~voltext.background_(~backgroundcolor);
 	~voltext.stringColor_(~stringcolor);
 	~voltext.string = "vol. - "++(~amp.asString);
-	~voltext.font = Font(size: ~firstviewboundsWIDTH/48);
+	~voltext.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~ml_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
 	~ml_static.background_(~backgroundcolor);
 	~ml_static.stringColor_(~stringcolor);
 	if(~assist_ml_on == 1, {~ml_static.string = "Machine learning is ON";}, {~ml_static.string = "Machine learning is OFF";});
-	~ml_static.font = Font(size: ~firstviewboundsWIDTH/48);
+	~ml_static.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~ml_data_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
 	~ml_data_static.background_(~backgroundcolor);
 	~ml_data_static.stringColor_(~stringcolor);
 	if(~assist_ml_data_on == 1, {~ml_data_static.string = "Using ML data is ON";}, {~ml_data_static.string = "Using ML data is OFF";});
-	~ml_data_static.font = Font(size: ~firstviewboundsWIDTH/48);
+	~ml_data_static.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~ai_assist_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Assist Comp. Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		~ai_assist_settings_page_func.value;
 	});
-	~ai_assist_settings_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~ai_assist_settings_page_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Player Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~player_settings_page_func.value;
 	});
-	~training_settings_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~training_settings_page_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~load_piece_to_main_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Piece To Main Page",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -555,7 +556,7 @@
 
 		/*if(~load_to_main_play == 1, {~firstviewtext2.valueAction = 0;}); // back button*/
 	});
-	~load_piece_to_main_page_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~load_piece_to_main_page_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~train_button_func = {
 
@@ -569,7 +570,7 @@
 			~mlfullpieceprompttext.stringColor_(~stringcolor);
 			~mlfullpieceprompttext.align = \center;
 			~mlfullpieceprompttext.string = "Machine Learn full piece?";
-			~mlfullpieceprompttext.font = Font(size: ~mlfullpieceprompt.bounds.width/14);
+			~mlfullpieceprompttext.font = Font(~default_font, size: ~mlfullpieceprompt.bounds.width/14);
 			~mlfullpieceprompttext.front;
 
 			~train_full_piece_yes_no_button_1 = Button.new(~mlfullpieceprompt, Rect(~mlfullpieceprompt.bounds.width/8, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["Yes",~stringcolor,~backgroundcolor]]).action_({arg button;
@@ -583,16 +584,16 @@
 				~mlfullpieceprompt.close;
 				Server.default.freeAll;
 			});
-			~train_full_piece_yes_no_button_1.font = Font(size: ~firstviewboundsWIDTH/48);
+			~train_full_piece_yes_no_button_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 			~train_full_piece_yes_no_button_2 = Button.new(~mlfullpieceprompt, Rect( ~mlfullpieceprompt.bounds.width/1.6, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["No",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 				~mlfullpieceprompt.close;
 			});
-			~train_full_piece_yes_no_button_2.font = Font(size: ~firstviewboundsWIDTH/48);
+			~train_full_piece_yes_no_button_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 		});
-		~train_full_piece_button.font = Font(size: ~firstviewboundsWIDTH/48);
+		~train_full_piece_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	};
 
@@ -659,7 +660,7 @@
 		("gen_rout_part_"++(~gen_assist_part_number)).asSymbol.envirGet.play;
 	};
 
-	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/6.5, ~firstviewboundsHEIGHT/21)).states_([["Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~number_of_instruments.do(s = 0; {
@@ -688,9 +689,9 @@
 
 		});
 	});
-	~generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~generate_new_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/7), (x=2; ~button_base.value;), ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2 + (~firstviewboundsWIDTH/6.5), (x=2; ~button_base.value;), ~firstviewboundsWIDTH/4.7, ~firstviewboundsHEIGHT/21)).states_([["Undo Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~number_of_instruments.do(s = 0; {
@@ -736,24 +737,24 @@
 
 		});
 	});
-	~undo_generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~undo_generate_new_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	// ~save_generate_new_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/7) + (~firstviewboundsWIDTH/5), ~firstviewboundsHEIGHT/2.97, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Save Generate New",~stringcolor,~backgroundcolor]]).action_({arg button;
 	//
 	// });
-	// ~save_generate_new_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	// ~save_generate_new_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~partavgdurstatictext_1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/4.2, ~firstviewboundsHEIGHT/21));
 	~partavgdurstatictext_1.background_(~backgroundcolor);
 	~partavgdurstatictext_1.stringColor_(~stringcolor);
 	~partavgdurstatictext_1.string = "Avg. part length (secs.) -";
-	~partavgdurstatictext_1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~partavgdurstatictext_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~partavgdurtextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/280), (x=1; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~partavgdurtextfield_1.string = ~avg_part_length.asString;
 	~partavgdurtextfield_1.background_(~backgroundcolor);
 	~partavgdurtextfield_1.stringColor_(~stringcolor);
-	~partavgdurtextfield_1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~partavgdurtextfield_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~partavgdurtextfield_1.action = {
 		~sdfk = ~partavgdurtextfield_1.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
@@ -772,13 +773,13 @@
 	~partavgdurstatictext_2.background_(~backgroundcolor);
 	~partavgdurstatictext_2.stringColor_(~stringcolor);
 	~partavgdurstatictext_2.string = "Range (+/-) -";
-	~partavgdurstatictext_2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~partavgdurstatictext_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~partavgdurtextfield_2 = TextField(~firstview, Rect((~firstviewboundsWIDTH/72*2)+(~firstviewboundsWIDTH/4.2)+(~firstviewboundsWIDTH/7.6)+(~firstviewboundsWIDTH/14)+(~firstviewboundsWIDTH/25), (x=1; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~partavgdurtextfield_2.string = ~avg_part_range.asString;
 	~partavgdurtextfield_2.background_(~backgroundcolor);
 	~partavgdurtextfield_2.stringColor_(~stringcolor);
-	~partavgdurtextfield_2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~partavgdurtextfield_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~partavgdurtextfield_2.action = {
 		~sdfk = ~partavgdurtextfield_2.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
@@ -802,7 +803,7 @@
 			~dup_1_part_num = nil;
 		});
 	});
-	~set_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~set_duplicate_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~duplicate_on == 1, {~set_duplicate_button.value = 1;});
 
@@ -864,9 +865,9 @@
 			~set_duplicate_button.value = 0;
 		}, {"set duplicate not on\n - and/or no 2 parts where selected".postln;});
 	});
-	~duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~duplicate_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), (x=3; ~button_base.value;), ~firstviewboundsWIDTH/6.4, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~undo_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3 + (~firstviewboundsWIDTH/6.6*2), (x=3; ~button_base.value;), ~firstviewboundsWIDTH/6.1, ~firstviewboundsHEIGHT/21)).states_([["Undo Duplicate",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(~set_duplicate_button.value == 1, {
 			~number_of_instruments.do(s = 0; {
@@ -908,7 +909,7 @@
 			~set_duplicate_button.valueAction = 0;
 		});
 	});
-	~undo_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~undo_duplicate_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~batch_dup_1 == nil, {~batch_dup_1 = "";});
 	if(~batch_dup_2 == nil, {~batch_dup_2 = "";});
@@ -919,19 +920,19 @@
 	~batchduptext.background=~backgroundcolor;
 	~batchduptext.stringColor=~stringcolor;
 	~batchduptext.string = "Batch Duplicate -";
-	~batchduptext.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptext.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~batchduptext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/6.5, ~firstviewboundsHEIGHT/21));
 	~batchduptext1.background=~backgroundcolor;
 	~batchduptext1.stringColor=~stringcolor;
 	~batchduptext1.string = "To dup. 1st/last";
-	~batchduptext1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~batchduptextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6.2)+(~firstviewboundsWIDTH/280), (x=5; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~batchduptextfield_1.string = ~batch_dup_1.asString;
 	~batchduptextfield_1.background_(~backgroundcolor);
 	~batchduptextfield_1.stringColor_(~stringcolor);
-	~batchduptextfield_1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptextfield_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~batchduptextfield_1.action = {
 		~sdfk = ~batchduptextfield_1.value.asInteger;
 		if(~sdfk.value.isInteger == true, {
@@ -945,7 +946,7 @@
 	~batchduptextfield_2.string = ~batch_dup_2.asString;
 	~batchduptextfield_2.background_(~backgroundcolor);
 	~batchduptextfield_2.stringColor_(~stringcolor);
-	~batchduptextfield_2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptextfield_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~batchduptextfield_2.action = {
 		~sdfk = ~batchduptextfield_2.value.asInteger;
 		if(~sdfk.value.isInteger == true, {
@@ -959,13 +960,13 @@
 	~batchduptext2.background=~backgroundcolor;
 	~batchduptext2.stringColor=~stringcolor;
 	~batchduptext2.string = "Dup. into 1st/last";
-	~batchduptext2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~batchduptextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/280*1), (x=6; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~batchduptextfield_3.string = ~batch_dup_3.asString;
 	~batchduptextfield_3.background_(~backgroundcolor);
 	~batchduptextfield_3.stringColor_(~stringcolor);
-	~batchduptextfield_3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptextfield_3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~batchduptextfield_3.action = {
 		~sdfk = ~batchduptextfield_3.value.asInteger;
 		if(~sdfk.value.isInteger == true, {
@@ -979,7 +980,7 @@
 	~batchduptextfield_4.string = ~batch_dup_4.asString;
 	~batchduptextfield_4.background_(~backgroundcolor);
 	~batchduptextfield_4.stringColor_(~stringcolor);
-	~batchduptextfield_4.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batchduptextfield_4.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~batchduptextfield_4.action = {
 		~sdfk = ~batchduptextfield_4.value.asInteger;
 		if(~sdfk.value.isInteger == true, {
@@ -1105,10 +1106,10 @@
 			statictext.string = ~batch_dup_4.asString;
 			statictext.background_(~backgroundcolor);
 			statictext.stringColor_(~stringcolor);
-			statictext.font = Font(size: ~firstviewboundsWIDTH/48);*/
+			statictext.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);*/
 		});
 	});
-	~batch_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~batch_duplicate_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~undo_batch_duplicate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/6)+(~firstviewboundsWIDTH/17*2)+(~firstviewboundsWIDTH/280*9)+(~firstviewboundsWIDTH/17*2), (x=6; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -1156,19 +1157,19 @@
 			"undo batch duplicate performed".postln;
 		});
 	});
-	~undo_batch_duplicate_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~undo_batch_duplicate_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~mergetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=8; ~button_base.value;), ~firstviewboundsWIDTH/13, ~firstviewboundsHEIGHT/21));
 	~mergetext.background=~backgroundcolor;
 	~mergetext.stringColor=~stringcolor;
 	~mergetext.string = "Merge - ";
-	~mergetext.font = Font(size: ~firstviewboundsWIDTH/48);
+	~mergetext.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~mergetext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/13), (x=8; ~button_base.value;), ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21));
 	~mergetext1.background=~backgroundcolor;
 	~mergetext1.stringColor=~stringcolor;
 	~mergetext1.string = "Beginning part";
-	~mergetext1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~mergetext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~merge_beg_part == nil, {~merge_beg_part = "";});
 	if(~merge_end_part == nil, {~merge_end_part = "";});
@@ -1178,7 +1179,7 @@
 	~mergetextfield_1.string = ~merge_beg_part.asString;
 	~mergetextfield_1.background_(~backgroundcolor);
 	~mergetextfield_1.stringColor_(~stringcolor);
-	~mergetextfield_1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~mergetextfield_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~mergetextfield_1.action = {
 		~sdfk = ~mergetextfield_1.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
@@ -1193,13 +1194,13 @@
 	~mergetext2.background=~backgroundcolor;
 	~mergetext2.stringColor=~stringcolor;
 	~mergetext2.string = "Ending part";
-	~mergetext2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~mergetext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~mergetextfield_2 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72*5+(~firstviewboundsWIDTH/13)+(~firstviewboundsWIDTH/7)+(~firstviewboundsWIDTH/17)+(~firstviewboundsWIDTH/8.5), (x=8; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~mergetextfield_2.string = ~merge_end_part.asString;
 	~mergetextfield_2.background_(~backgroundcolor);
 	~mergetextfield_2.stringColor_(~stringcolor);
-	~mergetextfield_2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~mergetextfield_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~mergetextfield_2.action = {
 		~sdfk = ~mergetextfield_2.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
@@ -1214,13 +1215,13 @@
 	~mergetext3.background=~backgroundcolor;
 	~mergetext3.stringColor=~stringcolor;
 	~mergetext3.string = "Merge into part";
-	~mergetext3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~mergetext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~mergetextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/6.5), (x=9; ~button_base.value;), ~firstviewboundsWIDTH/17, ~firstviewboundsHEIGHT/21));
 	~mergetextfield_3.string = ~merge_into_part.asString;
 	~mergetextfield_3.background_(~backgroundcolor);
 	~mergetextfield_3.stringColor_(~stringcolor);
-	~mergetextfield_3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~mergetextfield_3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~mergetextfield_3.action = {
 		~sdfk = ~mergetextfield_3.value.asFloat;
 		/*	~pos_1 = looptextfield_1.value.asInteger;*/
@@ -1288,7 +1289,7 @@
 
 		("merge into part"++(~merge_into_part)++" performed").postln;
 	});
-	~set_merge_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~set_merge_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~undo_merge_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*4+(~firstviewboundsWIDTH/6.5)+(~firstviewboundsWIDTH/17)+( ~firstviewboundsWIDTH/9), (x=9; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -1331,7 +1332,7 @@
 
 		("undo merge into part"++(~merge_into_part)++" performed").postln;
 	});
-	~undo_merge_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~undo_merge_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~set_up_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=11; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Trim OFF",~stringcolor,~backgroundcolor],["Trim ON",~backgroundcolor,Color.green]]).action_({arg button;
 
@@ -1362,11 +1363,11 @@
 				~trimviewtext3.background=~backgroundcolor;
 				~trimviewtext3.stringColor_(~stringcolor);
 				~trimviewtext3.string = "";
-				~trimviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
+				~trimviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 			});
 		}, {~set_trim_on = 0; ~trimviewtext3.close; ~trimviewtext3 = nil;});
 	});
-	~set_up_trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~set_up_trim_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~set_trim_on == 1, {~set_up_trim_button.value = 1;});
 
@@ -1374,7 +1375,7 @@
 	~trimviewtext1.background=~backgroundcolor;
 	~trimviewtext1.stringColor_(~stringcolor);
 	~trimviewtext1.string = "- recommend keeping off if not in use";
-	~trimviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~trimviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~cutslider_1_position == nil, {~cutslider_1_position = 0;});
 	if(~cutslider_2_position == nil, {~cutslider_2_position = 0;});
@@ -1418,7 +1419,7 @@
 			});
 		});
 	});
-	~trim_play_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~trim_play_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~test_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/9), (x=14; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Test Trim",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -1432,7 +1433,7 @@
 			});
 		});
 	});
-	~test_trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~test_trim_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~trim_stop_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72+(~firstviewboundsWIDTH/9*5), (x=14; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Stop",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -1440,7 +1441,7 @@
 			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		});
 	});
-	~trim_stop_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~trim_stop_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*3+(~firstviewboundsWIDTH/9*2), (x=14; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Trim",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -1451,7 +1452,7 @@
 			~trimviewtext2.background=~backgroundcolor;
 			~trimviewtext2.stringColor_(~stringcolor);
 			~trimviewtext2.string = "- old proj. saved";
-			~trimviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
+			~trimviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 			AppClock.sched(3, {~trimviewtext2.close; ~trimviewtext2 = nil;});
 
 			if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
@@ -1521,7 +1522,7 @@
 		});
 
 	});
-	~trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~trim_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~undo_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=15; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Undo",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -1567,7 +1568,7 @@
 			"undo trim performed".postln;
 		});
 	});
-	~undo_trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~undo_trim_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~set_back_original_trim_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72*2+(~firstviewboundsWIDTH/15), (x=15; ~button_base.value;), ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Set back to original",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -1603,7 +1604,7 @@
 			"original before trim performed".postln;
 		});
 	});
-	~set_back_original_trim_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~set_back_original_trim_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	/*fillertext = StaticText(~firstview, Rect(0, ~firstviewboundsHEIGHT/0.999999, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
 	fillertext.background=~backgroundcolor;

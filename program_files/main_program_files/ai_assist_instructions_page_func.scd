@@ -13,7 +13,7 @@
     ~firstviewtext1.stringColor=~stringcolor;
     ~firstviewtext1.string = "Instructions";
     ~firstviewtext1.align = \topLeft;
-    ~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
+    ~firstviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
     ~firstviewtext2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/16, ~firstviewboundsHEIGHT/21)).states_([["back",~stringcolor,~backgroundcolor],["back",~stringcolor,~backgroundcolor]]).action_({arg button;
         ~firstview.close;
@@ -21,14 +21,14 @@
     });
     ~firstviewtext2.background=~stringcolor;
     ~firstviewtext2.string = "Back";
-    ~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
+    ~firstviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
     ~firstviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.5652173913043, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/2.88, ~firstviewboundsHEIGHT/4.37));
     ~firstviewtext3.background=~backgroundcolor;
     ~firstviewtext3.stringColor=~stringcolor;
     ~firstviewtext3.string = "*Important Note*... You can kill all sounds and processes by hitting "++"cmd/ctrl - period".quote++"on your keyboard.";
     ~firstviewtext3.align = \topLeft;
-    ~firstviewtext3.font = Font(size: ~firstviewboundsWIDTH/65.454545454545);
+    ~firstviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/65.454545454545);
 
     ~firstviewtext4 = TextView(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.528571428571, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/1.2));
     ~firstviewtext4.background=~backgroundcolor;
@@ -77,6 +77,6 @@ Load Piece To Main Page - load the entire peice the to the main page.
 Machine Learn Full Piece - Train DDbot using the full piece.
 ";
     ~firstviewtext4.stringColor=~stringcolor;
-    ~firstviewtext4.font = Font(size: ~firstviewboundsWIDTH/48);
+    ~firstviewtext4.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 };

@@ -12,21 +12,21 @@
 	});
 
 	~firstviewtext3.string = "Back";
-	~firstviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	/*~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/2.9774535809019));
 	~firstviewtext1.background=~backgroundcolor;
 	~firstviewtext1.stringColor_(~stringcolor);
 	~firstviewtext1.string = "Hello. This is DuranDuranbot. \n\nTo enhance the creativity of this AI bot... please consider providing it with some personal creative inspiration of yours by entering 3 number values into the 3 fields below, numerical values up to 8 digits long, and hit Enter. Consider writing down the 3 values you gave it to be able to replicate exactly the music made by this AI in this specific instance at a later date - although they will still be saved in the "++"duranduranbot_saved_random _seeds.scd".quote++" file, accessible on the next page.";
 	~firstviewtext1.align = \topLeft;
-	~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);*/
+	~firstviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);*/
 
 
 	~randseedEZText1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.6, ~firstviewboundsWIDTH/4.2352941176471, ~firstviewboundsHEIGHT/21));
 	~randseedEZText1.string = "Random Seed 1";
 	~randseedEZText1.background_(~backgroundcolor);
 	~randseedEZText1.stringColor_(~stringcolor);
-	~randseedEZText1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~randseedEZText1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~randseedEZText1.action = {
 		var randseed_1_make;
 		randseed_1_make = ~randseedEZText1.value;
@@ -45,7 +45,7 @@
 	~randseedEZText2.string = "Random Seed 2";
 	~randseedEZText2.background_(~backgroundcolor);
 	~randseedEZText2.stringColor_(~stringcolor);
-	~randseedEZText2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~randseedEZText2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~randseedEZText2.action = {
 		var randseed_2_make;
 		randseed_2_make = ~randseedEZText2.value;
@@ -64,7 +64,7 @@
 	~randseedEZText3.string = "Random Seed 3";
 	~randseedEZText3.background_(~backgroundcolor);
 	~randseedEZText3.stringColor_(~stringcolor);
-	~randseedEZText3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~randseedEZText3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~randseedEZText3.action = {
 		var randseed_3_make;
 		randseed_3_make = ~randseedEZText3.value;
@@ -84,21 +84,21 @@
 	~randseedviewtext1.stringColor_(~stringcolor);
 	~randseedviewtext1.string = if(~randseed_1 != nil, {~randseed_1.asString++" entered"}, {"number not entered"});
 	~randseedviewtext1.align = \topLeft;
-	~randseedviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~randseedviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~randseedviewtext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.7894736842105,~firstviewboundsHEIGHT/2.26, ~firstviewboundsWIDTH/4.2352941176471, ~firstviewboundsHEIGHT/21));
 	~randseedviewtext2.background=~backgroundcolor;
 	~randseedviewtext2.stringColor_(~stringcolor);
 	~randseedviewtext2.string = if(~randseed_2 != nil, {~randseed_2.asString++" entered"}, {"number not entered"});
 	~randseedviewtext2.align = \topLeft;
-	~randseedviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~randseedviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~randseedviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.8947368421053, ~firstviewboundsHEIGHT/2.26, ~firstviewboundsWIDTH/4.2352941176471, ~firstviewboundsHEIGHT/21));
 	~randseedviewtext3.background=~backgroundcolor;
 	~randseedviewtext3.stringColor_(~stringcolor);
 	~randseedviewtext3.string = if(~randseed_3 != nil, {~randseed_3.asString++" entered"}, {"number not entered"});
 	~randseedviewtext3.align = \topLeft;
-	~randseedviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~randseedviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 
 	/*~firstviewtext2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.415725806452, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/10.85));
@@ -106,7 +106,7 @@
 	~firstviewtext2.stringColor_(~stringcolor);
 	~firstviewtext2.string = "Or you can do none of that, and autogenerate all of those things by clicking on "++"Next".quote++" below... Which you have to do regardless :)...";
 	~firstviewtext2.align = \topLeft;
-	~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);*/
+	~firstviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);*/
 
 
 };

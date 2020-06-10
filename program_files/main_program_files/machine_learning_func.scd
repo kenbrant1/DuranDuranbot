@@ -532,7 +532,7 @@
 			~ratedonetext.background=~backgroundcolor;
 			~ratedonetext.stringColor_(~stringcolor);
 			~ratedonetext.string = "PIECE SELECTION RATED";
-			~ratedonetext.font = Font(size: ~firstviewboundsWIDTH/55);
+			~ratedonetext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
 			AppClock.sched(3, {if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});});
 		});
@@ -613,7 +613,7 @@ if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});
 ~ratedonetext.background=~stringcolor;
 ~ratedonetext.stringColor_(~backgroundcolor);
 ~ratedonetext.string = "RATES REVERTED";
-~ratedonetext.font = Font(size: ~firstviewboundsWIDTH/55);
+~ratedonetext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
 AppClock.sched(3, {if(~ratedonetext != nil, {~ratedonetext.close; ~ratedonetext = nil;});});
 });

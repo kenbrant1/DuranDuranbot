@@ -14,7 +14,7 @@
 	~firstviewtext1.stringColor_(~stringcolor);
 	~firstviewtext1.string = "Assist Settings";
 	~firstviewtext1.align = \topLeft;
-	~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~firstviewtext2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/16, ~firstviewboundsHEIGHT/21)).states_([["back",~stringcolor,~backgroundcolor],["back",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~firstview.close;
@@ -22,7 +22,7 @@
 	});
 	~firstviewtext2.background=~stringcolor;
 	~firstviewtext2.string = "Back";
-	~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~ml_off_on_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/3.5, ~firstviewboundsHEIGHT/21)).states_([["Turn Machine Learning OFF",~stringcolor,~backgroundcolor],["Turn Machine Learning ON",~stringcolor,~backgroundcolor]]).action_({arg button;
 
@@ -41,7 +41,7 @@
 			~mlfullpieceprompttext.string = "Turn machine learning off?";
 
 		});
-		~mlfullpieceprompttext.font = Font(size: ~mlfullpieceprompt.bounds.width/14);
+		~mlfullpieceprompttext.font = Font(~default_font, size: ~mlfullpieceprompt.bounds.width/14);
 		~mlfullpieceprompttext.front;
 
 		~train_full_piece_yes_no_button_1 = Button.new(~mlfullpieceprompt, Rect(~mlfullpieceprompt.bounds.width/8, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["Yes",~stringcolor,~backgroundcolor]]).action_({
@@ -60,17 +60,17 @@
 			~mlfullpieceprompt.close;
 			if(~assist_ml_on == 1, {~ml_off_on_button.value = 0;}, {~ml_off_on_button.value = 1;});
 		});
-		~train_full_piece_yes_no_button_1.font = Font(size: ~firstviewboundsWIDTH/48);
+		~train_full_piece_yes_no_button_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 		~train_full_piece_yes_no_button_2 = Button.new(~mlfullpieceprompt, Rect( ~mlfullpieceprompt.bounds.width/1.6, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["No",~stringcolor,~backgroundcolor]]).action_({
 
 			~mlfullpieceprompt.close;
 			if(~assist_ml_on == 1, {~ml_off_on_button.value = 0;}, {~ml_off_on_button.value = 1;});
 		});
-		~train_full_piece_yes_no_button_2.font = Font(size: ~firstviewboundsWIDTH/48);
+		~train_full_piece_yes_no_button_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	});
-	~ml_off_on_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~ml_off_on_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~assist_ml_on == 1, {~ml_off_on_button.value = 0;}, {~ml_off_on_button.value = 1;});
 
@@ -91,7 +91,7 @@
 			~mlfullpieceprompttext.string = "Turn use ML data off?";
 
 		});
-		~mlfullpieceprompttext.font = Font(size: ~mlfullpieceprompt.bounds.width/14);
+		~mlfullpieceprompttext.font = Font(~default_font, size: ~mlfullpieceprompt.bounds.width/14);
 		~mlfullpieceprompttext.front;
 
 		~train_full_piece_yes_no_button_1 = Button.new(~mlfullpieceprompt, Rect(~mlfullpieceprompt.bounds.width/8, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["Yes",~stringcolor,~backgroundcolor]]).action_({
@@ -110,17 +110,17 @@
 			~mlfullpieceprompt.close;
 			if(~assist_ml_data_on == 1, {~ml_data_off_on_button.value = 0;}, {~ml_data_off_on_button.value = 1;});
 		});
-		~train_full_piece_yes_no_button_1.font = Font(size: ~firstviewboundsWIDTH/48);
+		~train_full_piece_yes_no_button_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 		~train_full_piece_yes_no_button_2 = Button.new(~mlfullpieceprompt, Rect( ~mlfullpieceprompt.bounds.width/1.6, ~mlfullpieceprompt.bounds.height/1.6, ~mlfullpieceprompt.bounds.width/4, ~mlfullpieceprompt.bounds.height/5)).states_([["No",~stringcolor,~backgroundcolor]]).action_({
 
 			~mlfullpieceprompt.close;
 			if(~assist_ml_data_on == 1, {~ml_data_off_on_button.value = 0;}, {~ml_data_off_on_button.value = 1;});
 		});
-		~train_full_piece_yes_no_button_2.font = Font(size: ~firstviewboundsWIDTH/48);
+		~train_full_piece_yes_no_button_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	});
-	~ml_data_off_on_button.font = Font(size: ~firstviewboundsWIDTH/48);
+	~ml_data_off_on_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~assist_ml_data_on == 1, {~ml_data_off_on_button.value = 0;}, {~ml_data_off_on_button.value = 1;});
 

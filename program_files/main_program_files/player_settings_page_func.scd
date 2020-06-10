@@ -14,7 +14,7 @@
 	~firstviewtext1.stringColor=~stringcolor;
 	~firstviewtext1.string = "Settings";
 	~firstviewtext1.align = \topLeft;
-	~firstviewtext1.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~firstviewtext2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/16, ~firstviewboundsHEIGHT/21)).states_([["back",~stringcolor,~backgroundcolor],["back",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~firstview.close;
@@ -24,7 +24,7 @@
 		});
 	});
 	~firstviewtext2.string = "Back";
-	~firstviewtext2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~comp_setting_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9, ~firstviewboundsWIDTH/1.1, ~firstviewboundsHEIGHT/21));
 	~comp_setting_menu.items = [
@@ -54,13 +54,13 @@
 			g.close;
 		};
 	};
-	~comp_setting_menu.font = Font(size: ~firstviewboundsWIDTH/48);
+	~comp_setting_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~tuningfreqtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/5.5, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~tuningfreqtextfield.string = ~tuning_frequency.asString;
 	~tuningfreqtextfield.background_(~backgroundcolor);
 	~tuningfreqtextfield.stringColor_(~stringcolor);
-	~tuningfreqtextfield.font = Font(size: ~firstviewboundsWIDTH/48);
+	~tuningfreqtextfield.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~tuningfreqtextfield.action = {arg value;
 		if(~tuningfreqtextfield.value.interpret.isNumber == true, {
 			~tuning_frequency = ~tuningfreqtextfield.value.asFloat;
@@ -78,13 +78,13 @@
 	~tuningfreqtextfield2.background=~backgroundcolor;
 	~tuningfreqtextfield2.stringColor=~stringcolor;
 	~tuningfreqtextfield2.string = "Note A4 tuning frquency in hertz. Current - "++(~tuning_frequency)++". Original default is "++(~tuning_frequency_default)++".";
-	~tuningfreqtextfield2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~tuningfreqtextfield2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~playerspeedtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/4, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~playerspeedtextfield.string = ~bit_duration.reciprocal.asString;
 	~playerspeedtextfield.background_(~backgroundcolor);
 	~playerspeedtextfield.stringColor_(~stringcolor);
-	~playerspeedtextfield.font = Font(size: ~firstviewboundsWIDTH/48);
+	~playerspeedtextfield.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	~playerspeedtextfield.action = {
 		/*randseed_1_make = randseedEZText1.value;
 		randseed_1_make = randseed_1_make.asString++"";
@@ -102,7 +102,7 @@
 	~playerspeedtextfield2.background=~backgroundcolor;
 	~playerspeedtextfield2.stringColor=~stringcolor;
 	~playerspeedtextfield2.string = "Bit speed of piece. Input how fast "++"bits".quote++" are cycled through in seconds. Then press "++"Enter/Return".quote++". Current - "++(~bit_duration.reciprocal)++". Original default is "++(~bit_duration_default)++".";
-	~playerspeedtextfield2.font = Font(size: ~firstviewboundsWIDTH/48);
+	~playerspeedtextfield2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~num_instruments_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.6, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~num_instruments_menu.items = [
@@ -150,14 +150,14 @@
 		~duranduranbot_GUI_func.value;
 
 	};
-	~num_instruments_menu.font = Font(size: ~firstviewboundsWIDTH/48);
+	~num_instruments_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~firstviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.6, ~firstviewboundsHEIGHT/2.6, ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
 	~firstviewtext3.background=~backgroundcolor;
 	~firstviewtext3.stringColor=~stringcolor;
 	~firstviewtext3.string = "Set the default setting of how many voices/intruments are playing. Original default is 2.";
 	~firstviewtext3.align = \topLeft;
-	~firstviewtext3.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~players_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.5, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~players_menu.items = [
@@ -185,14 +185,14 @@
 		);
 		g.close;
 	};
-	~players_menu.font = Font(size: ~firstviewboundsWIDTH/48);
+	~players_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~firstviewtext4 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/6.5));
 	~firstviewtext4.background=~backgroundcolor;
 	~firstviewtext4.stringColor=~stringcolor;
 	~firstviewtext4.string = "Click on the pop-up menu below to choose which player(s) will compose and be trained. This is useful for a more targeted composition and training... or less targeted. By selecting an option from the pop-up menu below, you are making that the default setting. Original default is "++"Player 1".quote++".";
 	~firstviewtext4.align = \topLeft;
-	~firstviewtext4.font = Font(size: ~firstviewboundsWIDTH/48);
+	~firstviewtext4.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~color_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.35, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~color_menu.items = [
@@ -229,7 +229,7 @@
 		~duranduranbot_GUI_func.value;
 		~main_page_func.value;
 	};
-	~color_menu.font = Font(size: ~firstviewboundsWIDTH/48);
+	~color_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	if(~ai_assist_compose != 1, {
 
@@ -237,7 +237,7 @@
 		~rate_time_range_textfield.string = ~rate_time_range.asString;
 		~rate_time_range_textfield.background_(~backgroundcolor);
 		~rate_time_range_textfield.stringColor_(~stringcolor);
-		~rate_time_range_textfield.font = Font(size: ~firstviewboundsWIDTH/48);
+		~rate_time_range_textfield.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 		~rate_time_range_textfield.action = {
 			/*randseed_1_make = randseedEZText1.value;
 			randseed_1_make = randseed_1_make.asString++"";
@@ -255,6 +255,6 @@
 		~rate_time_range_textfield2.background=~backgroundcolor;
 		~rate_time_range_textfield2.stringColor=~stringcolor;
 		~rate_time_range_textfield2.string = "Rate time range. Input time range in seconds that is rated backwards from current piece position. Then press "++"Enter/Return".quote++". Current - "++(~rate_time_range)++". Original default is "++(~rate_time_range_default)++".";
-		~rate_time_range_textfield2.font = Font(size: ~firstviewboundsWIDTH/48);
+		~rate_time_range_textfield2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	});
 };
