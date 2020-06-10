@@ -92,7 +92,7 @@ File.readAllString((~ddbot_root)++"/program_files/main_program_files/full_midi_t
 
 if(w != nil, {w.close;});
 
-~default_font = "Segoe UI";
+~default_font = "Arial";
 
 if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});
 
