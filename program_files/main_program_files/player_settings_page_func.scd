@@ -230,7 +230,7 @@
 	};
 	~players_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~color_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+	~color_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=11; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~color_menu.items = [
 		"GUI color - "++(
 			case
