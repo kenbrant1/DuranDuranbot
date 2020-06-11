@@ -12,7 +12,7 @@ s = ~bit_duration;
 ~blend_choice_array = [(-6),(-5),(-4),(-3),(-2),(-1),0,1,2,3,4,5,6];
 
 ~midi_low_limit = 36;
-~midi_high_limit = 60;
+~midi_high_limit = 60 /*84*/;
 ~freqmap = (i = ~tuning_frequency / (2 ** (69 / 12)); a = (-1); b = (-1); Array.fill(128, {i * (2 ** (((a=a+1) / 12).trunc)) * ( (2 ** (12.reciprocal)) ** ((b=b+1)  % 12));}));/*~freqmap = (i = 8.0271480262684/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(128, { i = i*~stepratio;}));*/
 ~freqmap = ~freqmap.cpsmidi;
 /*~freqmap2 = (i = ~freqmap.at(58)/*-0.0000000000024*/; ~stepratio = 1.0594630943593; Array.fill(24, { i = i*~stepratio;}));*/

@@ -1,9 +1,27 @@
 ~synthdefs_func = {
 
-	if(~buffer == nil, {~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Promenade-C3-loop5.wav");});
+	case
+	{~synth_choice == "Alesis-Sanctuary-QCard-Promenade"}{
+		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Promenade-C3-loop5.wav");
+		~vd_midi = 48;
+	}
+	{~synth_choice == "Korg-M3R-Chorale"}{
+		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Korg-M3R-Chorale-C2_loop.wav");
+		~vd_midi = 36;
+	}
+	{~synth_choice == "Korg-Poly-800-Organ"}{
+		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Korg-Poly-800-Organ-C4_loop.wav");
+		~vd_midi = 60;
+	}
+	{~synth_choice == "Roland JX-3P samp. 2"}{
+		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Vintage Synth Samples - ROLAND JX-3P VOL. 1 - 02 ROLAND JX-3P_loop7.wav");
+		~vd_midi = 60;
+	};
 
-	~vd_midi = 60; //middle note for equalizing volume/amplitude. default is 60.
+	//~vd_midi - middle note for equalizing volume/amplitude.
+	// ~duranduranbotsynth1.isRunning;
 
+	//Synth("synth1").isRunning
 	/*~amp = 1;*/
 
 	~number_of_instruments.do(x = 0; {

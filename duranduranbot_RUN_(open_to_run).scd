@@ -39,6 +39,7 @@ https://github.com/kenbrant1
 
 ~ddbot_root = Document.current.dir;
 
+if(~synth_choice == nil, {~synth_choice = File.readAllString((~ddbot_root)++"/program_files/other_program_files/synth_choice.scd", r).interpret.asString;});
 if(~number_of_instruments == nil, {~number_of_instruments = File.readAllString((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", r).interpret;});
 if(~tuning_frequency == nil, {~tuning_frequency_default = 440; ~tuning_frequency = FileReader.read((~ddbot_root)++"/program_files/other_program_files/tuning_frequency.scd", false, true).flatten.at(0).asString.asFloat;}); // note A tuneing frequency - default 440 hz
 if(~amp == nil, {~amp_default = 1; ~amp = File.readAllString((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", r).interpret;});

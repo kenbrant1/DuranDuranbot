@@ -3,7 +3,7 @@
 	if(~firstview != nil, {~firstview.close;});
 	if(~firstview2 != nil, {~firstview2.close;});
 
-	~firstview = View(w, Rect(0, 0, w.bounds.width, w.bounds.height));
+	~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height));
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;
 	~firstviewboundsWIDTH = ~firstview.bounds.width;
@@ -26,7 +26,43 @@
 	~firstviewtext2.string = "Back";
 	~firstviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~comp_setting_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9, ~firstviewboundsWIDTH/1.1, ~firstviewboundsHEIGHT/21));
+	~button_base = {(~firstviewboundsHEIGHT/9+(((~firstviewboundsHEIGHT/3)-(~firstviewboundsHEIGHT/3.7))*x))};
+
+	~synth_choice_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21));
+	~synth_choice_menu.items = [
+		"Current - "++(~synth_choice.asString),
+		"Alesis-Sanctuary-QCard-Promenade",
+		"Korg-M3R-Chorale",
+		"Korg-Poly-800-Organ",
+		"Roland JX-3P samp. 2"
+
+	];
+	~synth_choice_menu.background_(~backgroundcolor);
+	~synth_choice_menu.stringColor_(~stringcolor);
+	~synth_choice_menu.value = ~synth_choice.asString;
+	~synth_choice_menu.action = { arg menu;
+
+		if(menu.value != 0, {
+
+			~synth_choice = ~synth_choice_menu.items.at(menu.value).asString;
+			g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice.scd", "w");
+			g.write(~synth_choice.asString.quote;);
+			g.close;
+
+			~synthdefs_func.value;
+		});
+
+	};
+	~synth_choice_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~firstviewtext8 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*2 +(~firstviewboundsWIDTH/2), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
+	~firstviewtext8.background=~backgroundcolor;
+	~firstviewtext8.stringColor=~stringcolor;
+	~firstviewtext8.string = "Choose synth.";
+	~firstviewtext8.align = \topLeft;
+	~firstviewtext8.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~comp_setting_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/1.1, ~firstviewboundsHEIGHT/21));
 	~comp_setting_menu.items = [
 		"Current - "++(
 			case
@@ -56,7 +92,7 @@
 	};
 	~comp_setting_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~tuningfreqtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/5.5, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~tuningfreqtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~tuningfreqtextfield.string = ~tuning_frequency.asString;
 	~tuningfreqtextfield.background_(~backgroundcolor);
 	~tuningfreqtextfield.stringColor_(~stringcolor);
@@ -74,13 +110,13 @@
 		});
 	};
 
-	~tuningfreqtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/5.5, ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/21));
+	~tuningfreqtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/21));
 	~tuningfreqtextfield2.background=~backgroundcolor;
 	~tuningfreqtextfield2.stringColor=~stringcolor;
 	~tuningfreqtextfield2.string = "Note A4 tuning frquency in hertz. Current - "++(~tuning_frequency)++". Original default is "++(~tuning_frequency_default)++".";
 	~tuningfreqtextfield2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~playerspeedtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/4, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~playerspeedtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~playerspeedtextfield.string = ~bit_duration.reciprocal.asString;
 	~playerspeedtextfield.background_(~backgroundcolor);
 	~playerspeedtextfield.stringColor_(~stringcolor);
@@ -98,13 +134,13 @@
 
 	};
 
-	~playerspeedtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/4, ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/11));
+	~playerspeedtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8,(x=3; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/11));
 	~playerspeedtextfield2.background=~backgroundcolor;
 	~playerspeedtextfield2.stringColor=~stringcolor;
 	~playerspeedtextfield2.string = "Bit speed of piece. Input how fast "++"bits".quote++" are cycled through in seconds. Then press "++"Enter/Return".quote++". Current - "++(~bit_duration.reciprocal)++". Original default is "++(~bit_duration_default)++".";
 	~playerspeedtextfield2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~num_instruments_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.6, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+	~num_instruments_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~num_instruments_menu.items = [
 		"Current - "++(
 			case
@@ -152,14 +188,21 @@
 	};
 	~num_instruments_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.6, ~firstviewboundsHEIGHT/2.6, ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
+	~firstviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.6, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
 	~firstviewtext3.background=~backgroundcolor;
 	~firstviewtext3.stringColor=~stringcolor;
 	~firstviewtext3.string = "Set the default setting of how many voices/intruments are playing. Original default is 2.";
 	~firstviewtext3.align = \topLeft;
 	~firstviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~players_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.5, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+	~firstviewtext4 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/6.5));
+	~firstviewtext4.background=~backgroundcolor;
+	~firstviewtext4.stringColor=~stringcolor;
+	~firstviewtext4.string = "Click on the pop-up menu below to choose which player(s) will compose and be trained. This is useful for a more targeted composition and training... or less targeted. By selecting an option from the pop-up menu below, you are making that the default setting. Original default is "++"Player 1".quote++".";
+	~firstviewtext4.align = \topLeft;
+	~firstviewtext4.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~players_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=10; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~players_menu.items = [
 		"Current - "++(
 			case
@@ -187,14 +230,7 @@
 	};
 	~players_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext4 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2, ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/6.5));
-	~firstviewtext4.background=~backgroundcolor;
-	~firstviewtext4.stringColor=~stringcolor;
-	~firstviewtext4.string = "Click on the pop-up menu below to choose which player(s) will compose and be trained. This is useful for a more targeted composition and training... or less targeted. By selecting an option from the pop-up menu below, you are making that the default setting. Original default is "++"Player 1".quote++".";
-	~firstviewtext4.align = \topLeft;
-	~firstviewtext4.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
-
-	~color_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.35, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+	~color_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~color_menu.items = [
 		"GUI color - "++(
 			case
@@ -233,7 +269,7 @@
 
 	if(~ai_assist_compose != 1, {
 
-		~rate_time_range_textfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.2, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+		~rate_time_range_textfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 		~rate_time_range_textfield.string = ~rate_time_range.asString;
 		~rate_time_range_textfield.background_(~backgroundcolor);
 		~rate_time_range_textfield.stringColor_(~stringcolor);
@@ -251,7 +287,7 @@
 
 		};
 
-		~rate_time_range_textfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/1.2, ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/11));
+		~rate_time_range_textfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/11));
 		~rate_time_range_textfield2.background=~backgroundcolor;
 		~rate_time_range_textfield2.stringColor=~stringcolor;
 		~rate_time_range_textfield2.string = "Rate time range. Input time range in seconds that is rated backwards from current piece position. Then press "++"Enter/Return".quote++". Current - "++(~rate_time_range)++". Original default is "++(~rate_time_range_default)++".";
