@@ -425,51 +425,7 @@
 	});
 	~undo_delete_part_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~volbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Volume",~stringcolor,~backgroundcolor],["Volume",~backgroundcolor,Color.green]]).action_({arg button;
-
-		var amp_before;
-
-		amp_before = ~amp;
-
-		if(~volbutton.value == 1, {
-
-			~volview = View(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/3));
-			~volview.background_(~backgroundcolor);
-
-			~volslider = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/3)), controlSpec: ControlSpec(0, 2, \lin, 0.1, ~amp), action: {
-				|timeselect|
-				var selection1;
-				~amp = timeselect.value;
-				~voltext.string = "vol. - "++(~amp.asString);
-				/*~trimviewtext3.string = "Keep from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";*/
-			}, layout: 'vert');
-			~volslider.setColors(~stringcolor,~stringcolor);
-
-			~defaultvolbutton = Button.new(~volview, Rect(~firstviewboundsWIDTH/72 + (~firstviewboundsWIDTH/40*1.5), 0, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["set to default - 1.0",~stringcolor,~backgroundcolor]]).action_({arg button;
-
-				~amp = 1;
-				~volslider.value = ~amp;
-				~voltext.string = "vol. - "++(~amp.asString);
-				~volview.close;
-				~volbutton.value = 0;
-			});
-			~defaultvolbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
-		}, {
-			if(amp_before != ~amp, {
-				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
-				g.write(~amp.asString;);
-				g.close;
-			});
-			~volview.close;
-		});
-	});
-	~volbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
-
-	~voltext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/72), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
-	~voltext.background_(~backgroundcolor);
-	~voltext.stringColor_(~stringcolor);
-	~voltext.string = "vol. - "++(~amp.asString);
-	~voltext.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+	~volbutton_func.value;
 
 	~ml_static = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21));
 	~ml_static.background_(~backgroundcolor);

@@ -170,7 +170,7 @@
 			~stop_func.value;
 		});
 
-	~stopbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+		~stopbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 	};
 
 	if(~duranduranbot_routine.isPlaying == true, {~playbutton.value = 1; ~stopbutton.close; ~stopbuttonfunc.value}, {~playbutton.value = 0});
@@ -332,7 +332,7 @@
 	~timeslider_func.value;
 
 	/*if(~pause_piece != nil, {if(~pause_piece != 1, {~timeslider.valueAction = 0;/*rangeslider.valueAction = [0, if(~piecedur_secs != nil, {~piecedur_secs}, {0});]*/nil});});
-*/
+	*/
 	/*if(~pause_piece == 0, {~piece_position = 0});*/
 
 	~timeslidertext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.84, ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/22.55));
@@ -553,51 +553,80 @@
 	ctrlperiodtext.align = \topLeft;
 	ctrlperiodtext.font = Font(~default_font, size: ~firstviewboundsWIDTH/70.454545454545);*/
 
-	~volbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Volume",~stringcolor,~backgroundcolor],["Volume",~backgroundcolor,Color.green]]).action_({arg button;
+	~volbutton_func = {
 
-		var amp_before;
+		~volbutton = Button.new(~firstview,
+			if(~ai_assist_compose != 1, {
+			Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)
+			}, {
+			Rect(~firstviewboundsWIDTH/1.37, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)
+			})
+		).states_([["Volume",~stringcolor,~backgroundcolor],["Volume",~backgroundcolor,Color.green]]).action_({arg button;
 
-		if(~volbutton.value == 1, {
+			var amp_before;
 
-			~volview = View(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56, ~firstviewboundsHEIGHT/3));
-			~volview.background_(~backgroundcolor);
+			if(~volbutton.value == 1, {
 
-			amp_before = ~amp;
+				~volview = View(~firstview,
+					if(~ai_assist_compose != 1, {
+						Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56, ~firstviewboundsHEIGHT/3)
+					}, {
+						Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/3)
+					})
+				);
+				~volview.background_(~backgroundcolor);
 
-			~volslider = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/3)), controlSpec: ControlSpec(0, 2, \lin, 0.1, ~amp), action: {
-				|timeselect|
-				var selection1;
-				~amp = timeselect.value;
-				~voltext.string = "vol. - "++(~amp.asString);
-				/*~trimviewtext3.string = "Keep from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";*/
-			}, layout: 'vert');
-			~volslider.setColors(~stringcolor,~stringcolor);
+				amp_before = ~amp;
 
-			~defaultvolbutton = Button.new(~volview, Rect(~firstviewboundsWIDTH/72 + (~firstviewboundsWIDTH/40*1.5), 0, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([["set to default - 1.0",~stringcolor,~backgroundcolor]]).action_({arg button;
+				~volslider = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/3)), controlSpec: ControlSpec(0, 2, \lin, 0.1, ~amp), action: {
+					|timeselect|
+					var selection1;
+					~amp = timeselect.value;
+					~voltext.string = "vol. - "++(~amp.asString);
+					/*~trimviewtext3.string = "Keep from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";*/
+				}, layout: 'vert');
+				~volslider.setColors(~stringcolor,~stringcolor);
 
-				~amp = 1;
-				~volslider.value = ~amp;
-				~voltext.string = "vol. - "++(~amp.asString);
+				~defaultvolbutton = Button.new(~volview, Rect(~firstviewboundsWIDTH/72 + (~firstviewboundsWIDTH/40*1.5), 0, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21)).states_([[("set to default - "++(~amp_default.asString)),~stringcolor,~backgroundcolor]]).action_({arg button;
+
+					~amp = ~amp_default;
+					~volslider.value = ~amp;
+					~voltext.string = "vol. - "++(~amp.asString);
+					if(amp_before != ~amp, {
+						g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
+						g.write(~amp.asString;);
+						g.close;
+					});
+					~volview.close;
+					~volbutton.value = 0;
+				});
+				~defaultvolbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+			}, {
+				if(amp_before != ~amp, {
+					g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
+					g.write(~amp.asString;);
+					g.close;
+				});
 				~volview.close;
-				~volbutton.value = 0;
 			});
-			~defaultvolbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
-		}, {
-			if(amp_before != ~amp, {
-				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
-				g.write(~amp.asString;);
-				g.close;
-			});
-			~volview.close;
 		});
-	});
-	~volbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+		~volbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
-	~voltext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/72), ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
-	~voltext.background_(~backgroundcolor);
-	~voltext.stringColor_(~stringcolor);
-	~voltext.string = "vol. - "++(~amp.asString);
-	~voltext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+		~voltext = StaticText(~firstview,
+			if(~ai_assist_compose != 1, {
+				Rect(~firstviewboundsWIDTH/1.4173228346457 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/72), ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21)
+			}, {
+				Rect(~firstviewboundsWIDTH/1.37 + (~firstviewboundsWIDTH/9) + (~firstviewboundsWIDTH/72), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21)
+			})
+		);
+		~voltext.background_(~backgroundcolor);
+		~voltext.stringColor_(~stringcolor);
+		~voltext.string = "vol. - "++(~amp.asString);
+		~voltext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+
+	};
+
+	~volbutton_func.value;
 
 	~newrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Seeds",~stringcolor,~backgroundcolor],["New Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~randseed_1_backup = ~randseed_1;
