@@ -450,6 +450,8 @@
 				~amp = 1;
 				~volslider.value = ~amp;
 				~voltext.string = "vol. - "++(~amp.asString);
+				~volview.close;
+				~volbutton.value = 0;
 			});
 			~defaultvolbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 		}, {

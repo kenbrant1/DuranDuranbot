@@ -34,7 +34,8 @@
 		"Alesis-Sanctuary-QCard-Promenade",
 		"Korg-M3R-Chorale",
 		"Korg-Poly-800-Organ",
-		"Roland JX-3P samp. 2"
+		"Korg-Poly-800-samp_2",
+		"Roland JX-3P samp 2"
 
 	];
 	~synth_choice_menu.background_(~backgroundcolor);

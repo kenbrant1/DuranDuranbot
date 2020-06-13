@@ -4,18 +4,27 @@
 	{~synth_choice == "Alesis-Sanctuary-QCard-Promenade"}{
 		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Promenade-C3-loop5.wav");
 		~vd_midi = 48;
+		~synth_num_channels = 2;
 	}
 	{~synth_choice == "Korg-M3R-Chorale"}{
 		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Korg-M3R-Chorale-C2_loop.wav");
 		~vd_midi = 36;
+		~synth_num_channels = 2;
 	}
 	{~synth_choice == "Korg-Poly-800-Organ"}{
 		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Korg-Poly-800-Organ-C4_loop.wav");
 		~vd_midi = 60;
+		~synth_num_channels = 2;
 	}
-	{~synth_choice == "Roland JX-3P samp. 2"}{
+	{~synth_choice == "Korg-Poly-800-samp_2"}{
+		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Vintage Synth Samples - KORG POLY-800 - 02 KORG POLY-800_loop14.wav");
+		~vd_midi = 60;
+		~synth_num_channels = 1;
+	}
+	{~synth_choice == "Roland JX-3P samp 2"}{
 		~buffer = Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Vintage Synth Samples - ROLAND JX-3P VOL. 1 - 02 ROLAND JX-3P_loop7.wav");
 		~vd_midi = 60;
+		~synth_num_channels = 1;
 	};
 
 	//~vd_midi - middle note for equalizing volume/amplitude.
@@ -23,11 +32,13 @@
 
 	//Synth("synth1").isRunning
 	/*~amp = 1;*/
+	/*
+	{ SinOsc.ar(60.midicps, 0, 0.5) }.play;*/
 
 	~number_of_instruments.do(x = 0; {
 		SynthDef("synth"++(x=x+1), {arg out = 0, bufnum = 0, freq = 1, amp = ~amp;
 			var sig;
-			sig = PlayBuf.ar(2, ~buffer, freq/~vd_midi.midicps, startPos: 0, loop: 1);
+			sig = PlayBuf.ar(~synth_num_channels, ~buffer, freq/~vd_midi.midicps, startPos: 0, loop: 1);
 			/*sig = BBandPass.ar(sig, freq: ((((~midi_high_limit-~midi_low_limit)/2).roundUp + ~midi_low_limit).midicps), bw: /*MouseX.kr(0.01, 8).poll*/0.028, mul: 1, add: 0);
 			*//*sig = BPeakEQ.ar(sig, freq: ~vd_midi.midicps, rq: 1, db: 1, mul: 1, add: 0);
 			*//*sig = BPF.ar(sig, freq: freq, rq: 1.6, mul: 1, add: 0);*/
