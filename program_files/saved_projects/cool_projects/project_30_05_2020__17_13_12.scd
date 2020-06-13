@@ -1,3 +1,7 @@
+~number_of_instruments = 2;
+g = File((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", "w");
+g.write(~number_of_instruments.asString);
+g.close;
 ~num_assist_parts = 27;
 ~line_multiple1 = 2;
 ~line_multiple2 = 11;
