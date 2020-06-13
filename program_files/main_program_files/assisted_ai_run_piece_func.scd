@@ -40,14 +40,26 @@
 
 		~fr_func = {(~amp - (~freq_r.cpsmidi-45*(0.7/36)))};
 
+		~number_of_instruments.do(x = 0; {
+			x=x+1;
+			("amp_array_"++(x)).asSymbol.envirPut([]);
+			("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.size.do(n=(-1); {
+				n=n+1;
+				~freq_r = ("assist_inst_"++(x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(n);
+				("amp_array_"++(x)).asSymbol.envirPut(
+					("amp_array_"++(x)).asSymbol.envirGet.add(~fr_func.value;);
+				);
+			});
+		});
+
 		~init_start_func = {
 
 			Server.default.makeBundle(Server.default.latency, {
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirPut(
 					Synth("synth"++(~x), [
-						\freq, (~freq_r = ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position)),
-						\amp, ~fr_func.value
+						\freq, ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+						\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position)
 					]);
 
 				);});
@@ -59,8 +71,8 @@
 			Server.default.makeBundle(Server.default.latency, {
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
-					\freq, (~freq_r = ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position)),
-					\amp, ~fr_func.value
+					\freq, ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position)
 
 				);});
 			});
