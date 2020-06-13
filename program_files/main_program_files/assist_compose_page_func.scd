@@ -560,9 +560,11 @@
 
 	~train_button_func = {
 
-		~train_full_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=6; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Machine Learn Full Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+		var iushaj;
 
-			~mlfullpieceprompt = View(~firstview, Rect((~firstviewboundsWIDTH/3), ~firstviewboundsHEIGHT/25, ~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/3));
+		~train_full_piece_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (iushaj = (x=6); ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Machine Learn Full Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+			~mlfullpieceprompt = View(~firstview, Rect((~firstviewboundsWIDTH/3), (x = iushaj - 2; ~button_base.value;), ~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/3));
 			~mlfullpieceprompt.background_(~backgroundcolor);
 
 			~mlfullpieceprompttext = StaticText(~mlfullpieceprompt, Rect(0, 0, ~mlfullpieceprompt.bounds.width, ~mlfullpieceprompt.bounds.height/3));
