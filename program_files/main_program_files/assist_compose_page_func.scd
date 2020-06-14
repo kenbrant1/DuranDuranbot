@@ -90,6 +90,7 @@
 			~load_assist = 1;
 			~playbutton.valueAction = 1;
 			~load_assist = 0;
+			AppClock.sched(0, {~playbutton.value = 1;});
 		});
 
 	});
@@ -133,10 +134,13 @@
 			g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++"_trim.scd", "w");
 		});
 		g.write(
-			"~number_of_instruments = "++(~number_of_instruments.asString)++
-			";\ng = File((~ddbot_root)++"++"/program_files/other_program_files/numberofvoices.scd".quote++", "++"w".quote++")"++
-			";\ng.write(~number_of_instruments.asString)"++
-			";\ng.close"++
+			"~synth_choice = "++(~synth_choice.asString.quote;)++
+			";\n~composition_process_setting = "++(~composition_process_setting.asString)++
+			";\n~number_of_instruments = "++(~number_of_instruments.asString)++
+			";\n~bit_duration = "++(~bit_duration.reciprocal.asString;)++".reciprocal"++
+			";\n~tuning_frequency = "++(~tuning_frequency.asString)++
+			";\n~which_players = "++(~which_players.asString)++
+			";\n~amp = "++(~amp.asString)++
 			";\n~num_assist_parts = "++(~num_assist_parts.asString)++
 			";\n~line_multiple1 = "++(~line_multiple1.asString)++
 			";\n~line_multiple2 = "++(~line_multiple2.asString)++";";
@@ -190,6 +194,8 @@
 
 	~assist_clear_all_func = {
 
+		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+
 		~num_assist_parts.do(j = 0; {
 			j=j+1;
 			~number_of_instruments.do(s = 0; {
@@ -211,10 +217,10 @@
 
 	~load_saved_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21*2), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Load Saved Project",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		~assist_clear_all_func.value;
-
 		FileDialog.new(
 			{arg path;
+
+				~assist_clear_all_func.value;
 				File.readAllString(path, r).interpret.value;
 				~num_assist_parts.do(j = 0; {
 					j=j+1;
@@ -226,6 +232,27 @@
 					});
 				});
 				w.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice.scd", "w");
+				g.write(~synth_choice.asString.quote);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", "w");
+				g.write(~composition_process_setting.asString);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", "w");
+				g.write(~number_of_instruments.asString);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/bit_speed.scd", "w");
+				g.write(~bit_duration.asString);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/tuning_frequency.scd", "w");
+				g.write(~tuning_frequency.asString);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/which_players.scd", "w");
+				g.write(~which_players.asString);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
+				g.write(~amp.asString);
+				g.close;
 				~duranduranbot_GUI_func.value;
 				"project loaded".postln;
 				if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
@@ -236,7 +263,6 @@
 
 	~new_assist_project_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21*3), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["New Proj. (will save curr.)",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 		~save_assist_project_button.valueAction = 0;
 		~assist_clear_all_func.value;
 		w.close;

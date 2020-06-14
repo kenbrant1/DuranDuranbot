@@ -1,7 +1,10 @@
+~synth_choice = "Alesis-Sanctuary-QCard-Promenade";
+~composition_process_setting = 1;
 ~number_of_instruments = 2;
-g = File((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", "w");
-g.write(~number_of_instruments.asString);
-g.close;
+~bit_duration = 8.reciprocal;
+~tuning_frequency = 440.0;
+~which_players = 1;
+~amp = 1.0;
 ~num_assist_parts = 27;
 ~line_multiple1 = 2;
 ~line_multiple2 = 11;

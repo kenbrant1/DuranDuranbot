@@ -217,16 +217,16 @@
 	~players_menu.stringColor_(~stringcolor);
 	~players_menu.value = FileReader.read((~ddbot_root)++"/program_files/other_program_files/which_players.scd", false, true);
 	~players_menu.action = { arg menu;
-		g = File((~ddbot_root)++"/program_files/other_program_files/which_players.scd", "w");
-		g.write(
-			case
-			{~players_menu.value == 0}{nil}
-			{~players_menu.value == 1}{"0".asString}
-			{~players_menu.value == 2}{"1".asString}
-			{~players_menu.value == 3}{"2".asString}
-			{~players_menu.value == 4}{"3".asString};
 
-		);
+		case
+		{~players_menu.value == 0}{nil}
+		{~players_menu.value == 1}{~which_players = "0".asString}
+		{~players_menu.value == 2}{~which_players = "1".asString}
+		{~players_menu.value == 3}{~which_players = "2".asString}
+		{~players_menu.value == 4}{~which_players = "3".asString};
+
+		g = File((~ddbot_root)++"/program_files/other_program_files/which_players.scd", "w");
+		g.write(~which_players.asString;);
 		g.close;
 	};
 	~players_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);

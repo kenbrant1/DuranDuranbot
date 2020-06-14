@@ -569,16 +569,16 @@
 
 				~volview = View(~firstview,
 					if(~ai_assist_compose != 1, {
-						Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56, ~firstviewboundsHEIGHT/3)
+						Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56, ~firstviewboundsHEIGHT/2)
 					}, {
-						Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/3)
+						Rect(~firstviewboundsWIDTH/1.37, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/2)
 					})
 				);
 				~volview.background_(~backgroundcolor);
 
 				amp_before = ~amp;
 
-				~volslider = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/3)), controlSpec: ControlSpec(0, 2, \lin, 0.1, ~amp), action: {
+				~volslider = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/2)), controlSpec: ControlSpec(0, 4, \lin, 0.1, ~amp), action: {
 					|timeselect|
 					var selection1;
 					~amp = timeselect.value;

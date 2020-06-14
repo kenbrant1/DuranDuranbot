@@ -42,6 +42,7 @@ https://github.com/kenbrant1
 if(~synth_choice == nil, {~synth_choice = File.readAllString((~ddbot_root)++"/program_files/other_program_files/synth_choice.scd", r).interpret.asString;});
 if(~number_of_instruments == nil, {~number_of_instruments = File.readAllString((~ddbot_root)++"/program_files/other_program_files/numberofvoices.scd", r).interpret;});
 if(~tuning_frequency == nil, {~tuning_frequency_default = 440; ~tuning_frequency = FileReader.read((~ddbot_root)++"/program_files/other_program_files/tuning_frequency.scd", false, true).flatten.at(0).asString.asFloat;}); // note A tuneing frequency - default 440 hz
+if(~which_players == nil, {~which_players = File.readAllString((~ddbot_root)++"/program_files/other_program_files/which_players.scd", r).interpret;});
 if(~amp == nil, {~amp_default = 1; ~amp = File.readAllString((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", r).interpret;});
 if(~bit_duration == nil, {~bit_duration_default = 7; ~bit_duration = FileReader.read((~ddbot_root)++"/program_files/other_program_files/bit_speed.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~rate_time_range == nil, {~rate_time_range_default = 7; ~rate_time_range = FileReader.read((~ddbot_root)++"/program_files/other_program_files/rate_time_range.scd", false, true).flatten.at(0).asString.asFloat;}); // range in number of seconds to rate a piece from current time backwards. defualt is 8.

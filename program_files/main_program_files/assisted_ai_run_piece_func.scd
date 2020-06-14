@@ -2,8 +2,6 @@
 
 ~assisted_ai_run_piece_func = {
 
-	~amp = 1;
-
 	if(~gen_new == 1, {~gen_new = 0; ~gen_new1 = 1;}, {~gen_new = 0; ~gen_new1 = 0;});
 
 	if(~test_trim != 1, {
@@ -38,7 +36,7 @@
 
 		};*/
 
-		~fr_func = {(~amp - (~freq_r.cpsmidi-45*(0.7/36)))};
+		~fr_func = {(1 - (~freq_r.cpsmidi-45*(0.7/36)))};
 
 		~number_of_instruments.do(x = 0; {
 			x=x+1;
@@ -59,7 +57,7 @@
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirPut(
 					Synth("synth"++(~x), [
 						\freq, ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
-						\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position)
+						\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ~amp
 					]);
 
 				);});
@@ -72,7 +70,7 @@
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
 					\freq, ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
-					\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position)
+					\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ~amp
 
 				);});
 			});
