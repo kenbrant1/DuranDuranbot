@@ -11,6 +11,14 @@
 ~synthdefs_func_2 = {
 
 	case
+	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Alesis-Sanctuary-QCard-Choir-Aah"}{
+		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
+			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Choir-Aah-C4-loop.wav");
+
+		);
+		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(60);
+		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
+	}
 	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Alesis-Sanctuary-QCard-Promenade"}{
 		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
 			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Promenade-C3-loop5a.wav");
@@ -19,12 +27,28 @@
 		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(48);
 		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
 	}
+	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Korg-M1-Angels"}{
+		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
+			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Korg-M1-Angels-C4-loop.wav");
+
+		);
+		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(60);
+		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
+	}
 	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Korg-M3R-Chorale"}{
 		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
 			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Korg-M3R-Chorale-C2_loop.wav");
 
 		);
 		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(36);
+		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
+	}
+	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Korg-M3R-VoiceChoir"}{
+		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
+			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Korg-M3R-VoiceChoir-C3-loop.wav");
+
+		);
+		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(48);
 		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
 	}
 	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Korg-Poly-800-Organ"}{
@@ -43,6 +67,14 @@
 		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(60);
 		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(1);
 	}
+	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Roland-JV-2080-Choir-Aahs"}{
+		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
+			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Roland-JV-2080-Choir-Aahs-C4-loop2.wav");
+
+		);
+		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(60);
+		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
+	}
 	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Roland JX-3P samp 2"}{
 		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
 			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Vintage Synth Samples - ROLAND JX-3P VOL. 1 - 02 ROLAND JX-3P_loop7.wav");
@@ -50,6 +82,30 @@
 		);
 		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(60);
 		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(1);
+	}
+	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Yamaha-SY22-Itopia"}{
+		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
+			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Yamaha-SY22-Itopia-C4-loop.wav");
+
+		);
+		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(60);
+		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
+	}
+	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Yamaha-TG500-CH-Aah"}{
+		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
+			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Yamaha-TG500-CH-Aah-C3-1-loop3.wav");
+
+		);
+		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(48);
+		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
+	}
+	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Yamaha-TG500-CH-Spirit"}{
+		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
+			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Yamaha-TG500-CH-Spirit-C4-loop.wav");
+
+		);
+		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(60);
+		("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirPut(2);
 	};
 
 	//~vd_midi - middle note for equalizing volume/amplitude.
