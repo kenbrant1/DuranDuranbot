@@ -13,7 +13,7 @@
 	case
 	{("synth_choice_"++(~synth_inst_num)).asSymbol.envirGet == "Alesis-Sanctuary-QCard-Promenade"}{
 		("buffer_"++(~synth_inst_num)).asSymbol.envirPut(
-			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Promenade-C3-loop5.wav");
+			Buffer.read(Server.default, (~ddbot_root)++"/program_files/other_program_files/samples/Alesis-Sanctuary-QCard-Promenade-C3-loop5a.wav");
 
 		);
 		("vd_midi_"++(~synth_inst_num)).asSymbol.envirPut(48);

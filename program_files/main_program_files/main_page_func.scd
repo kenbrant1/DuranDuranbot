@@ -569,9 +569,9 @@
 
 				~volview = View(~firstview,
 					if(~ai_assist_compose != 1, {
-						Rect(~firstviewboundsWIDTH/1.4173228346457/~number_of_instruments, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56*~number_of_instruments, ~firstviewboundsHEIGHT/2)
+						Rect(0, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56*4, ~firstviewboundsHEIGHT/2)
 					}, {
-						Rect(~firstviewboundsWIDTH/1.37/~number_of_instruments, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8*~number_of_instruments, ~firstviewboundsHEIGHT/2)
+						Rect(0, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8*4, ~firstviewboundsHEIGHT/2)
 					})
 				);
 				~volview.background_(~backgroundcolor);
@@ -669,6 +669,68 @@
 						});
 					});
 					~defaultvolbutton3.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+
+				});
+
+				if(~number_of_instruments > 1, {
+
+					~volslider0 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72*4 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*3),0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/2)), controlSpec: ControlSpec(0, 4, \lin, 0.1, ~amp_1), action: {
+						|timeselect|
+						var selection1;
+						~amp_1 = timeselect.value;
+						~voltext1.string = "i1 "++(~amp_1.asString);
+						if(~number_of_instruments > 1, {
+							~amp_2 = timeselect.value;
+							~voltext2.string = "i2 "++(~amp_2.asString);
+						});
+						if(~number_of_instruments > 2, {
+							~amp_3 = timeselect.value;
+							~voltext3.string = "i3 "++(~amp_3.asString);
+						});
+						/*~trimviewtext3.string = "Keep from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";*/
+					}, layout: 'vert');
+					~volslider0.setColors(~stringcolor,~stringcolor);
+
+					~volinsttext0 = StaticText(~volview, Rect(~firstviewboundsWIDTH/72*4 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*3) + (~firstviewboundsWIDTH/40*1.5), 0, ~firstviewboundsWIDTH/5.5, ~firstviewboundsHEIGHT/21));
+					~volinsttext0.background_(~backgroundcolor);
+					~volinsttext0.stringColor_(~stringcolor);
+					~volinsttext0.string = "All Instruments";
+					~volinsttext0.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+
+					~defaultvolbutton0 = Button.new(~volview, Rect(~firstviewboundsWIDTH/72*4 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*3) + (~firstviewboundsWIDTH/40*1.5), ~firstviewboundsHEIGHT/21*1.5, ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21)).states_([[("set to default - "++(~amp_default_1.asString)),~stringcolor,~backgroundcolor]]).action_({arg button;
+
+						~volslider0.value = ~amp_default_1;
+
+						~amp_1 = ~amp_default_1;
+						~volslider1.value = ~amp_1;
+						~voltext1.string = "i1 "++(~amp_1.asString);
+						if(~number_of_instruments > 1, {
+							~amp_2 = ~amp_default_2;
+							~volslider2.value = ~amp_2;
+							~voltext2.string = "i2 "++(~amp_2.asString);
+						});
+						if(~number_of_instruments > 2, {
+							~amp_3 = ~amp_default_3;
+							~volslider3.value = ~amp_3;
+							~voltext3.string = "i3 "++(~amp_3.asString);
+						});
+						if(amp_before_1 != ~amp_1, {
+							g = File((~ddbot_root)++"/program_files/other_program_files/amplitude_1.scd", "w");
+							g.write(~amp_1.asString;);
+							g.close;
+						});
+						if(amp_before_2 != ~amp_2, {
+							g = File((~ddbot_root)++"/program_files/other_program_files/amplitude_2.scd", "w");
+							g.write(~amp_2.asString;);
+							g.close;
+						});
+						if(amp_before_3 != ~amp_3, {
+							g = File((~ddbot_root)++"/program_files/other_program_files/amplitude_3.scd", "w");
+							g.write(~amp_3.asString;);
+							g.close;
+						});
+					});
+					~defaultvolbutton0.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
 				});
 
