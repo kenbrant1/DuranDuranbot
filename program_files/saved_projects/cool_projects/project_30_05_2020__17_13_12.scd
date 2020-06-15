@@ -1,10 +1,14 @@
-~synth_choice = "Alesis-Sanctuary-QCard-Promenade";
+~synth_choice_1 = "Alesis-Sanctuary-QCard-Promenade";
+~synth_choice_2 = "Alesis-Sanctuary-QCard-Promenade";
+~synth_choice_3 = "Alesis-Sanctuary-QCard-Promenade";
 ~composition_process_setting = 1;
 ~number_of_instruments = 2;
 ~bit_duration = 8.reciprocal;
 ~tuning_frequency = 440.0;
 ~which_players = 1;
-~amp = 1.0;
+~amp_1 = 1;
+~amp_2 = 1;
+~amp_3 = 1;
 ~num_assist_parts = 27;
 ~line_multiple1 = 2;
 ~line_multiple2 = 11;

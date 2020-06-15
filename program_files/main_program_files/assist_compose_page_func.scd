@@ -134,13 +134,17 @@
 			g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++"_trim.scd", "w");
 		});
 		g.write(
-			"~synth_choice = "++(~synth_choice.asString.quote;)++
+			"~synth_choice_1 = "++(~synth_choice_1.asString.quote;)++
+			";\n~synth_choice_2 = "++(~synth_choice_2.asString.quote;)++
+			";\n~synth_choice_3 = "++(~synth_choice_3.asString.quote;)++
 			";\n~composition_process_setting = "++(~composition_process_setting.asString)++
 			";\n~number_of_instruments = "++(~number_of_instruments.asString)++
 			";\n~bit_duration = "++(~bit_duration.reciprocal.asString;)++".reciprocal"++
 			";\n~tuning_frequency = "++(~tuning_frequency.asString)++
 			";\n~which_players = "++(~which_players.asString)++
-			";\n~amp = "++(~amp.asString)++
+			";\n~amp_1 = "++(~amp_1.asString)++
+			";\n~amp_2 = "++(~amp_2.asString)++
+			";\n~amp_3 = "++(~amp_3.asString)++
 			";\n~num_assist_parts = "++(~num_assist_parts.asString)++
 			";\n~line_multiple1 = "++(~line_multiple1.asString)++
 			";\n~line_multiple2 = "++(~line_multiple2.asString)++";";
@@ -232,8 +236,14 @@
 					});
 				});
 				w.close;
-				g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice.scd", "w");
-				g.write(~synth_choice.asString.quote);
+				g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice_1.scd", "w");
+				g.write(~synth_choice_1.asString.quote);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice_2.scd", "w");
+				g.write(~synth_choice_2.asString.quote);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice_3.scd", "w");
+				g.write(~synth_choice_3.asString.quote);
 				g.close;
 				g = File((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", "w");
 				g.write(~composition_process_setting.asString);
@@ -250,8 +260,14 @@
 				g = File((~ddbot_root)++"/program_files/other_program_files/which_players.scd", "w");
 				g.write(~which_players.asString);
 				g.close;
-				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude.scd", "w");
-				g.write(~amp.asString);
+				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude_1.scd", "w");
+				g.write(~amp_1.asString);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude_2.scd", "w");
+				g.write(~amp_2.asString);
+				g.close;
+				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude_3.scd", "w");
+				g.write(~amp_3.asString);
 				g.close;
 				~duranduranbot_GUI_func.value;
 				"project loaded".postln;

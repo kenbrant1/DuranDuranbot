@@ -57,7 +57,7 @@
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirPut(
 					Synth("synth"++(~x), [
 						\freq, ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
-						\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ~amp
+						\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ("amp_"++(~x)).asSymbol.envirGet;
 					]);
 
 				);});
@@ -70,7 +70,7 @@
 
 				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
 					\freq, ("assist_inst_"++(~x)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
-					\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ~amp
+					\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ("amp_"++(~x)).asSymbol.envirGet;
 
 				);});
 			});

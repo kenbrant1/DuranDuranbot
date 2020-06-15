@@ -145,3 +145,23 @@ Sun Jun 14 00:11:14 2020
 random seed 1 - 41193143
 random seed 2 - 68327953
 random seed 3 - 93045264
+
+Sun Jun 14 06:24:33 2020
+random seed 1 - 93573723
+random seed 2 - 54073852
+random seed 3 - 92464166
+
+Sun Jun 14 06:27:54 2020
+random seed 1 - 43517548
+random seed 2 - 12130281
+random seed 3 - 42083806
+
+Mon Jun 15 03:22:48 2020
+random seed 1 - 19981224
+random seed 2 - 39028482
+random seed 3 - 27536885
+
+Mon Jun 15 05:39:46 2020
+random seed 1 - 11743605
+random seed 2 - 41013937
+random seed 3 - 1184651

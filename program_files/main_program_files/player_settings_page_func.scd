@@ -9,10 +9,10 @@
 	~firstviewboundsWIDTH = ~firstview.bounds.width;
 	~firstviewboundsHEIGHT = ~firstview.bounds.height;
 
-	~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.2857142857143, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21));
+	~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.2857142857143, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/21));
 	~firstviewtext1.background=~backgroundcolor;
 	~firstviewtext1.stringColor=~stringcolor;
-	~firstviewtext1.string = "Settings";
+	~firstviewtext1.string = "Settings (scroll down for more)";
 	~firstviewtext1.align = \topLeft;
 	~firstviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
@@ -28,9 +28,9 @@
 
 	~button_base = {(~firstviewboundsHEIGHT/9+(((~firstviewboundsHEIGHT/3)-(~firstviewboundsHEIGHT/3.7))*x))};
 
-	~synth_choice_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21));
-	~synth_choice_menu.items = [
-		"Current - "++(~synth_choice.asString),
+	("synth_choice_menu_"++(1)).asSymbol.envirPut(PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21)));
+	("synth_choice_menu_"++(1)).asSymbol.envirGet.items = [
+		"Current - "++(("synth_choice_"++(1)).asSymbol.envirGet.asString),
 		"Alesis-Sanctuary-QCard-Promenade",
 		"Korg-M3R-Chorale",
 		"Korg-Poly-800-Organ",
@@ -38,32 +38,105 @@
 		"Roland JX-3P samp 2"
 
 	];
-	~synth_choice_menu.background_(~backgroundcolor);
-	~synth_choice_menu.stringColor_(~stringcolor);
-	~synth_choice_menu.value = ~synth_choice.asString;
-	~synth_choice_menu.action = { arg menu;
+	("synth_choice_menu_"++(1)).asSymbol.envirGet.background_(~backgroundcolor);
+	("synth_choice_menu_"++(1)).asSymbol.envirGet.stringColor_(~stringcolor);
+	("synth_choice_menu_"++(1)).asSymbol.envirGet.value = ("synth_choice_"++(1)).asSymbol.envirGet.asString;
+	("synth_choice_menu_"++(1)).asSymbol.envirGet.action = { arg menu;
 
 		if(menu.value != 0, {
 
-			~synth_choice = ~synth_choice_menu.items.at(menu.value).asString;
-			g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice.scd", "w");
-			g.write(~synth_choice.asString.quote;);
+			~synth_inst_num = 1;
+			("synth_choice_"++(1)).asSymbol.envirPut(("synth_choice_menu_"++(1)).asSymbol.envirGet.items.at(menu.value).asString;);
+			g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice_"++(1)++".scd", "w");
+			g.write(("synth_choice_"++(1)).asSymbol.envirGet.asString.quote;);
 			g.close;
 
-			~synthdefs_func.value;
+			~synthdefs_func_2.value;
 		});
 
 	};
-	~synth_choice_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+	("synth_choice_menu_"++(1)).asSymbol.envirGet.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext8 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*2 +(~firstviewboundsWIDTH/2), (x=0; ~button_base.value;), ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
+	~firstviewtext8 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*2 +(~firstviewboundsWIDTH/2), (~button_base.value;), ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
 	~firstviewtext8.background=~backgroundcolor;
 	~firstviewtext8.stringColor=~stringcolor;
-	~firstviewtext8.string = "Choose synth.";
+	~firstviewtext8.string = "Choose instrument "++(1)++" synth";
 	~firstviewtext8.align = \topLeft;
 	~firstviewtext8.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~comp_setting_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/1.1, ~firstviewboundsHEIGHT/21));
+	("synth_choice_menu_"++(2)).asSymbol.envirPut(PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21)));
+	("synth_choice_menu_"++(2)).asSymbol.envirGet.items = [
+		"Current - "++(("synth_choice_"++(2)).asSymbol.envirGet.asString),
+		"Alesis-Sanctuary-QCard-Promenade",
+		"Korg-M3R-Chorale",
+		"Korg-Poly-800-Organ",
+		"Korg-Poly-800-samp_2",
+		"Roland JX-3P samp 2"
+
+	];
+	("synth_choice_menu_"++(2)).asSymbol.envirGet.background_(~backgroundcolor);
+	("synth_choice_menu_"++(2)).asSymbol.envirGet.stringColor_(~stringcolor);
+	("synth_choice_menu_"++(2)).asSymbol.envirGet.value = ("synth_choice_"++(2)).asSymbol.envirGet.asString;
+	("synth_choice_menu_"++(2)).asSymbol.envirGet.action = { arg menu;
+
+		if(menu.value != 0, {
+
+			~synth_inst_num = 2;
+			("synth_choice_"++(2)).asSymbol.envirPut(("synth_choice_menu_"++(2)).asSymbol.envirGet.items.at(menu.value).asString;);
+			g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice_"++(2)++".scd", "w");
+			g.write(("synth_choice_"++(2)).asSymbol.envirGet.asString.quote;);
+			g.close;
+
+			~synthdefs_func_2.value;
+		});
+
+	};
+	("synth_choice_menu_"++(2)).asSymbol.envirGet.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~firstviewtext9 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*2 +(~firstviewboundsWIDTH/2), (~button_base.value;), ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
+	~firstviewtext9.background=~backgroundcolor;
+	~firstviewtext9.stringColor=~stringcolor;
+	~firstviewtext9.string = "Choose instrument "++(2)++" synth";
+	~firstviewtext9.align = \topLeft;
+	~firstviewtext9.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	("synth_choice_menu_"++(3)).asSymbol.envirPut(PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21)));
+	("synth_choice_menu_"++(3)).asSymbol.envirGet.items = [
+		"Current - "++(("synth_choice_"++(3)).asSymbol.envirGet.asString),
+		"Alesis-Sanctuary-QCard-Promenade",
+		"Korg-M3R-Chorale",
+		"Korg-Poly-800-Organ",
+		"Korg-Poly-800-samp_2",
+		"Roland JX-3P samp 2"
+
+	];
+	("synth_choice_menu_"++(3)).asSymbol.envirGet.background_(~backgroundcolor);
+	("synth_choice_menu_"++(3)).asSymbol.envirGet.stringColor_(~stringcolor);
+	("synth_choice_menu_"++(3)).asSymbol.envirGet.value = ("synth_choice_"++(3)).asSymbol.envirGet.asString;
+	("synth_choice_menu_"++(3)).asSymbol.envirGet.action = { arg menu;
+
+		if(menu.value != 0, {
+
+			~synth_inst_num = 3;
+			("synth_choice_"++(3)).asSymbol.envirPut(("synth_choice_menu_"++(3)).asSymbol.envirGet.items.at(menu.value).asString;);
+			g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice_"++(3)++".scd", "w");
+			g.write(("synth_choice_"++(3)).asSymbol.envirGet.asString.quote;);
+			g.close;
+
+			~synthdefs_func_2.value;
+		});
+
+	};
+	("synth_choice_menu_"++(3)).asSymbol.envirGet.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~firstviewtext10 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72*2 +(~firstviewboundsWIDTH/2), (~button_base.value;), ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
+	~firstviewtext10.background=~backgroundcolor;
+	~firstviewtext10.stringColor=~stringcolor;
+	~firstviewtext10.string = "Choose instrument "++(3)++" synth";
+	~firstviewtext10.align = \topLeft;
+	~firstviewtext10.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~comp_setting_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/1.1, ~firstviewboundsHEIGHT/21));
 	~comp_setting_menu.items = [
 		"Current - "++(
 			case
@@ -93,7 +166,7 @@
 	};
 	~comp_setting_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~tuningfreqtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~tuningfreqtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~tuningfreqtextfield.string = ~tuning_frequency.asString;
 	~tuningfreqtextfield.background_(~backgroundcolor);
 	~tuningfreqtextfield.stringColor_(~stringcolor);
@@ -111,13 +184,13 @@
 		});
 	};
 
-	~tuningfreqtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/21));
+	~tuningfreqtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/21));
 	~tuningfreqtextfield2.background=~backgroundcolor;
 	~tuningfreqtextfield2.stringColor=~stringcolor;
 	~tuningfreqtextfield2.string = "Note A4 tuning frquency in hertz. Current - "++(~tuning_frequency)++". Original default is "++(~tuning_frequency_default)++".";
 	~tuningfreqtextfield2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~playerspeedtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~playerspeedtextfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~playerspeedtextfield.string = ~bit_duration.reciprocal.asString;
 	~playerspeedtextfield.background_(~backgroundcolor);
 	~playerspeedtextfield.stringColor_(~stringcolor);
@@ -135,13 +208,13 @@
 
 	};
 
-	~playerspeedtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8,(x=3; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/11));
+	~playerspeedtextfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8,(x=5; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/11));
 	~playerspeedtextfield2.background=~backgroundcolor;
 	~playerspeedtextfield2.stringColor=~stringcolor;
 	~playerspeedtextfield2.string = "Bit speed of piece. Input how fast "++"bits".quote++" are cycled through in seconds. Then press "++"Enter/Return".quote++". Current - "++(~bit_duration.reciprocal)++". Original default is "++(~bit_duration_default)++".";
 	~playerspeedtextfield2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~num_instruments_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+	~num_instruments_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~num_instruments_menu.items = [
 		"Current - "++(
 			case
@@ -189,21 +262,21 @@
 	};
 	~num_instruments_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.6, (x=5; ~button_base.value;), ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
+	~firstviewtext3 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.6, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/1.4, ~firstviewboundsHEIGHT/9));
 	~firstviewtext3.background=~backgroundcolor;
 	~firstviewtext3.stringColor=~stringcolor;
 	~firstviewtext3.string = "Set the default setting of how many voices/intruments are playing. Original default is 2.";
 	~firstviewtext3.align = \topLeft;
 	~firstviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext4 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/6.5));
+	~firstviewtext4 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=9; ~button_base.value;), ~firstviewboundsWIDTH/1.0285714285714, ~firstviewboundsHEIGHT/6.5));
 	~firstviewtext4.background=~backgroundcolor;
 	~firstviewtext4.stringColor=~stringcolor;
 	~firstviewtext4.string = "Click on the pop-up menu below to choose which player(s) will compose and be trained. This is useful for a more targeted composition and training... or less targeted. By selecting an option from the pop-up menu below, you are making that the default setting. Original default is "++"Player 1".quote++".";
 	~firstviewtext4.align = \topLeft;
 	~firstviewtext4.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~players_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=10; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+	~players_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~players_menu.items = [
 		"Current - "++(
 			case
@@ -231,7 +304,7 @@
 	};
 	~players_menu.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~color_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=11; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+	~color_menu = PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=13; ~button_base.value;), ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~color_menu.items = [
 		"GUI color - "++(
 			case
@@ -270,7 +343,7 @@
 
 	if(~ai_assist_compose != 1, {
 
-		~rate_time_range_textfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+		~rate_time_range_textfield = TextField(~firstview, Rect(~firstviewboundsWIDTH/72, (x=14; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 		~rate_time_range_textfield.string = ~rate_time_range.asString;
 		~rate_time_range_textfield.background_(~backgroundcolor);
 		~rate_time_range_textfield.stringColor_(~stringcolor);
@@ -288,7 +361,7 @@
 
 		};
 
-		~rate_time_range_textfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, (x=12; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/11));
+		~rate_time_range_textfield2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8, (x=14; ~button_base.value;), ~firstviewboundsWIDTH/1.2, ~firstviewboundsHEIGHT/11));
 		~rate_time_range_textfield2.background=~backgroundcolor;
 		~rate_time_range_textfield2.stringColor=~stringcolor;
 		~rate_time_range_textfield2.string = "Rate time range. Input time range in seconds that is rated backwards from current piece position. Then press "++"Enter/Return".quote++". Current - "++(~rate_time_range)++". Original default is "++(~rate_time_range_default)++".";
