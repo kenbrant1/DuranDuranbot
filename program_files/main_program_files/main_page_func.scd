@@ -92,7 +92,9 @@
 
 	if(~fullscreenon == 1, {~fullscreenbutton.value = 1;});
 
-	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~button_base = {(~firstviewboundsHEIGHT/6.24286+(((~firstviewboundsHEIGHT/3)-(~firstviewboundsHEIGHT/3.85))*x))};
+
+	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/21)).states_([["Generate Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		var piecegenerated;
 		~piecegenerated = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695652174, ~firstviewboundsWIDTH/36));
 		~piecegenerated.background=~backgroundcolor;
@@ -111,7 +113,7 @@
 	~play_visible_func_verify*/
 
 	~playbutton_func = {
-		~playbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/(if(~ai_assist_compose == 0, {4.5}, {4.65})), ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {6.24286}, {7.5})), ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Play Piece",~stringcolor,~backgroundcolor],["Pause Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~playbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/(if(~ai_assist_compose == 0, {4.5}, {4.65})), if(~ai_assist_compose == 0, {(x=0; ~button_base.value;)}, {~firstviewboundsHEIGHT/7.5}), ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Play Piece",~stringcolor,~backgroundcolor],["Pause Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 			var pause_piece;
 			if(button.value == 1, {
 				if(~pause_piece != 1, {
@@ -142,7 +144,7 @@
 		});
 		~playbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 		/*};*/
-		~arrow = StaticText(~firstview, Rect(~firstviewboundsWIDTH/(if(~ai_assist_compose == 0, {5.25}, {5.5})), ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {6.24286}, {7.5})), ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/21));
+		~arrow = StaticText(~firstview, Rect(~firstviewboundsWIDTH/(if(~ai_assist_compose == 0, {5.25}, {5.5})), if(~ai_assist_compose == 0, {(x=0; ~button_base.value;)}, {~firstviewboundsHEIGHT/7.5}), ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/21));
 		~arrow.background=~backgroundcolor;
 		~arrow.stringColor_(~stringcolor);
 		~arrow.string = "---";
@@ -182,7 +184,7 @@
 	};
 
 	~stopbuttonfunc = {
-		~stopbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.8, ~firstviewboundsHEIGHT/6.24286, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Stop piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~stopbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.8, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Stop piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 			~stop_func.value;
 		});
 
@@ -191,9 +193,49 @@
 
 	if(~duranduranbot_routine.isPlaying == true, {~playbutton.value = 1; ~stopbutton.close; ~stopbuttonfunc.value}, {~playbutton.value = 0});
 
+	~quicknewpiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/5.7, ~firstviewboundsHEIGHT/21)).states_([["Quick New Piece",~stringcolor,~backgroundcolor],["Quick New Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+		var quicknewpiecewait;
+		quicknewpiecewait = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695, ~firstviewboundsHEIGHT/22.55));
+		quicknewpiecewait.background_(~backgroundcolor);
+		quicknewpiecewait.stringColor_(~stringcolor);
+		quicknewpiecewait.string = "please wait";
+		quicknewpiecewait.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+		"please wait".postln;
+		if(~piecegenerated != nil, {~piecegenerated.close});
+		~quicknewpiecebutton_num = 1;
+		{if(~duranduranbot_routine.isPlaying == true, {~stop_func.value});}.value;
+		AppClock.sched(0, {
+			if(~seedscheck == 1, {~newrandomseedsbutton.valueAction = 0}, {~seedscheck = 1});
+			~generatepiecebutton.valueAction = 0; //piece fires at end of piece gen func
+		});
+		quicknewpiecewait.close;
+	});
+	~quicknewpiecebutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~quicknewpiecebutton_revert = Button.new(~firstview, Rect(~firstviewboundsWIDTH/5, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/7.6, ~firstviewboundsHEIGHT/21)).states_([["Revert Piece",~stringcolor,~backgroundcolor],["Revert Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
+		var quicknewpiecewait;
+		quicknewpiecewait = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695, ~firstviewboundsHEIGHT/22.55));
+		quicknewpiecewait.background_(~stringcolor);
+		quicknewpiecewait.stringColor_(~stringcolor);
+		quicknewpiecewait.string = "Please Wait";
+		if(~piecegenerated != nil, {~piecegenerated.close});
+		quicknewpiecewait.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+		"please wait".postln;
+		~quicknewpiecebutton_num = 1;
+
+		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+
+		AppClock.sched(0, {
+			if(~seedscheck == 1, {~reversenewrandomseedsbutton.valueAction = 0}, {~seedscheck = 1});
+			~generatepiecebutton.valueAction = 0; //piece fires at end of piece gen func
+		});
+		quicknewpiecewait.close;
+	});
+	~quicknewpiecebutton_revert.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
 	~net_change_mult_array = [1, 2, 4, 8, 16];
 
-	~rate_button_1 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/5.29, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x1 pts",~stringcolor,~backgroundcolor], ["x1 pts",~stringcolor,Color.blue]]).action_({arg button;
+	~rate_button_1 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/5.29, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x1 pts",~stringcolor,~backgroundcolor], ["x1 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(0);
 		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
 		g.write(~net_change_mult.asString);
@@ -206,7 +248,7 @@
 	});
 	~rate_button_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~rate_button_2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/3.62, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x2 pts",~stringcolor,~backgroundcolor], ["x2 pts",~stringcolor,Color.blue]]).action_({arg button;
+	~rate_button_2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/3.62, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x2 pts",~stringcolor,~backgroundcolor], ["x2 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(1);
 		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
 		g.write(~net_change_mult.asString);
@@ -219,7 +261,7 @@
 	});
 	~rate_button_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~rate_button_3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.75, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x4 pts",~stringcolor,~backgroundcolor], ["x4 pts",~stringcolor,Color.blue]]).action_({arg button;
+	~rate_button_3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.75, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x4 pts",~stringcolor,~backgroundcolor], ["x4 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(2);
 		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
 		g.write(~net_change_mult.asString);
@@ -232,7 +274,7 @@
 	});
 	~rate_button_3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~rate_button_4 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.22, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x8 pts",~stringcolor,~backgroundcolor], ["x8 pts",~stringcolor,Color.blue]]).action_({arg button;
+	~rate_button_4 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/2.22, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x8 pts",~stringcolor,~backgroundcolor], ["x8 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(3);
 		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
 		g.write(~net_change_mult.asString);
@@ -245,7 +287,7 @@
 	});
 	~rate_button_4.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~rate_button_5 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.855, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x16 pts",~stringcolor,~backgroundcolor], ["x16 pts",~stringcolor,Color.blue]]).action_({arg button;
+	~rate_button_5 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.855, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["x16 pts",~stringcolor,~backgroundcolor], ["x16 pts",~stringcolor,Color.blue]]).action_({arg button;
 		~net_change_mult = ~net_change_mult_array.at(4);
 		g = File((~ddbot_root)++"/program_files/other_program_files/set_machine_learning_rate.scd", "w");
 		g.write(~net_change_mult.asString);
@@ -258,7 +300,7 @@
 	});
 	~rate_button_5.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~rate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/3.228571428571, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Rate",~backgroundcolor,Color.green]]).action_({arg button;
+	~rate_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Rate",~backgroundcolor,Color.green]]).action_({arg button;
 
 		if(~duranduranbot_routine.isPlaying == true, {
 			~machine_learning_func.value;
@@ -298,7 +340,7 @@
 	});
 	rate_revert_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/68);*/
 
-	~ratepiecetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/2.67571428571, ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/12));
+	~ratepiecetext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2.8; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/12));
 	~ratepiecetext.background=~backgroundcolor;
 	~ratepiecetext.stringColor_(~stringcolor);
 	~ratepiecetext.string = "^rate last "++(~rate_time_range)++" seconds from current position in piece by clicking on a xpt rating above, and clicking "++"Rate".quote++". Higher point # = faster training, but less fine-tuning.";
@@ -325,7 +367,7 @@
 	if(~piece_position == nil, {~piece_position = 0});
 
 	~timeslider_func = {
-		~timeslider = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/(if(~ai_assist_compose == 0, {2.073}, {5})), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 0, "bits"), action: {
+		~timeslider = EZSlider(~firstview,  bounds: (Rect(~firstviewboundsWIDTH/72, if(~ai_assist_compose == 0, {(x=4.3; ~button_base.value;)}, {~firstviewboundsHEIGHT/5}), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/21)), controlSpec: ControlSpec(0, ("instrument_"++(1)++"_full").asSymbol.envirGet.size - 1, \lin, 1, 0, "bits"), action: {
 			|timeselect|
 			var selection1;
 			~piece_position = timeselect.value/**(~instrument_1_full.size/~piecedur_secs)*/; // works
@@ -351,78 +393,19 @@
 	*/
 	/*if(~pause_piece == 0, {~piece_position = 0});*/
 
-	~timeslidertext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.84, ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/22.55));
+	~timeslidertext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=5.2; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/22.55));
 	~timeslidertext.background=~backgroundcolor;
 	~timeslidertext.stringColor=~stringcolor;
 	~timeslidertext.string = "^Jump to location in current piece by using the slider just above";
 	~timeslidertext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
-
-	~quicknewpiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/4.228571428571, ~firstviewboundsWIDTH/5.7, ~firstviewboundsHEIGHT/21)).states_([["Quick New Piece",~stringcolor,~backgroundcolor],["Quick New Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
-		var quicknewpiecewait;
-		quicknewpiecewait = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695, ~firstviewboundsHEIGHT/22.55));
-		quicknewpiecewait.background_(~backgroundcolor);
-		quicknewpiecewait.stringColor_(~stringcolor);
-		quicknewpiecewait.string = "please wait";
-		quicknewpiecewait.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
-		"please wait".postln;
-		if(~piecegenerated != nil, {~piecegenerated.close});
-		~quicknewpiecebutton_num = 1;
-		{if(~duranduranbot_routine.isPlaying == true, {~stop_func.value});}.value;
-		AppClock.sched(0, {
-			if(~seedscheck == 1, {~newrandomseedsbutton.valueAction = 0}, {~seedscheck = 1});
-			~generatepiecebutton.valueAction = 0; //piece fires at end of piece gen func
-		});
-		quicknewpiecewait.close;
-	});
-	~quicknewpiecebutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
-
-	~quicknewpiecebutton_revert = Button.new(~firstview, Rect(~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/4.228571428571, ~firstviewboundsWIDTH/7.6, ~firstviewboundsHEIGHT/21)).states_([["Revert Piece",~stringcolor,~backgroundcolor],["Revert Piece",~stringcolor,~backgroundcolor]]).action_({arg button;
-		var quicknewpiecewait;
-		quicknewpiecewait = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/9.5, ~firstviewboundsWIDTH/6.2608695, ~firstviewboundsHEIGHT/22.55));
-		quicknewpiecewait.background_(~stringcolor);
-		quicknewpiecewait.stringColor_(~stringcolor);
-		quicknewpiecewait.string = "Please Wait";
-		if(~piecegenerated != nil, {~piecegenerated.close});
-		quicknewpiecewait.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
-		"please wait".postln;
-		~quicknewpiecebutton_num = 1;
-
-		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-
-		AppClock.sched(0, {
-			if(~seedscheck == 1, {~reversenewrandomseedsbutton.valueAction = 0}, {~seedscheck = 1});
-			~generatepiecebutton.valueAction = 0; //piece fires at end of piece gen func
-		});
-		quicknewpiecewait.close;
-	});
-	~quicknewpiecebutton_revert.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
-
-	~recordbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.35, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Record Off",~stringcolor,~backgroundcolor],["Record On",~backgroundcolor,Color.red]]).action_({arg button;
-		if(button.value == 1, {
-			~recordtext.string = "All pieces WILL be recorded";
-			~will_record = 1;
-		}, {~recordtext.string = "All pieces will NOT be recorded"; ~will_record = 0;});
-
-	});
-	~recordbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
-
-	~recordtext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/7.3, ~firstviewboundsHEIGHT/1.35, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
-	~recordtext.background=~backgroundcolor;
-	~recordtext.stringColor=~stringcolor;
-	~recordtext.string = "All pieces will NOT be recorded";
-	~recordtext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
-
-	if(~will_record == 1, {~recordtext.string = "All pieces WILL be recorded"; ~recordbutton.value = 1;},
-		{~recordtext.string = "All pieces will NOT be recorded"; ~recordbutton.value = 0;});
-
-	~piecedurationstatictext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.65 /*~firstviewboundsHEIGHT/6.24286*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
+	~piecedurationstatictext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=6; ~button_base.value;) /*~firstviewboundsHEIGHT/6.24286*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
 	~piecedurationstatictext.background=~backgroundcolor;
 	~piecedurationstatictext.stringColor=~stringcolor;
 	~piecedurationstatictext.string = if(~fullpiecedur != nil, {~fullpiecedur}, {"Piece Length - --:-- mins"});
 	~piecedurationstatictext.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~piecepositionstatictext = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72)+(~firstviewboundsWIDTH/2.95)+30, ~firstviewboundsHEIGHT/1.65 /*~firstviewboundsHEIGHT/6.24286*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
+	~piecepositionstatictext = StaticText(~firstview, Rect((~firstviewboundsWIDTH/72)+(~firstviewboundsWIDTH/2.95)+30, (x=6; ~button_base.value;) /*~firstviewboundsHEIGHT/6.24286*/, ~firstviewboundsWIDTH/2.7, ~firstviewboundsHEIGHT/21));
 	~piecepositionstatictext.background=~backgroundcolor;
 	~piecepositionstatictext.stringColor=~stringcolor;
 	~piecepositionstatictext.string = if(~instrument_1_full_midi != nil, {(
@@ -438,13 +421,13 @@
 	if(~pos_1 == nil, {~pos_1 = 0});
 	if(~pos_2 == nil, {~pos_2 = 0});
 
-	~loopstatictext_1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8.5, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/8.5, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21));
 	~loopstatictext_1.background_(~backgroundcolor);
 	~loopstatictext_1.stringColor_(~stringcolor);
 	~loopstatictext_1.string = "Bit pos. 1";
 	~loopstatictext_1.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
-	~looptextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/4.9, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~looptextfield_1 = TextField(~firstview, Rect(~firstviewboundsWIDTH/4.9, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~looptextfield_1.string = ~pos_1.asString;
 	~looptextfield_1.background_(~backgroundcolor);
 	~looptextfield_1.stringColor_(~stringcolor);
@@ -456,13 +439,13 @@
 		~looptextfield_1.string = ~pos_1.asString;
 	};
 
-	~loopstatictext_2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.2, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/3.2, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21));
 	~loopstatictext_2.background_(~backgroundcolor);
 	~loopstatictext_2.stringColor_(~stringcolor);
 	~loopstatictext_2.string = "Bit pos. 2";
 	~loopstatictext_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
-	~looptextfield_2 = TextField(~firstview, Rect(~firstviewboundsWIDTH/2.5, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~looptextfield_2 = TextField(~firstview, Rect(~firstviewboundsWIDTH/2.5, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~looptextfield_2.string = ~pos_2.asString;
 	~looptextfield_2.background_(~backgroundcolor);
 	~looptextfield_2.stringColor_(~stringcolor);
@@ -534,7 +517,7 @@
 
 	if(~loop_on == nil, {~loop_on = 0});
 
-	~loopsetbutton =  Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21)).states_([["Loop is OFF",~stringcolor,~backgroundcolor],["Loop is ON",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~loopsetbutton =  Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21)).states_([["Loop is OFF",~stringcolor,~backgroundcolor],["Loop is ON",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(button.value == 1, {~loop_on = 1;}, {~loop_on = 0;});
 		/*if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
@@ -546,13 +529,13 @@
 
 	if(~num_loops == nil, {~num_loops = 24});
 
-	~loopstatictext_2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.95, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21));
+	~loopstatictext_2 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.95, (x=7; ~button_base.value;), ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21));
 	~loopstatictext_2.background_(~backgroundcolor);
 	~loopstatictext_2.stringColor_(~stringcolor);
 	~loopstatictext_2.string = "# loops";
 	~loopstatictext_2.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
-	~looptextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/1.72, ~firstviewboundsHEIGHT/1.47, ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
+	~looptextfield_3 = TextField(~firstview, Rect(~firstviewboundsWIDTH/1.72,(x=7; ~button_base.value;), ~firstviewboundsWIDTH/10, ~firstviewboundsHEIGHT/21));
 	~looptextfield_3.string = ~num_loops.asString;
 	~looptextfield_3.background_(~backgroundcolor);
 	~looptextfield_3.stringColor_(~stringcolor);
@@ -563,11 +546,73 @@
 		~looptextfield_3.string = ~num_loops.asString;
 	};
 
+	~recordbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=7.8; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["Record Off",~stringcolor,~backgroundcolor],["Record On",~backgroundcolor,Color.red]]).action_({arg button;
+		if(button.value == 1, {
+			~recordtext.string = "All pieces WILL be recorded";
+			~will_record = 1;
+		}, {~recordtext.string = "All pieces will NOT be recorded"; ~will_record = 0;});
+
+	});
+	~recordbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~recordtext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/7.3, (x=7.8; ~button_base.value;), ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
+	~recordtext.background=~backgroundcolor;
+	~recordtext.stringColor=~stringcolor;
+	~recordtext.string = "All pieces will NOT be recorded";
+	~recordtext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+
+	if(~will_record == 1, {~recordtext.string = "All pieces WILL be recorded"; ~recordbutton.value = 1;},
+		{~recordtext.string = "All pieces will NOT be recorded"; ~recordbutton.value = 0;});
+
 	/*ctrlperiodtext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/13.5, ~firstviewboundsWIDTH/3.5, ~firstviewboundsHEIGHT/4.37));
 	ctrlperiodtext.background=~backgroundcolor;
 	ctrlperiodtext.string = "*Important Note*... You can kill all processes by hitting "++"cmd/ctrl - period".quote++"on your keyboard.";
 	ctrlperiodtext.align = \topLeft;
 	ctrlperiodtext.font = Font(~default_font, size: ~firstviewboundsWIDTH/70.454545454545);*/
+
+	~newpieceautobutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=8.6; ~button_base.value;), ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Auto New Piece On",~stringcolor,~backgroundcolor],["Auto New Piece Off",~stringcolor,~backgroundcolor]]).action_({arg button;
+		if(button.value == 1, {
+			g = File((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", "w");
+			g.write("0");
+			g.close;
+			~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is OFF";
+		}, {
+			~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is ON";
+			g = File((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", "w");
+			g.write("1");
+			g.close;
+		});
+
+	});
+	~newpieceautobutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~newpieceautotext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/4.5, (x=8.6; ~button_base.value;), ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
+	~newpieceautotext.background=~backgroundcolor;
+	~newpieceautotext.stringColor=~stringcolor;
+	if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {
+		~newpieceautobutton.value = 0; ~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is ON";
+	}, {~newpieceautobutton.value = 1; ~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is OFF";});
+	~newpieceautotext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
+
+	~loadscorebuttonbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=9.4; ~button_base.value;), ~firstviewboundsWIDTH/5.4, ~firstviewboundsHEIGHT/21)).states_([["Load Saved Score",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		FileDialog.new(
+			{arg path;
+				File.readAllString(path, r).interpret.value;
+				~saved_piece_loaded = 1;
+				if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
+				~generatepiecebutton.valueAction = 1;
+				~loadscoretext.string = "Score has been loaded. Press "++"Play Piece".quote++" to run.";
+				AppClock.sched(5, {~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";});
+		}, {}, 0, 0, stripResult: true, path: ((~ddbot_root)++"/program_files/saved_scores"));
+	});
+	~loadscorebuttonbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~loadscoretext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/4.9, (x=9.4; ~button_base.value;), ~firstviewboundsWIDTH/1.3, ~firstviewboundsHEIGHT/21));
+	~loadscoretext.background=~backgroundcolor;
+	~loadscoretext.stringColor=~stringcolor;
+	~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";
+	~loadscoretext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
 	~volbutton_func = {
 
@@ -891,50 +936,6 @@
 
 	});
 	~see_saved_seeds_file_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
-
-	~newpieceautobutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.25, ~firstviewboundsWIDTH/5, ~firstviewboundsHEIGHT/21)).states_([["Auto New Piece On",~stringcolor,~backgroundcolor],["Auto New Piece Off",~stringcolor,~backgroundcolor]]).action_({arg button;
-		if(button.value == 1, {
-			g = File((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", "w");
-			g.write("0");
-			g.close;
-			~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is OFF";
-		}, {
-			~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is ON";
-			g = File((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", "w");
-			g.write("1");
-			g.close;
-		});
-
-	});
-	~newpieceautobutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
-
-	~newpieceautotext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/4.5, ~firstviewboundsHEIGHT/1.25, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
-	~newpieceautotext.background=~backgroundcolor;
-	~newpieceautotext.stringColor=~stringcolor;
-	if((FileReader.read((~ddbot_root)++"/program_files/other_program_files/autonewpiece.scd", false, true).flatten.at(0) == 1.asString), {
-		~newpieceautobutton.value = 0; ~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is ON";
-	}, {~newpieceautobutton.value = 1; ~newpieceautotext.string = "Automatic "++"Quick New Piece".quote++" is OFF";});
-	~newpieceautotext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
-
-	~loadscorebuttonbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/1.16, ~firstviewboundsWIDTH/5.4, ~firstviewboundsHEIGHT/21)).states_([["Load Saved Score",~stringcolor,~backgroundcolor]]).action_({arg button;
-
-		FileDialog.new(
-			{arg path;
-				File.readAllString(path, r).interpret.value;
-				~saved_piece_loaded = 1;
-				if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
-				~generatepiecebutton.valueAction = 1;
-				~loadscoretext.string = "Score has been loaded. Press "++"Play Piece".quote++" to run.";
-				AppClock.sched(5, {~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";});
-		}, {}, 0, 0, stripResult: true, path: ((~ddbot_root)++"/program_files/saved_scores"));
-	});
-	~loadscorebuttonbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
-
-	~loadscoretext = StaticText(~firstview, Rect(~firstviewboundsWIDTH/4.9, ~firstviewboundsHEIGHT/1.16, ~firstviewboundsWIDTH/1.3, ~firstviewboundsHEIGHT/21));
-	~loadscoretext.background=~backgroundcolor;
-	~loadscoretext.stringColor=~stringcolor;
-	~loadscoretext.string = "Load a saved score here. Then press "++"Play Piece".quote++".";
-	~loadscoretext.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
 	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/1.33, ~firstviewboundsWIDTH/3.7, ~firstviewboundsHEIGHT/21)).states_([["Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~player_settings_page_func.value;
