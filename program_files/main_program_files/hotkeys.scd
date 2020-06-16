@@ -4,19 +4,24 @@
 
 	~spacebar_unicode = 32; //pause DDbot
 	~esc_unicode = 27; //escape fullscreen
+	~f1_unicode = 0;
+
+	~f1_keycode = 112;
 
 	w.view.keyDownAction = { arg view, char, modifiers, unicode, keycode;
 		[char, modifiers, unicode, keycode];
 
 		//pause/unpause synth
-		if(unicode == ~spacebar_unicode, {
-			if(~duranduranbot_routine.isPlaying == true, {
-				if(~pause_piece == 0, {~playbutton.valueAction = 0});
-				if(~pause_piece == 1, {~playbutton.valueAction = 1});
-			});
+		if(((unicode == ~spacebar_unicode) or: (keycode == ~spacebar_unicode)), {
+			case
+			{~duranduranbot_routine.isPlaying == true}{~playbutton.valueAction = 0}
+			{~duranduranbot_routine.isPlaying == false}{~playbutton.valueAction = 1};
 		});
-		if((unicode == ~esc_unicode) or: (keycode == ~esc_unicode), {
-				~fullscreenbutton.valueAction = 0;
+		if(((unicode == ~esc_unicode) or: (keycode == ~esc_unicode)), {
+			if(~fullscreenon == 1, {~end_fullscreen_func.value;});
+		});
+		if(((unicode == ~f1_unicode) or: (keycode == ~f1_keycode)), {
+			if(~fullscreenon == 0, {~fullscreen_func.value;});
 		});
 	};
 };

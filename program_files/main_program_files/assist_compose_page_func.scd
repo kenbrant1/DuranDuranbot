@@ -20,7 +20,7 @@
 	~avg_part_length = ~assist_avg_part_length;
 	~avg_part_range = ~assist_avg_part_range;
 
-	~firstview.close;
+	~hotkeys_func.value;
 
 	~button_base = {(~firstviewboundsHEIGHT/3.7+(((~firstviewboundsHEIGHT/3)-(~firstviewboundsHEIGHT/3.7))*x))};
 

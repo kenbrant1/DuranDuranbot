@@ -18,4 +18,6 @@
 
 	if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
 
+	~hotkeys_func.value;
+
 };

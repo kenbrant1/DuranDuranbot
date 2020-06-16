@@ -9,6 +9,8 @@
 	~avg_part_length = ~ai_avg_part_length;
 	~avg_part_range = ~ai_avg_part_range;
 
+	~hotkeys_func.value;
+
 	if(~firstview != nil, {~firstview.close;});
 	if(~firstview2 != nil, {~firstview2.close;});
 
@@ -19,6 +21,8 @@
 	~firstviewboundsHEIGHT = ~firstview.bounds.height;
 
 	~ddbot_assist_compose_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/50, ~firstviewboundsWIDTH/4.2, ~firstviewboundsHEIGHT/21)).states_([["DDbot Assist Compose",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		~firstview.close;
 		~assist_compose_page_func.value;
 
 	});
@@ -37,39 +41,51 @@
 	});
 	~firstviewtext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
+	~fullscreen_func = {
+
+		w.close;
+		w = Window("DuranDuranbot",
+			Rect(0, 0, Window.availableBounds.width, Window.availableBounds.height),
+
+			/*Rect(0, 0, Window.screenBounds.width, Window.screenBounds.height),*/
+			resizable: true, border:true);
+
+		w.front; w.fullScreen;
+		if(~ai_assist_compose != 1, {~main_page_func.value;}, {~assist_compose_page_func.value;});
+		~fullscreenbutton.value = 1;
+		~fullscreenon = 1;
+		g = File((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", "w");
+		g.write("1");
+		g.close;
+
+		~hotkeys_func.value;
+
+	};
+
+	~end_fullscreen_func = {
+
+		w.close;
+		w = Window("DuranDuranbot",
+			Rect(Window.availableBounds.width*(1/4.4), Window.availableBounds.height*(1/4.5), Window.availableBounds.width*((4.5-2)/4.5), Window.availableBounds.height*((4.5-2)/4.5)),
+
+			/*Rect(0, 0, Window.screenBounds.width, Window.screenBounds.height),*/
+			resizable: true, border:true);
+
+		w.front; /*w.fullScreen;*/
+		if(~ai_assist_compose != 1, {~main_page_func.value;}, {~assist_compose_page_func.value;});
+		~fullscreenbutton.value = 0;
+		~fullscreenon = 0;
+		g = File((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", "w");
+		g.write("0");
+		g.close;
+
+		~hotkeys_func.value;
+
+	};
+
 	~fullscreenbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.7, ~firstviewboundsHEIGHT/21)).states_([["Enter Fullscreen",~stringcolor,~backgroundcolor],["Exit Fullscreen",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		if(button.value == 1, {
-			w.close;
-			w = Window("DuranDuranbot",
-				Rect(0, 0, Window.availableBounds.width, Window.availableBounds.height),
-
-				/*Rect(0, 0, Window.screenBounds.width, Window.screenBounds.height),*/
-				resizable: true, border:true);
-
-			w.front; w.fullScreen;
-			~main_page_func.value;
-			~fullscreenbutton.value = 1;
-			~fullscreenon = 1;
-			g = File((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", "w");
-			g.write("1");
-			g.close;
-		}, {
-			w.close;
-			w = Window("DuranDuranbot",
-				Rect(Window.availableBounds.width*(1/4.4), Window.availableBounds.height*(1/4.5), Window.availableBounds.width*((4.5-2)/4.5), Window.availableBounds.height*((4.5-2)/4.5)),
-
-				/*Rect(0, 0, Window.screenBounds.width, Window.screenBounds.height),*/
-				resizable: true, border:true);
-
-			w.front; /*w.fullScreen;*/
-			~main_page_func.value;
-			~fullscreenbutton.value = 0;
-			~fullscreenon = 0;
-			g = File((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", "w");
-			g.write("0");
-			g.close;
-		});
+		if(button.value == 1, {~fullscreen_func.value;}, {~end_fullscreen_func.value;});
 
 	});
 	~fullscreenbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
