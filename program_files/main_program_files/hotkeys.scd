@@ -4,9 +4,6 @@
 
 	~spacebar_unicode = 32; //pause DDbot
 	~esc_unicode = 27; //escape fullscreen
-	~f1_unicode = 0;
-
-	~f1_keycode = 112;
 
 	w.view.keyDownAction = { arg view, char, modifiers, unicode, keycode;
 		[char, modifiers, unicode, keycode];
@@ -18,10 +15,9 @@
 			{~duranduranbot_routine.isPlaying == false}{~playbutton.valueAction = 1};
 		});
 		if(((unicode == ~esc_unicode) or: (keycode == ~esc_unicode)), {
-			if(~fullscreenon == 1, {~end_fullscreen_func.value;});
-		});
-		if(((unicode == ~f1_unicode) or: (keycode == ~f1_keycode)), {
-			if(~fullscreenon == 0, {~fullscreen_func.value;});
+			case
+			{~fullscreenon == 0}{~fullscreen_func.value;}
+			{~fullscreenon == 1}{~end_fullscreen_func.value;};
 		});
 	};
 };

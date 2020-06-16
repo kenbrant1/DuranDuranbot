@@ -1,3 +1,21 @@
+~instrument_menu_array_func = {
+	[
+		"Alesis-Sanctuary-QCard-Choir-Aah",
+		"Alesis-Sanctuary-QCard-Promenade",
+		"Korg-M1-Angels",
+		"Korg-M3R-Chorale",
+		"Korg-M3R-VoiceChoir",
+		"Korg-Poly-800-Organ",
+		"Korg-Poly-800-samp_2",
+		"Roland-JV-2080-Choir-Aahs",
+		"Roland JX-3P samp 2",
+		"Yamaha-SY22-Itopia",
+		"Yamaha-TG500-CH-Aah",
+		"Yamaha-TG500-CH-Spirit"
+
+	];
+};
+
 ~player_settings_page_func = {
 
 	if(~firstview != nil, {~firstview.close;});
@@ -29,22 +47,7 @@
 	~button_base = {(~firstviewboundsHEIGHT/9+(((~firstviewboundsHEIGHT/3)-(~firstviewboundsHEIGHT/3.7))*x))};
 
 	("synth_choice_menu_"++(1)).asSymbol.envirPut(PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21)));
-	("synth_choice_menu_"++(1)).asSymbol.envirGet.items = [
-		"Current - "++(("synth_choice_"++(1)).asSymbol.envirGet.asString),
-		"Alesis-Sanctuary-QCard-Choir-Aah",
-		"Alesis-Sanctuary-QCard-Promenade",
-		"Korg-M1-Angels",
-		"Korg-M3R-Chorale",
-		"Korg-M3R-VoiceChoir",
-		"Korg-Poly-800-Organ",
-		"Korg-Poly-800-samp_2",
-		"Roland-JV-2080-Choir-Aahs",
-		"Roland JX-3P samp 2",
-		"Yamaha-SY22-Itopia",
-		"Yamaha-TG500-CH-Aah",
-		"Yamaha-TG500-CH-Spirit"
-
-	];
+	("synth_choice_menu_"++(1)).asSymbol.envirGet.items = ["Current - "++(("synth_choice_"++(1)).asSymbol.envirGet.asString)]++(~instrument_menu_array_func.value);
 	("synth_choice_menu_"++(1)).asSymbol.envirGet.background_(~backgroundcolor);
 	("synth_choice_menu_"++(1)).asSymbol.envirGet.stringColor_(~stringcolor);
 	("synth_choice_menu_"++(1)).asSymbol.envirGet.value = ("synth_choice_"++(1)).asSymbol.envirGet.asString;
@@ -72,22 +75,7 @@
 	~firstviewtext8.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	("synth_choice_menu_"++(2)).asSymbol.envirPut(PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21)));
-	("synth_choice_menu_"++(2)).asSymbol.envirGet.items = [
-		"Current - "++(("synth_choice_"++(2)).asSymbol.envirGet.asString),
-		"Alesis-Sanctuary-QCard-Choir-Aah",
-		"Alesis-Sanctuary-QCard-Promenade",
-		"Korg-M1-Angels",
-		"Korg-M3R-Chorale",
-		"Korg-M3R-VoiceChoir",
-		"Korg-Poly-800-Organ",
-		"Korg-Poly-800-samp_2",
-		"Roland-JV-2080-Choir-Aahs",
-		"Roland JX-3P samp 2",
-		"Yamaha-SY22-Itopia",
-		"Yamaha-TG500-CH-Aah",
-		"Yamaha-TG500-CH-Spirit"
-
-	];
+	("synth_choice_menu_"++(2)).asSymbol.envirGet.items = ["Current - "++(("synth_choice_"++(2)).asSymbol.envirGet.asString)]++(~instrument_menu_array_func.value);
 	("synth_choice_menu_"++(2)).asSymbol.envirGet.background_(~backgroundcolor);
 	("synth_choice_menu_"++(2)).asSymbol.envirGet.stringColor_(~stringcolor);
 	("synth_choice_menu_"++(2)).asSymbol.envirGet.value = ("synth_choice_"++(2)).asSymbol.envirGet.asString;
@@ -115,22 +103,7 @@
 	~firstviewtext9.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	("synth_choice_menu_"++(3)).asSymbol.envirPut(PopUpMenu(~firstview, Rect(~firstviewboundsWIDTH/72, (x=2; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21)));
-	("synth_choice_menu_"++(3)).asSymbol.envirGet.items = [
-		"Current - "++(("synth_choice_"++(3)).asSymbol.envirGet.asString),
-		"Alesis-Sanctuary-QCard-Choir-Aah",
-		"Alesis-Sanctuary-QCard-Promenade",
-		"Korg-M1-Angels",
-		"Korg-M3R-Chorale",
-		"Korg-M3R-VoiceChoir",
-		"Korg-Poly-800-Organ",
-		"Korg-Poly-800-samp_2",
-		"Roland-JV-2080-Choir-Aahs",
-		"Roland JX-3P samp 2",
-		"Yamaha-SY22-Itopia",
-		"Yamaha-TG500-CH-Aah",
-		"Yamaha-TG500-CH-Spirit"
-
-	];
+	("synth_choice_menu_"++(3)).asSymbol.envirGet.items = ["Current - "++(("synth_choice_"++(3)).asSymbol.envirGet.asString)]++(~instrument_menu_array_func.value);
 	("synth_choice_menu_"++(3)).asSymbol.envirGet.background_(~backgroundcolor);
 	("synth_choice_menu_"++(3)).asSymbol.envirGet.stringColor_(~stringcolor);
 	("synth_choice_menu_"++(3)).asSymbol.envirGet.value = ("synth_choice_"++(3)).asSymbol.envirGet.asString;
