@@ -9,8 +9,6 @@
 	~avg_part_length = ~ai_avg_part_length;
 	~avg_part_range = ~ai_avg_part_range;
 
-	~hotkeys_func.value;
-
 	if(~firstview != nil, {~firstview.close;});
 	if(~firstview2 != nil, {~firstview2.close;});
 
