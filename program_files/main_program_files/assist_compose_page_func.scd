@@ -233,7 +233,9 @@
 						);
 					});
 				});
+
 				w.close;
+
 				g = File((~ddbot_root)++"/program_files/other_program_files/synth_choice_1.scd", "w");
 				g.write(~synth_choice_1.asString.quote);
 				g.close;
@@ -267,10 +269,10 @@
 				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude_3.scd", "w");
 				g.write(~amp_3.asString);
 				g.close;
+
 				~duranduranbot_GUI_func.value;
 				"project loaded".postln;
-				if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
-				~assist_compose_page_func.value;
+
 		}, {}, 0, 0, stripResult: true, path: ((~ddbot_root)++"/program_files/saved_projects"));
 	});
 	~load_saved_assist_project_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
@@ -282,8 +284,6 @@
 		w.close;
 		~duranduranbot_GUI_func.value;
 		"project loaded".postln;
-		if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
-		~assist_compose_page_func.value;
 	});
 	~new_assist_project_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 

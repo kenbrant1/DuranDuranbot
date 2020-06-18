@@ -16,7 +16,7 @@
 
 	if(~ai_assist_compose != 1, {~main_page_func.value;}, {~assist_compose_page_func.value;});
 
-	if(~fullscreenon == 1, {~fullscreenbutton.valueAction = 1;});
+	if(~fullscreenon == 1, {~fullscreen_func.value;});
 
 	~hotkeys_func.value;
 
