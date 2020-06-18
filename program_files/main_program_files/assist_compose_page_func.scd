@@ -137,7 +137,7 @@
 			"~synth_choice_1 = "++(~synth_choice_1.asString.quote;)++
 			";\n~synth_choice_2 = "++(~synth_choice_2.asString.quote;)++
 			";\n~synth_choice_3 = "++(~synth_choice_3.asString.quote;)++
-			";\n~composition_process_setting = "++(~composition_process_setting.asString)++
+			";\n~composition_process_setting = "++(~composition_process_setting.asInteger.asString)++
 			";\n~number_of_instruments = "++(~number_of_instruments.asString)++
 			";\n~bit_duration = "++(~bit_duration.reciprocal.asString;)++".reciprocal"++
 			";\n~tuning_frequency = "++(~tuning_frequency.asString)++

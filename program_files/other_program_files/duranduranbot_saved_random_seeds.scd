@@ -280,3 +280,23 @@ Thu Jun 18 08:23:53 2020
 random seed 1 - 56368270
 random seed 2 - 55936663
 random seed 3 - 54323033
+
+Thu Jun 18 08:29:43 2020
+random seed 1 - 93970571
+random seed 2 - 42427332
+random seed 3 - 70560617
+
+Thu Jun 18 08:30:04 2020
+random seed 1 - 70424770
+random seed 2 - 25384655
+random seed 3 - 64958508
+
+Thu Jun 18 08:30:30 2020
+random seed 1 - 62818113
+random seed 2 - 8345370
+random seed 3 - 33834421
+
+Thu Jun 18 08:33:01 2020
+random seed 1 - 92284952
+random seed 2 - 25551583
+random seed 3 - 54785591
