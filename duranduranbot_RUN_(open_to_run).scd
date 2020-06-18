@@ -58,6 +58,7 @@ if(~assist_ml_on == nil, {~assist_ml_on = FileReader.read((~ddbot_root)++"/progr
 if(~assist_ml_data_on == nil, {~assist_ml_data_on = FileReader.read((~ddbot_root)++"/program_files/other_program_files/assist_ml_data_on.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~fullscreenon == nil, {~fullscreenon = FileReader.read((~ddbot_root)++"/program_files/other_program_files/fullscreenon.scd", false, true).flatten.at(0).asString.asFloat;});
 if(~composition_process_setting == nil, {~composition_process_setting = FileReader.read((~ddbot_root)++"/program_files/other_program_files/composition_process_setting.scd", false, true).flatten.at(0).asString.asFloat;});
+// if(~notepad_string == nil, {~notepad_string = File.readAllString((~ddbot_root)++"/program_files/other_program_files/notepad_string.scd", r).interpret;});
 
 /*Platform.userExtensionDir;*/
 
@@ -99,7 +100,17 @@ if(w != nil, {w.close;});
 
 ~default_font = "Arial";
 
-if(Server.default.serverRunning == false, {Server.default.boot; Server.default.waitForBoot({~duranduranbot_GUI_func.value;});}, {~duranduranbot_GUI_func.value;});
+if(Server.default.serverRunning == false, {
+	Server.default.boot;
+	Server.default.waitForBoot({
+		~duranduranbot_GUI_func.value;
+
+	});
+
+}, {
+	~duranduranbot_GUI_func.value;
+
+});
 
 
 );

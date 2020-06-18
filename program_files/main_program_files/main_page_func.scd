@@ -382,6 +382,7 @@
 			*/
 		});
 		~timeslider.setColors(~stringcolor,~stringcolor);
+		/*~timeslider.font = Font(~default_font, size: ~firstviewboundsWIDTH/75);*/
 
 	};
 

@@ -64,6 +64,7 @@
 	~firstviewtext11.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
 	~firstviewtext2 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/16, ~firstviewboundsHEIGHT/21)).states_([["back",~stringcolor,~backgroundcolor],["back",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~notepad_string = ~notepadview.string.asString;
 		~firstview.close;
 		~main_page_func.value;
 	});
@@ -118,6 +119,7 @@
 	~timeslider_func.value;
 
 	~firstviewtext3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Instructions/Help",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~notepad_string = ~notepadview.string.asString;
 		~ai_assist_instructions_page_func.value;
 
 	});
@@ -143,6 +145,7 @@
 			";\n~amp_1 = "++(~amp_1.asString)++
 			";\n~amp_2 = "++(~amp_2.asString)++
 			";\n~amp_3 = "++(~amp_3.asString)++
+			";\n~notepad_string = "++(~notepadview.string.asString.quote)++
 			";\n~num_assist_parts = "++(~num_assist_parts.asString)++
 			";\n~line_multiple1 = "++(~line_multiple1.asString)++
 			";\n~line_multiple2 = "++(~line_multiple2.asString)++";";
@@ -269,8 +272,13 @@
 				g = File((~ddbot_root)++"/program_files/other_program_files/amplitude_3.scd", "w");
 				g.write(~amp_3.asString);
 				g.close;
+				/*g = File((~ddbot_root)++"/program_files/other_program_files/notepad_string.scd", "w");
+				g.write(~notepad_string.asString);
+				g.close;*/
 
+				~assist_loading_proj = 1;
 				~duranduranbot_GUI_func.value;
+				~notepadview.string = ~notepad_string.asString;
 				"project loaded".postln;
 
 		}, {}, 0, 0, stripResult: true, path: ((~ddbot_root)++"/program_files/saved_projects"));
@@ -480,12 +488,13 @@
 	~ml_data_static.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~ai_assist_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=3; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Assist Comp. Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
-
+		~notepad_string = ~notepadview.string.asString;
 		~ai_assist_settings_page_func.value;
 	});
 	~ai_assist_settings_page_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~training_settings_page_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, (x=4; ~button_base.value;), ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Player Settings",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~notepad_string = ~notepadview.string.asString;
 		~player_settings_page_func.value;
 	});
 	~training_settings_page_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
@@ -1605,6 +1614,18 @@
 		});
 	});
 	~set_back_original_trim_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~notepadtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/72, (x=17; ~button_base.value;), ~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/21));
+	~notepadtext1.background=~backgroundcolor;
+	~notepadtext1.stringColor_(~stringcolor);
+	~notepadtext1.string = "Notepad - ";
+	~notepadtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	if(~notepad_string == nil, {~notepad_string = ""});
+
+	~notepadview = TextView(~firstview, Rect(~firstviewboundsWIDTH/72, (x=18; ~button_base.value;), ~firstviewboundsWIDTH/1.5, ~firstviewboundsHEIGHT/4));
+	~notepadview.string = ~notepad_string.asString;
+	~notepadview.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	/*fillertext = StaticText(~firstview, Rect(0, ~firstviewboundsHEIGHT/0.999999, ~firstviewboundsWIDTH/2.2, ~firstviewboundsHEIGHT/21));
 	fillertext.background=~backgroundcolor;

@@ -14,7 +14,11 @@
 
 	if(~startprogram == nil, {~save_random_seeds_func.value; ~startprogram = 1;});
 
-	if(~ai_assist_compose != 1, {~main_page_func.value;}, {~assist_compose_page_func.value;});
+	if(~ai_assist_compose != 1, {~main_page_func.value;}, {
+		if(~assist_loading_proj != 1, {~notepad_string = ~notepadview.string.asString;}, {~assist_is_loading = 0;});
+		~assist_compose_page_func.value;
+
+	});
 
 	if(~fullscreenon == 1, {~fullscreen_func.value;});
 
