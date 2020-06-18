@@ -18,7 +18,7 @@
 	~firstviewboundsWIDTH = ~firstview.bounds.width;
 	~firstviewboundsHEIGHT = ~firstview.bounds.height;
 
-	~ddbot_assist_compose_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/50, ~firstviewboundsWIDTH/4.2, ~firstviewboundsHEIGHT/21)).states_([["DDbot Assist Compose",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~ddbot_assist_compose_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/50, ~firstviewboundsWIDTH/4.2, ~firstviewboundsHEIGHT/21)).states_([["DDbot Assist Compose",Color(0.0, 1.0, 1.0),~backgroundcolor]]).action_({arg button;
 
 		~firstview.close;
 		~assist_compose_page_func.value;
@@ -33,7 +33,7 @@
 	~firstviewtext1.align = \topLeft;
 	~firstviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-	~firstviewtext3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3.7, ~firstviewboundsHEIGHT/21)).states_([["Instructions",~stringcolor,~backgroundcolor],["Click Here For Instructions",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~firstviewtext3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3.7, ~firstviewboundsHEIGHT/21)).states_([["Instructions/Help",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~instructions_page_func.value;
 
 	});

@@ -14,7 +14,7 @@ above, and click on "Evaluate File".
 This AI music bot is designed to be trained. "Straight out of the box" it
 produces random sounds; but you can train it to sound according to
 your preferences. More information on how to train DuranDuranbot
-and how it learns can be found inside the "Instructions" page link
+and how it learns can be found inside the "Instructions/Help" page link
 found in the top right corner of the "Main Page" of the program after running it.
 
 ...

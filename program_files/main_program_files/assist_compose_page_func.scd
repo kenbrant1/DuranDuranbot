@@ -117,7 +117,7 @@
 
 	~timeslider_func.value;
 
-	~firstviewtext3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Instructions",~stringcolor,~backgroundcolor],["Instructions",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~firstviewtext3 = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.37, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/3.8, ~firstviewboundsHEIGHT/21)).states_([["Instructions/Help",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~ai_assist_instructions_page_func.value;
 
 	});

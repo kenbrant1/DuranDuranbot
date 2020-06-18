@@ -8,10 +8,10 @@
     ~firstviewboundsWIDTH = ~firstview.bounds.width;
     ~firstviewboundsHEIGHT = ~firstview.bounds.height;
 
-    ~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.2857142857143, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21));
+    ~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.2857142857143, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/6.25, ~firstviewboundsHEIGHT/21));
     ~firstviewtext1.background=~backgroundcolor;
     ~firstviewtext1.stringColor=~stringcolor;
-    ~firstviewtext1.string = "Instructions";
+    ~firstviewtext1.string = "Instructions/Help";
     ~firstviewtext1.align = \topLeft;
     ~firstviewtext1.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
@@ -34,11 +34,15 @@
     ~firstviewtext4.background=~backgroundcolor;
 	~firstviewtext4.string = "(Scroll down for more)
 
+DDbot Assist Composition allows you to compose music with the help of DuranDuranbot.
+
 Quick youtube tutorials/demonstrations -
 https://www.youtube.com/watch?v=WEjo4IdC0hs
 https://www.youtube.com/watch?v=ccNjaQmctoQ
 
-How to use -
+***DDbot Trains Itself As You Compose in Assisted Composition. Any action you take during composition which implies you like something, DDbot will machine learn it. :) As explained in beginning of this YouTube video - https://www.youtube.com/watch?v=tYJANh9uxZM
+
+HOW TO USE -
 
 New Part - creates new part, which has no audio
 
