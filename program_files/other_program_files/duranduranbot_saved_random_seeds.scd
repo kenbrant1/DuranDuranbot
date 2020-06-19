@@ -300,3 +300,13 @@ Thu Jun 18 08:33:01 2020
 random seed 1 - 92284952
 random seed 2 - 25551583
 random seed 3 - 54785591
+
+Thu Jun 18 15:20:20 2020
+random seed 1 - 64373113
+random seed 2 - 95032277
+random seed 3 - 91658143
+
+Thu Jun 18 15:25:00 2020
+random seed 1 - 76345036
+random seed 2 - 14439385
+random seed 3 - 24382244
