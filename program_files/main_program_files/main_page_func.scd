@@ -864,7 +864,7 @@
 
 	~volbutton_func.value;
 
-	~newrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Seeds",~stringcolor,~backgroundcolor],["New Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~newrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/9.5, ~firstviewboundsHEIGHT/21)).states_([["New Seeds",~stringcolor,~backgroundcolor],["New Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~randseed_1_backup = ~randseed_1;
 		~randseed_2_backup = ~randseed_2;
 		~randseed_3_backup = ~randseed_3;
@@ -886,7 +886,7 @@
 	});
 	~newrandomseedsbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
-	~reversenewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.209907834101, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Revert",~stringcolor,~backgroundcolor],["Revert",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~reversenewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.225, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/15, ~firstviewboundsHEIGHT/21)).states_([["Revert",~stringcolor,~backgroundcolor],["Revert",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~randseed_1_backup2 = ~randseed_1;
 		~randseed_2_backup2 = ~randseed_2;
 		~randseed_3_backup2 = ~randseed_3;
@@ -910,7 +910,7 @@
 	});
 	~reversenewrandomseedsbutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/55);
 
-	~setnewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.1059907834101, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/12, ~firstviewboundsHEIGHT/21)).states_([["Set Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~setnewrandomseedsbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.125, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/10.5, ~firstviewboundsHEIGHT/21)).states_([["Set Seeds",~stringcolor,~backgroundcolor]]).action_({arg button;
 		~firstview.close;
 		~set_seeds_page_func.value;
 	});
