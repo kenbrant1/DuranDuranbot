@@ -43,7 +43,7 @@ if(~number_of_instruments == nil, {~number_of_instruments = File.readAllString((
 3.do(x = 0; {
 	x=x+1;
 	if(("synth_choice_"++(x)).asSymbol.envirGet == nil, {("synth_choice_"++(x)).asSymbol.envirPut(File.readAllString((~ddbot_root)++"/program_files/other_program_files/synth_choice_"++(x)++".scd", r).interpret.asString;);});
-	if(("amp_"++(x)).asSymbol.envirGet == nil, {("amp_default_"++(x)).asSymbol.envirPut(5); ("amp_"++(x)).asSymbol.envirPut(File.readAllString((~ddbot_root)++"/program_files/other_program_files/amplitude_"++(x)++".scd", r).interpret;);});
+	if(("amp_"++(x)).asSymbol.envirGet == nil, {("amp_default_"++(x)).asSymbol.envirPut(2); ("amp_"++(x)).asSymbol.envirPut(File.readAllString((~ddbot_root)++"/program_files/other_program_files/amplitude_"++(x)++".scd", r).interpret;);});
 });
 if(~tuning_frequency == nil, {~tuning_frequency_default = 440; ~tuning_frequency = FileReader.read((~ddbot_root)++"/program_files/other_program_files/tuning_frequency.scd", false, true).flatten.at(0).asString.asFloat;}); // note A tuneing frequency - default 440 hz
 if(~which_players == nil, {~which_players = File.readAllString((~ddbot_root)++"/program_files/other_program_files/which_players.scd", r).interpret;});
