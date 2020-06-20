@@ -121,7 +121,12 @@
 					{(~ai_assist_compose == 0) or: (~load_assist == 1)}{~run_piece_func.value;}
 					{~ai_assist_compose == 1}{~assisted_ai_run_piece_func.value;}
 				}, {/*~timer_routine.resume;*/
-					Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, ~amp);});});
+					~ddbot_synth.set(
+					\amp1, ~amp_1,
+					\amp2, ~amp_2,
+					\amp3, ~amp_3
+
+					);
 					~duranduranbot_routine.resume;
 					"Piece Resumed".postln;
 					if(~will_record == 1, {Server.default.record;});
@@ -130,7 +135,12 @@
 				~pause_piece = 0;
 			}, {
 				/*~timer_routine.pause;*/
-				Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
+				~ddbot_synth.set(
+					\amp1, 0,
+					\amp2, 0,
+					\amp3, 0
+
+					);
 				~duranduranbot_routine.pause;
 				/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.set(\freq, 0);});});
 				*/if(~ai_assist_compose != 1, {"Piece Paused".postln;});
@@ -171,7 +181,7 @@
 			/*~timer_routine.stop;*/
 			/*Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(\amp, 0);});});
 			*/	/*~piece_position = 0;*/
-			Server.default.makeBundle(Server.default.latency, {~number_of_instruments.do(x = 0; {("duranduranbotsynth"++(x=x+1)).asSymbol.envirGet.free;});});
+			~ddbot_synth.free;
 			if(~will_record == 1, {
 				AppClock.sched(0.5, {
 					Server.default.stopRecording;
@@ -629,9 +639,9 @@
 
 				~volview = View(~firstview,
 					if(~ai_assist_compose != 1, {
-						Rect(0, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56*4, ~firstviewboundsHEIGHT/2)
+						Rect(0, ~firstviewboundsHEIGHT/4.4, ~firstviewboundsWIDTH/3.56*4, ~firstviewboundsHEIGHT/1.5)
 					}, {
-						Rect(0, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8*4, ~firstviewboundsHEIGHT/2)
+						Rect(0, (x=1; ~button_base.value;), ~firstviewboundsWIDTH/3.8*4, ~firstviewboundsHEIGHT/1.5)
 					})
 				);
 				~volview.background_(~backgroundcolor);
@@ -640,7 +650,7 @@
 				amp_before_2 = ~amp_2;
 				amp_before_3 = ~amp_3;
 
-				~volslider1 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/2)), controlSpec: ControlSpec(0, 4, \lin, 0.1, ~amp_1), action: {
+				~volslider1 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72, 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/1.5)), controlSpec: ControlSpec(0, 50, \lin, 0.1, ~amp_1), action: {
 					|timeselect|
 					var selection1;
 					~amp_1 = timeselect.value;
@@ -670,7 +680,7 @@
 
 				if(~number_of_instruments > 1, {
 
-					~volslider2 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72*2 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*1), 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/2)), controlSpec: ControlSpec(0, 4, \lin, 0.1, ~amp_2), action: {
+					~volslider2 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72*2 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*1), 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/1.5)), controlSpec: ControlSpec(0, 50, \lin, 0.1, ~amp_2), action: {
 						|timeselect|
 						var selection1;
 						~amp_2 = timeselect.value;
@@ -702,7 +712,7 @@
 
 				if(~number_of_instruments > 2, {
 
-					~volslider3 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72*3 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*2), 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/2)), controlSpec: ControlSpec(0, 4, \lin, 0.1, ~amp_3), action: {
+					~volslider3 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72*3 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*2), 0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/1.5)), controlSpec: ControlSpec(0, 50, \lin, 0.1, ~amp_3), action: {
 						|timeselect|
 						var selection1;
 						~amp_3 = timeselect.value;
@@ -734,18 +744,21 @@
 
 				if(~number_of_instruments > 1, {
 
-					~volslider0 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72*4 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*3),0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/2)), controlSpec: ControlSpec(0, 4, \lin, 0.1, ~amp_1), action: {
+					~volslider0 = EZSlider(~volview,  bounds: (Rect(~firstviewboundsWIDTH/72*4 + (((~firstviewboundsWIDTH/40) + (~firstviewboundsWIDTH/5.5))*3),0, ~firstviewboundsWIDTH/40, ~firstviewboundsHEIGHT/1.5)), controlSpec: ControlSpec(0, 50, \lin, 0.1, ~amp_1), action: {
 						|timeselect|
 						var selection1;
 						~amp_1 = timeselect.value;
 						~voltext1.string = "i1 "++(~amp_1.asString);
+						~volslider1.value = ~amp_1;
 						if(~number_of_instruments > 1, {
 							~amp_2 = timeselect.value;
 							~voltext2.string = "i2 "++(~amp_2.asString);
+							~volslider2.value = ~amp_2;
 						});
 						if(~number_of_instruments > 2, {
 							~amp_3 = timeselect.value;
 							~voltext3.string = "i3 "++(~amp_3.asString);
+							~volslider3.value = ~amp_3;
 						});
 						/*~trimviewtext3.string = "Keep from bit "++(~cut_from)++" to "++(~cut_to)++", and discard the rest.";*/
 					}, layout: 'vert');

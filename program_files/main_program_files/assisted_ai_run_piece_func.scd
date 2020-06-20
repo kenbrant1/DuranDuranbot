@@ -36,7 +36,7 @@
 
 		};*/
 
-		~fr_func = {(1 - (~freq_r.cpsmidi-45*(0.7/36)))};
+		/*~fr_func = {(1 - (~freq_r.cpsmidi-45*(0.7/36)))};
 
 		~number_of_instruments.do(x = 0; {
 			x=x+1;
@@ -48,9 +48,9 @@
 					("amp_array_"++(x)).asSymbol.envirGet.add(~fr_func.value;);
 				);
 			});
-		});
+		});*/
 
-		~init_start_func = {
+		/*~init_start_func = {
 
 			Server.default.makeBundle(Server.default.latency, {
 
@@ -74,6 +74,64 @@
 
 				);});
 			});
+		};*/
+
+		case
+		{~number_of_instruments == 1}{
+			~init_start_func = {
+				~ddbot_synth = Synth("ddbot_synth", [
+					\freq1, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1
+				]);
+			};
+			~init_func = {
+
+				~ddbot_synth.set(
+					\freq1, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1
+				);
+			};
+		}
+		{~number_of_instruments == 2}{
+			~init_start_func = {
+				~ddbot_synth = Synth("ddbot_synth", [
+					\freq1, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\freq2, ("assist_inst_"++(2)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1,
+					\amp2, ~amp_2
+				]);
+			};
+			~init_func = {
+
+				~ddbot_synth.set(
+					\freq1, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\freq2, ("assist_inst_"++(2)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1,
+					\amp2, ~amp_2
+				);
+			};
+		}
+		{~number_of_instruments == 3}{
+			~init_start_func = {
+				~ddbot_synth = Synth("ddbot_synth", [
+					\freq1, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\freq2, ("assist_inst_"++(2)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\freq3, ("assist_inst_"++(3)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1,
+					\amp2, ~amp_2,
+					\amp3, ~amp_3
+				]);
+			};
+			~init_func = {
+				~ddbot_synth.set(
+					\freq1, ("assist_inst_"++(1)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\freq2, ("assist_inst_"++(2)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\freq3, ("assist_inst_"++(3)++"_array_part_"++(~assist_part_number)).asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1,
+					\amp2, ~amp_2,
+					\amp3, ~amp_3
+				);
+			};
 		};
 
 		if(~set_trim_on != 1, {

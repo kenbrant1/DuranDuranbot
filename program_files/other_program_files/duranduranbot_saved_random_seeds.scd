@@ -315,3 +315,53 @@ Fri Jun 19 12:31:06 2020
 random seed 1 - 27059508
 random seed 2 - 17517072
 random seed 3 - 75617183
+
+Fri Jun 19 21:29:33 2020
+random seed 1 - 50774506
+random seed 2 - 64505818
+random seed 3 - 7409547
+
+Fri Jun 19 21:35:43 2020
+random seed 1 - 39734085
+random seed 2 - 37442607
+random seed 3 - 22356702
+
+Fri Jun 19 21:42:14 2020
+random seed 1 - 57033045
+random seed 2 - 21197946
+random seed 3 - 17346623
+
+Fri Jun 19 21:42:44 2020
+random seed 1 - 57478942
+random seed 2 - 49148884
+random seed 3 - 51992140
+
+Fri Jun 19 21:42:48 2020
+random seed 1 - 26635021
+random seed 2 - 86435848
+random seed 3 - 70120585
+
+Fri Jun 19 21:42:55 2020
+random seed 1 - 80029963
+random seed 2 - 369065
+random seed 3 - 86599338
+
+Fri Jun 19 21:43:00 2020
+random seed 1 - 96501410
+random seed 2 - 81646330
+random seed 3 - 40592515
+
+Fri Jun 19 21:58:49 2020
+random seed 1 - 12659476
+random seed 2 - 8765953
+random seed 3 - 73561869
+
+Fri Jun 19 23:22:04 2020
+random seed 1 - 70969833
+random seed 2 - 24193097
+random seed 3 - 27913267
+
+Fri Jun 19 23:48:47 2020
+random seed 1 - 97920877
+random seed 2 - 84364848
+random seed 3 - 17040236

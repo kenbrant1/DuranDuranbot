@@ -30,7 +30,7 @@
 
 		};*/
 
-		~fr_func = {(1 - (~freq_r.cpsmidi-45*(0.7/36)))};
+		/*~fr_func = {(1 - (~freq_r.cpsmidi-45*(0.7/36)))};
 
 		~number_of_instruments.do(x = 0; {
 			x=x+1;
@@ -42,32 +42,90 @@
 					("amp_array_"++(x)).asSymbol.envirGet.add(~fr_func.value;);
 				);
 			});
+		});*/
+
+		/*~init_start_func = {
+
+		Server.default.makeBundle(Server.default.latency, {
+
+		~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirPut(
+		Synth("synth"++(~x), [
+		\freq, ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position),
+		\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ("amp_"++(~x)).asSymbol.envirGet;
+		]);
+
+		);});
 		});
-
-		~init_start_func = {
-
-			Server.default.makeBundle(Server.default.latency, {
-
-				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirPut(
-					Synth("synth"++(~x), [
-						\freq, ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position),
-						\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ("amp_"++(~x)).asSymbol.envirGet;
-					]);
-
-				);});
-			});
 		};
 
 		~init_func = {
 
-			Server.default.makeBundle(Server.default.latency, {
+		Server.default.makeBundle(Server.default.latency, {
 
-				~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
-					\freq, ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position),
-					\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ("amp_"++(~x)).asSymbol.envirGet;
+		~number_of_instruments.do(~x = 0; {("duranduranbotsynth"++(~x=~x+1)).asSymbol.envirGet.set(
+		\freq, ("instrument_"++(~x)++"_full").asSymbol.envirGet.at(~piece_position),
+		\amp, ("amp_array_"++(~x)).asSymbol.envirGet.at(~piece_position) * ("amp_"++(~x)).asSymbol.envirGet;
 
-				);});
-			});
+		);});
+		});
+		};*/
+
+		case
+		{~number_of_instruments == 1}{
+			~init_start_func = {
+				~ddbot_synth = Synth("ddbot_synth", [
+					\freq1, ("instrument_"++(1)++"_full").asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1
+				]);
+			};
+			~init_func = {
+
+				~ddbot_synth.set(
+					\freq1, ("instrument_"++(1)++"_full").asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1
+				);
+			};
+		}
+		{~number_of_instruments == 2}{
+			~init_start_func = {
+				~ddbot_synth = Synth("ddbot_synth", [
+					\freq1, ("instrument_"++(1)++"_full").asSymbol.envirGet.at(~piece_position),
+					\freq2, ("instrument_"++(2)++"_full").asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1,
+					\amp2, ~amp_2
+				]);
+			};
+			~init_func = {
+
+				~ddbot_synth.set(
+					\freq1, ("instrument_"++(1)++"_full").asSymbol.envirGet.at(~piece_position),
+					\freq2, ("instrument_"++(2)++"_full").asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1,
+					\amp2, ~amp_2
+				);
+			};
+		}
+		{~number_of_instruments == 3}{
+			~init_start_func = {
+				~ddbot_synth = Synth("ddbot_synth", [
+					\freq1, ("instrument_"++(1)++"_full").asSymbol.envirGet.at(~piece_position),
+					\freq2, ("instrument_"++(2)++"_full").asSymbol.envirGet.at(~piece_position),
+					\freq3, ("instrument_"++(3)++"_full").asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1,
+					\amp2, ~amp_2,
+					\amp3, ~amp_3
+				]);
+			};
+			~init_func = {
+				~ddbot_synth.set(
+					\freq1, ("instrument_"++(1)++"_full").asSymbol.envirGet.at(~piece_position),
+					\freq2, ("instrument_"++(2)++"_full").asSymbol.envirGet.at(~piece_position),
+					\freq3, ("instrument_"++(3)++"_full").asSymbol.envirGet.at(~piece_position),
+					\amp1, ~amp_1,
+					\amp2, ~amp_2,
+					\amp3, ~amp_3
+				);
+			};
 		};
 
 		if(~green != nil, {("assist_comp_part_"++(~green)++"_button").asSymbol.envirGet.value = 0;});
@@ -80,14 +138,14 @@
 				~rate_selection_start = ~piece_position-(~rate_time_range/~bit_duration);
 				if(~rate_selection_start.isNegative == true, {~rate_selection_start = 0;});
 
-					~piecepositionstatictext.string = (
-						"Bit pos. "++(~piece_position.asInteger.asString)++" Midi "++(
-							case
-							{~number_of_instruments == 1}{(~instrument_1_full_midi.at(~piece_position).asString)}
-							{~number_of_instruments == 2}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)}
-							{~number_of_instruments == 3}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)++" "++(~instrument_3_full_midi.at(~piece_position).asString)};
-						)
-					);
+				~piecepositionstatictext.string = (
+					"Bit pos. "++(~piece_position.asInteger.asString)++" Midi "++(
+						case
+						{~number_of_instruments == 1}{(~instrument_1_full_midi.at(~piece_position).asString)}
+						{~number_of_instruments == 2}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)}
+						{~number_of_instruments == 3}{(~instrument_1_full_midi.at(~piece_position).asString)++" "++(~instrument_2_full_midi.at(~piece_position).asString)++" "++(~instrument_3_full_midi.at(~piece_position).asString)};
+					)
+				);
 			};
 		}, {
 			("assist_comp_part_"++(~assist_part_number)++"_button").asSymbol.envirGet.value = 0;
@@ -174,17 +232,17 @@
 					/*var amp = ~amp;
 					150.do({~number_of_instruments.do({
 
-						~amp = ~amp - (~amp/40);
-						Server.default.makeBundle(Server.default.latency, {
-							~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
-								\amp, ~amp
-							);});
-						});
-						0.005.wait;});});
+					~amp = ~amp - (~amp/40);
 					Server.default.makeBundle(Server.default.latency, {
-						~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
-							\amp, 0
-						);});
+					~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
+					\amp, ~amp
+					);});
+					});
+					0.005.wait;});});
+					Server.default.makeBundle(Server.default.latency, {
+					~number_of_instruments.do(j = 0; {("duranduranbotsynth"++(j=j+1)).asSymbol.envirGet.set(
+					\amp, 0
+					);});
 					});
 					~amp = 1;*/
 					AppClock.sched(0, {~stop_func.value;});

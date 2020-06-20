@@ -6,6 +6,55 @@
 		~synthdefs_func_2.value;
 
 	});
+
+	SynthDef("ddbot_synth", {arg out = 0, bufnum = 0, freq1 = 200,freq2 = 300,freq3 = 400, amp1 = 1,amp2 = 1,amp3 = 1;
+		var sig, sig1, sig2, sig3, x;
+		sig = Mix(
+			case
+			{~number_of_instruments == 1}{
+				[
+					PlayBuf.ar(("synth_num_channels_"++(1)).asSymbol.envirGet, ("buffer_"++(1)).asSymbol.envirGet, freq1/("vd_midi_"++(1)).asSymbol.envirGet.midicps, startPos: 0, loop: 1)*amp1
+				]
+			}
+			{~number_of_instruments == 2}{
+				[
+					PlayBuf.ar(("synth_num_channels_"++(1)).asSymbol.envirGet, ("buffer_"++(1)).asSymbol.envirGet, freq1/("vd_midi_"++(1)).asSymbol.envirGet.midicps, startPos: 0, loop: 1)*amp1,
+					PlayBuf.ar(("synth_num_channels_"++(2)).asSymbol.envirGet, ("buffer_"++(2)).asSymbol.envirGet, freq2/("vd_midi_"++(2)).asSymbol.envirGet.midicps, startPos: 0, loop: 1)*amp2
+
+				]
+			}
+			{~number_of_instruments == 3}{
+				[
+					PlayBuf.ar(("synth_num_channels_"++(1)).asSymbol.envirGet, ("buffer_"++(1)).asSymbol.envirGet, freq1/("vd_midi_"++(1)).asSymbol.envirGet.midicps, startPos: 0, loop: 1)*amp1,
+					PlayBuf.ar(("synth_num_channels_"++(2)).asSymbol.envirGet, ("buffer_"++(2)).asSymbol.envirGet, freq2/("vd_midi_"++(2)).asSymbol.envirGet.midicps, startPos: 0, loop: 1)*amp2,
+					PlayBuf.ar(("synth_num_channels_"++(3)).asSymbol.envirGet, ("buffer_"++(3)).asSymbol.envirGet, freq3/("vd_midi_"++(3)).asSymbol.envirGet.midicps, startPos: 0, loop: 1)*amp3
+
+				]
+			};
+		);
+		/*sig = BBandPass.ar(sig, freq: ((((~midi_high_limit-~midi_low_limit)/2).roundUp + ~midi_low_limit).midicps), bw: /*MouseX.kr(0.01, 8).poll*/0.028, mul: 1, add: 0);
+		*//*sig = BPeakEQ.ar(sig, freq: ~vd_midi.midicps, rq: 1, db: 1, mul: 1, add: 0);
+		*//*sig = BPF.ar(sig, freq: freq, rq: 1.6, mul: 1, add: 0);*/
+		/*sig = BLowPass.ar(sig, freq: 75.midicps, rq: MouseX.kr(0.01, 8).poll /*1*/, mul: 1, add: 0);
+		*//*sig = BLowPass4.ar(sig, freq: 75.midicps, rq: MouseX.kr(0.01, 8).poll /*8*/, mul: 1, add: 0);*/
+		/*sig = LPZ2.ar(sig, mul: 1, add: 0);*/
+		/*sig = BPZ2.ar(sig, mul: 1, add: 0);*/
+		/*CompanderD.ar(in: sig, thresh: 0.0001, slopeBelow: 1, slopeAbove: 1, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);*/
+		/*Normalizer.ar(in: sig, level: 0.01, dur: 0.01);*/
+		/*Limiter.ar(in: sig, level: 0.0001, dur: 0.01);*/
+		sig = Compander.ar(in: sig, control: sig,
+			thresh: /*MouseY.kr(0.01, 1).poll*/
+			case
+			{~number_of_instruments == 1}{0.06}
+			{~number_of_instruments == 2}{0.06}
+			{~number_of_instruments == 3}{0.06};
+			,
+			slopeBelow: /*MouseY.kr(0.0001, 3.0).poll*/ 1, slopeAbove: /*MouseX.kr(0.0000001, 1).poll*/ 0.31, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);
+		/*sig = Limiter.ar(in: sig, level: 1, dur: 0.01);
+		*/
+		sig = sig * EnvGen.kr(Env.asr(0.1, 1, 0.1), doneAction: Done.freeSelf);
+		OffsetOut.ar(0, sig);
+	}).add;
 };
 
 ~synthdefs_func_2 = {
@@ -116,31 +165,31 @@
 	/*
 	{ SinOsc.ar(60.midicps, 0, 0.5) }.play;*/
 
-	SynthDef("synth"++(~synth_inst_num), {arg out = 0, bufnum = 0, freq = 1, amp = ("amp_"++(~synth_inst_num)).asSymbol.envirGet;
-		var sig;
-		sig = PlayBuf.ar(("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirGet, ("buffer_"++(~synth_inst_num)).asSymbol.envirGet, freq/("vd_midi_"++(~synth_inst_num)).asSymbol.envirGet.midicps, startPos: 0, loop: 1);
-		/*sig = BBandPass.ar(sig, freq: ((((~midi_high_limit-~midi_low_limit)/2).roundUp + ~midi_low_limit).midicps), bw: /*MouseX.kr(0.01, 8).poll*/0.028, mul: 1, add: 0);
-		*//*sig = BPeakEQ.ar(sig, freq: ~vd_midi.midicps, rq: 1, db: 1, mul: 1, add: 0);
-		*//*sig = BPF.ar(sig, freq: freq, rq: 1.6, mul: 1, add: 0);*/
-		/*sig = BLowPass.ar(sig, freq: 75.midicps, rq: MouseX.kr(0.01, 8).poll /*1*/, mul: 1, add: 0);
-		*//*sig = BLowPass4.ar(sig, freq: 75.midicps, rq: MouseX.kr(0.01, 8).poll /*8*/, mul: 1, add: 0);*/
-		/*sig = LPZ2.ar(sig, mul: 1, add: 0);*/
-		/*sig = BPZ2.ar(sig, mul: 1, add: 0);*/
-		/*CompanderD.ar(in: sig, thresh: 0.0001, slopeBelow: 1, slopeAbove: 1, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);*/
-		/*Normalizer.ar(in: sig, level: 0.01, dur: 0.01);*/
-		/*Limiter.ar(in: sig, level: 0.0001, dur: 0.01);*/
-		sig = Compander.ar(in: sig, control: sig,
-			thresh: /*MouseY.kr(0.01, 1).poll*/
-			case
-			{~number_of_instruments == 1}{0.1}
-			{~number_of_instruments == 2}{0.1}
-			{~number_of_instruments == 3}{0.06};
-			,
-			slopeBelow: /*MouseY.kr(0.0001, 3.0).poll*/ 1, slopeAbove: /*MouseX.kr(0.0000001, 1).poll*/ 0.31, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);
-		sig = sig * EnvGen.kr(Env.asr(0.1, 1, 0.1), doneAction: Done.freeSelf);
-		/*sig = Limiter.ar(in: sig, level: MouseX.kr(0.01, 1).poll, dur: MouseY.kr(0.01, 1).poll);*/
-		OffsetOut.ar(0, sig.dup*amp);
-	}).add;
+	/*SynthDef("synth"++(~synth_inst_num), {arg out = 0, bufnum = 0, freq = 1, amp = ("amp_"++(~synth_inst_num)).asSymbol.envirGet;
+	var sig;
+	sig = PlayBuf.ar(("synth_num_channels_"++(~synth_inst_num)).asSymbol.envirGet, ("buffer_"++(~synth_inst_num)).asSymbol.envirGet, freq/("vd_midi_"++(~synth_inst_num)).asSymbol.envirGet.midicps, startPos: 0, loop: 1);
+	/*sig = BBandPass.ar(sig, freq: ((((~midi_high_limit-~midi_low_limit)/2).roundUp + ~midi_low_limit).midicps), bw: /*MouseX.kr(0.01, 8).poll*/0.028, mul: 1, add: 0);
+	*//*sig = BPeakEQ.ar(sig, freq: ~vd_midi.midicps, rq: 1, db: 1, mul: 1, add: 0);
+	*//*sig = BPF.ar(sig, freq: freq, rq: 1.6, mul: 1, add: 0);*/
+	/*sig = BLowPass.ar(sig, freq: 75.midicps, rq: MouseX.kr(0.01, 8).poll /*1*/, mul: 1, add: 0);
+	*//*sig = BLowPass4.ar(sig, freq: 75.midicps, rq: MouseX.kr(0.01, 8).poll /*8*/, mul: 1, add: 0);*/
+	/*sig = LPZ2.ar(sig, mul: 1, add: 0);*/
+	/*sig = BPZ2.ar(sig, mul: 1, add: 0);*/
+	/*CompanderD.ar(in: sig, thresh: 0.0001, slopeBelow: 1, slopeAbove: 1, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);*/
+	/*Normalizer.ar(in: sig, level: 0.01, dur: 0.01);*/
+	/*Limiter.ar(in: sig, level: 0.0001, dur: 0.01);*/
+	sig = Compander.ar(in: sig, control: sig,
+	thresh: /*MouseY.kr(0.01, 1).poll*/
+	case
+	{~number_of_instruments == 1}{0.1}
+	{~number_of_instruments == 2}{0.1}
+	{~number_of_instruments == 3}{0.06};
+	,
+	slopeBelow: /*MouseY.kr(0.0001, 3.0).poll*/ 1, slopeAbove: /*MouseX.kr(0.0000001, 1).poll*/ 0.31, clampTime: 0.01, relaxTime: 0.1, mul: 1, add: 0);
+	sig = sig * EnvGen.kr(Env.asr(0.1, 1, 0.1), doneAction: Done.freeSelf);
+	/*sig = Limiter.ar(in: sig, level: MouseX.kr(0.01, 1).poll, dur: MouseY.kr(0.01, 1).poll);*/
+	OffsetOut.ar(0, sig.dup*amp);
+	}).add;*/
 
 	/*SynthDef("synth4", {arg out = 0, bufnum = 0, freq = 1, amp = 1;
 	var sig;
