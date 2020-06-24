@@ -61,7 +61,7 @@
 			g.write(("synth_choice_"++(1)).asSymbol.envirGet.asString.quote;);
 			g.close;
 
-			~synthdefs_func_2.value;
+			~synthdefs_func.value;
 		});
 
 	};
@@ -89,7 +89,7 @@
 			g.write(("synth_choice_"++(2)).asSymbol.envirGet.asString.quote;);
 			g.close;
 
-			~synthdefs_func_2.value;
+			~synthdefs_func.value;
 		});
 
 	};
@@ -117,7 +117,7 @@
 			g.write(("synth_choice_"++(3)).asSymbol.envirGet.asString.quote;);
 			g.close;
 
-			~synthdefs_func_2.value;
+			~synthdefs_func.value;
 		});
 
 	};

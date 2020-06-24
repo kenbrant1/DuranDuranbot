@@ -279,6 +279,7 @@
 				~assist_loading_proj = 1;
 				~duranduranbot_GUI_func.value;
 				~notepadview.string = ~notepad_string.asString;
+				~synthdefs_func.value;
 				"project loaded".postln;
 
 		}, {}, 0, 0, stripResult: true, path: ((~ddbot_root)++"/program_files/saved_projects"));
@@ -327,6 +328,8 @@
 	if(~assist_part_number == nil, {~assist_part_number = 1});
 
 	~new_part_button = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, (x=0; ~button_base.value;), ~firstviewboundsWIDTH/9, ~firstviewboundsHEIGHT/21)).states_([["New Part",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+		if(~duranduranbot_routine.isPlaying == true, {~stop_func.value;});
 
 		~num_assist_parts = ~num_assist_parts + 1;
 		if(~line_multiple2 >= 16, {~line_multiple1 = ~line_multiple1 + 1; ~line_multiple2 = 0;});

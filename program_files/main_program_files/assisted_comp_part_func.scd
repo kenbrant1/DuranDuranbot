@@ -64,7 +64,11 @@
 					("length"++(u=u+1)).asSymbol.envirPut(k);
 					q=q-1;
 				}, {
-					("length"++(u=u+1)).asSymbol.envirPut((("length"++(u-1)).asSymbol.envirGet));
+					("length"++(u=u+1)).asSymbol.envirPut(
+						if(("length"++(1)).asSymbol.envirGet != nil, {
+							("length"++(u-1)).asSymbol.envirGet;
+						}, {0});
+					);
 				});
 
 				("bit_clock_"++(~inst_array.wrapAt(~inst_num-1))++"_choice").asSymbol.envirPut(
@@ -129,6 +133,8 @@
 	if(~gen_c_on != 1, {
 		~find_notes_array = {("assist_inst_"++(~inst_num)++"_array_part_"++(~last_part_num)++"_midi").asSymbol.envirGet;};
 		~find_notes_func.value;
+		("length"++(1)).asSymbol.envirPut(nil);
+		("length"++(2)).asSymbol.envirPut(nil);
 	});
 	~gen_c_on = 0;
 };
@@ -147,6 +153,8 @@
 	if(~gen_c_on != 1, {
 		~find_notes_array = {("assist_inst_"++(~inst_num)++"_array_part_"++(~next_part_num)++"_midi").asSymbol.envirGet.reverse;};
 		~find_notes_func.value;
+		("length"++(1)).asSymbol.envirPut(nil);
+		("length"++(2)).asSymbol.envirPut(nil);
 	});
 	~gen_c_on = 0;
 };

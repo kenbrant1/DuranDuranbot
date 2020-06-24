@@ -10,7 +10,6 @@
 		~size_val = ~cut_to - 1;
 	});
 
-	~synthdefs_func.value;
 	/*
 	~low_pass_filter_on = 1;
 	~gsine.value;*/

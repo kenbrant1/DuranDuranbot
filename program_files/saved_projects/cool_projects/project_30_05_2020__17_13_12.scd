@@ -6,9 +6,9 @@
 ~bit_duration = 8.reciprocal;
 ~tuning_frequency = 440.0;
 ~which_players = 1;
-~amp_1 = 1;
-~amp_2 = 1;
-~amp_3 = 1;
+~amp_1 = 2;
+~amp_2 = 2;
+~amp_3 = 2;
 ~num_assist_parts = 27;
 ~line_multiple1 = 2;
 ~line_multiple2 = 11;

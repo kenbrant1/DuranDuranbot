@@ -104,12 +104,12 @@ if(Server.default.serverRunning == false, {
 	Server.default.boot;
 	Server.default.waitForBoot({
 		~duranduranbot_GUI_func.value;
-
+		~synthdefs_func.value;
 	});
 
 }, {
 	~duranduranbot_GUI_func.value;
-
+	~synthdefs_func.value;
 });
 
 

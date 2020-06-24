@@ -4,7 +4,6 @@
 
 	~size_val = ~instrument_1_full.size-1;
 
-	~synthdefs_func.value;
 	/*
 	~low_pass_filter_on = 1;
 	~gsine.value;*/
