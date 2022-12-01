@@ -9,7 +9,7 @@ Download and extract the entire DuranDuranbot zip file to a location on your com
 
 ............
 
-Then download and install SuperCollider, the IDE application which runs DuranDuranbot, from this website - https://supercollider.github.io/download
+Then download and install SuperCollider, the IDE application which runs DuranDuranbot, from this website - [https://supercollider.github.io/download](https://supercollider.github.io/downloads)
 
 Once SuperCollider is installed, open the SuperCollider application, and from within SuperCollider, open the "duranduranbot_RUN_(open_to_run).scd" file.... and press "ctrl -Enter" or "cmd - Return" to run the application.
 
