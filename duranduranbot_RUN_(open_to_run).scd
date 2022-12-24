@@ -20,8 +20,7 @@ found in the top right corner of the "Main Page" of the program after running it
 ...
 
 *If something goes wrong* - you can kill all sounds and processes by hitting "cmd/ctrl - period" on
-your keyboard... and if that doesn't work... you can reboot the interpreter
-by clicking on the "Language" tab and clicking "Reboot Interpreter", or by highlighting and evaluating (thisProcess.platform.recompile);
+your keyboard... and if that doesn't work... you can highlight and evaluate (thisProcess.platform.recompile);
 and pressing "ctrl - enter"/"cmd - return". Doing this is also beneficial as a restarting or "clean up" method.
 
 ...
@@ -36,6 +35,8 @@ contact email: ken_brant@ymail.com or kenbrant7@gmail.com
 https://github.com/kenbrant1
 
 */
+
+Server.killAll;
 
 ~ddbot_root = Document.current.dir;
 
