@@ -1,7 +1,16 @@
 ~duranduranbot_GUI_func = {
 
 	w = Window("DuranDuranbot",
-		Rect(Window.availableBounds.width*(1/4.4), Window.availableBounds.height*(1/4.5), Window.availableBounds.width*((4.5-2)/4.5), Window.availableBounds.height*((4.5-2)/4.5)),
+		Rect(
+			Window.availableBounds.width*(1/4.4),
+			Window.availableBounds.height*(1/4.5),
+			Window.availableBounds.width*((4.5-2)/4.5),
+			Window.availableBounds.height*((4.5-2)/4.5)),
+
+			/*Window.availableBounds.width*(0),
+			Window.availableBounds.height*(0),
+			Window.availableBounds.width,
+			Window.availableBounds.height),*/
 
 		/*Rect(0, 0, Window.screenBounds.width, Window.screenBounds.height),*/
 		resizable: true, border:true);
@@ -23,5 +32,7 @@
 	if(~fullscreenon == 1, {~fullscreen_func.value;});
 
 	~hotkeys_func.value;
+
+	w.unminimize;
 
 };

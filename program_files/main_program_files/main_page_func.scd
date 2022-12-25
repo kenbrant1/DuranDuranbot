@@ -48,7 +48,7 @@
 			/*Rect(0, 0, Window.screenBounds.width, Window.screenBounds.height),*/
 			resizable: true, border:true);
 
-		w.front; w.fullScreen;
+		w.front; /*w.fullScreen;*/
 		if(~ai_assist_compose != 1, {~main_page_func.value;}, {~assist_compose_page_func.value;});
 		~fullscreenbutton.value = 1;
 		~fullscreenon = 1;
@@ -81,7 +81,7 @@
 
 	};
 
-	~fullscreenbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.7, ~firstviewboundsHEIGHT/21)).states_([["Enter Fullscreen",~stringcolor,~backgroundcolor],["Exit Fullscreen",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~fullscreenbutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/1.4173228346457, ~firstviewboundsHEIGHT/43.7+(~firstviewboundsHEIGHT/21), ~firstviewboundsWIDTH/3.7, ~firstviewboundsHEIGHT/21)).states_([["Maximize Window",~stringcolor,~backgroundcolor],["Unmaximize Window",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		if(button.value == 1, {~fullscreen_func.value;}, {~end_fullscreen_func.value;});
 
