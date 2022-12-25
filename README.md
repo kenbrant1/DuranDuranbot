@@ -5,7 +5,7 @@ DuranDuranbot is a teachable/trainable artificial intelligence music bot fundame
 HOW TO RUN - 
 
 
-Download and extract the entire DuranDuranbot zip file to a location on your computer.
+Download and extract the entire DuranDuranbot zip file to a location on your computer - https://github.com/kenbrant1/DuranDuranbot/archive/refs/heads/master.zip
 
 ............
 
