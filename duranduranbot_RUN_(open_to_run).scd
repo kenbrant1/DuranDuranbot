@@ -20,8 +20,12 @@ found in the top right corner of the "Main Page" of the program after running it
 ...
 
 *If something goes wrong* - you can kill all sounds and processes by hitting "cmd/ctrl - period" on
-your keyboard... and if that doesn't work... you can highlight and evaluate (thisProcess.platform.recompile);
-and pressing "ctrl - enter"/"cmd - return". Doing this is also beneficial as a restarting or "clean up" method.
+your keyboard... and if that doesn't work... you can highlight and press "ctrl - enter"/"cmd - return"
+the parenthesis' below.
+
+(thisProcess.platform.recompile);
+
+Doing this is also beneficial as a restarting or "clean up" method.
 
 ...
 
@@ -36,7 +40,12 @@ https://github.com/kenbrant1
 
 */
 
-Server.killAll;
+
+Platform.case(
+    \osx,       { },
+    \linux,     { },
+    \windows,   { Server.killAll; }
+);
 
 ~ddbot_root = Document.current.dir;
 
@@ -96,6 +105,8 @@ File.readAllString((~ddbot_root)++"/program_files/main_program_files/synthdefs_f
 File.readAllString((~ddbot_root)++"/program_files/main_program_files/run_piece_func.scd", r).interpret; "run_piece_func.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/main_program_files/hotkeys.scd", r).interpret; "hotkeys.scd".postln;
 File.readAllString((~ddbot_root)++"/program_files/main_program_files/full_midi_to_ml_func.scd", r).interpret; "full_midi_to_ml_func.scd".postln;
+File.readAllString((~ddbot_root)++"/program_files/main_program_files/band_mode_func.scd", r).interpret; "~band_mode_func.scd".postln;
+
 
 if(w != nil, {w.close;});
 
