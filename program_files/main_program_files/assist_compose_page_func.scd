@@ -38,17 +38,57 @@
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;*/
 
+	if(~firstview != nil, {~firstview.close;});
+	if(~firstview2 != nil, {~firstview2.close;});
+
 	~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height/2));
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;
 	~firstviewboundsWIDTH = ~firstview.bounds.width;
 	~firstviewboundsHEIGHT = ~firstview.bounds.height*2;
 
-	~firstview2 = ScrollView(w, Rect(0, w.bounds.height/2, w.bounds.width, w.bounds.height - (w.bounds.height/2)));
+	~firstview2 = ScrollView(w, Rect(
+		0,
+		if(~bandmode_ON != 1, {w.bounds.height/2}, {(w.bounds.height/2) - (w.bounds.height/2 - (w.bounds.height/2*1.15))}),
+		w.bounds.width,
+		if(~bandmode_ON != 1, {w.bounds.height - (w.bounds.height/2)}, {(w.bounds.height - (w.bounds.height/2)) + (w.bounds.height/2 - (w.bounds.height/2*1.15))})
+		));
 	/*view.clearOnRefresh = false;*/
 	~firstview2.background = ~backgroundcolor;
 	~firstviewboundsWIDTH2 = ~firstview.bounds.width;
 	~firstviewboundsHEIGHT2 = ~firstview.bounds.height*2;
+
+	if(~bandmode_ON == 1, {
+		~bandmodeview = ScrollView(w, Rect(
+			0,
+			w.bounds.height/2,
+			w.bounds.width,
+			(w.bounds.height/2 - (w.bounds.height/2*1.15)).neg));
+		/*view.clearOnRefresh = false;*/
+		~bandmodeview.background = ~backgroundcolor;
+		~bandmodeviewwidth = ~firstview.bounds.width;
+		~bandmodeviewheight = ~firstview.bounds.height*2;
+
+		if(~user_x == nil, {~user_x = (0)});
+		if(~name_array == nil, {~name_array = [];});
+
+		~bandmodetext3 = StaticText(~bandmodeview, Rect(~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/80, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+		~bandmodetext3.background=~backgroundcolor;
+		~bandmodetext3.stringColor_(~stringcolor);
+		~bandmodetext3.string = ~name_array.at(~user_x).value.asString;
+		~bandmodetext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+		~next_user_button = Button.new(~bandmodeview, Rect(~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/80, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Next User",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+			~user_x = ~user_x + 1;
+			if(~user_x >= (~name_array.size), {~user_x = 0});
+			~bandmodetext3.string = ~name_array.at(~user_x).asString;
+		});
+		~next_user_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+		~band_mode_func.value;
+
+	});
 
 	~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.75, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~firstviewtext1.background=~backgroundcolor;
@@ -71,6 +111,15 @@
 	~firstviewtext2.background=~stringcolor;
 	~firstviewtext2.string = "Back";
 	~firstviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	~bandmodebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Band Mode",~stringcolor,~backgroundcolor],["Band Mode",Color.black,Color.green]]).action_({arg button;
+		if(button.value == 0, {~bandmode_ON = 0}, {~bandmode_ON = 1});
+		~assist_compose_page_func.value;
+	});
+	~bandmodebutton.string = "Band Mode";
+	~bandmodebutton.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+
+	if(~bandmode_ON == 1, {~bandmodebutton.value = 1});
 
 	~generatepiecebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/72, ~firstviewboundsHEIGHT/7.5, ~firstviewboundsWIDTH/6.54, ~firstviewboundsHEIGHT/21)).states_([["Play full piece",~stringcolor,~backgroundcolor]]).action_({arg button;
 		var piecegenerated;
