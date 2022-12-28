@@ -38,47 +38,49 @@
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;*/
 
+	if(~bandmode_ON != 1, {~screen_ratio = 1.61803398875}, {~screen_ratio = 1.7});
+
 	if(~firstview != nil, {~firstview.close;});
 	if(~firstview2 != nil, {~firstview2.close;});
 
-	~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height/2));
+	~firstview = ScrollView(w, Rect(0, 0, w.bounds.width, w.bounds.height/~screen_ratio));
 	/*view.clearOnRefresh = false;*/
 	~firstview.background = ~backgroundcolor;
 	~firstviewboundsWIDTH = ~firstview.bounds.width;
-	~firstviewboundsHEIGHT = ~firstview.bounds.height*2;
+	~firstviewboundsHEIGHT = ~firstview.bounds.height*~screen_ratio;
 
 	~firstview2 = ScrollView(w, Rect(
 		0,
-		if(~bandmode_ON != 1, {w.bounds.height/2}, {(w.bounds.height/2) - (w.bounds.height/2 - (w.bounds.height/2*1.15))}),
+		if(~bandmode_ON != 1, {w.bounds.height/~screen_ratio}, {(w.bounds.height/~screen_ratio) - (w.bounds.height/~screen_ratio - (w.bounds.height/~screen_ratio*1.1))}),
 		w.bounds.width,
-		if(~bandmode_ON != 1, {w.bounds.height - (w.bounds.height/2)}, {(w.bounds.height - (w.bounds.height/2)) + (w.bounds.height/2 - (w.bounds.height/2*1.15))})
+		if(~bandmode_ON != 1, {w.bounds.height - (w.bounds.height/~screen_ratio)}, {(w.bounds.height - (w.bounds.height/~screen_ratio)) + (w.bounds.height/~screen_ratio - (w.bounds.height/~screen_ratio*1.1))})
 		));
 	/*view.clearOnRefresh = false;*/
 	~firstview2.background = ~backgroundcolor;
 	~firstviewboundsWIDTH2 = ~firstview.bounds.width;
-	~firstviewboundsHEIGHT2 = ~firstview.bounds.height*2;
+	~firstviewboundsHEIGHT2 = ~firstview.bounds.height*~screen_ratio;
 
 	if(~bandmode_ON == 1, {
 		~bandmodeview = ScrollView(w, Rect(
 			0,
-			w.bounds.height/2,
+			w.bounds.height/~screen_ratio,
 			w.bounds.width,
-			(w.bounds.height/2 - (w.bounds.height/2*1.15)).neg));
+			(w.bounds.height/~screen_ratio - (w.bounds.height/~screen_ratio*1.1)).neg));
 		/*view.clearOnRefresh = false;*/
 		~bandmodeview.background = ~backgroundcolor;
 		~bandmodeviewwidth = ~firstview.bounds.width;
-		~bandmodeviewheight = ~firstview.bounds.height*2;
+		~bandmodeviewheight = ~firstview.bounds.height*~screen_ratio;
 
 		if(~user_x == nil, {~user_x = (0)});
 		if(~name_array == nil, {~name_array = [];});
 
-		~bandmodetext3 = StaticText(~bandmodeview, Rect(~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/80, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+		~bandmodetext3 = StaticText(~bandmodeview, Rect(~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/160, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 		~bandmodetext3.background=~backgroundcolor;
 		~bandmodetext3.stringColor_(~stringcolor);
 		~bandmodetext3.string = ~name_array.at(~user_x).value.asString;
 		~bandmodetext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
-		~next_user_button = Button.new(~bandmodeview, Rect(~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/80, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Next User",~stringcolor,~backgroundcolor]]).action_({arg button;
+		~next_user_button = Button.new(~bandmodeview, Rect(~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/160, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Next User",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 			~user_x = ~user_x + 1;
 			if(~user_x >= (~name_array.size), {~user_x = 0});
