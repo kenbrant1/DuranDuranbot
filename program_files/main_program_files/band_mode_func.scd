@@ -49,6 +49,15 @@ if(~bandmodeview1 != nil, {~bandmodeview1.close;});
 
 		~bandmodetext3.string = ~name_array.at(~user_x).value.asString;
 		~bandmodeview1.close;
+
+		if(File.readAllString((~ddbot_root)++"/program_files/other_program_files/bandmode_userview.scd", r).interpret == 0, {
+
+			~user_view_button.valueAction = 1;
+			~user_view_button.value = 1;
+		}, {
+			~user_view_button.valueAction = 0;
+			~user_view_button.value = 0;
+		});
 	});
 	~users_done_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 

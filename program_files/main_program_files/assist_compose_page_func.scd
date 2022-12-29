@@ -74,23 +74,55 @@
 		if(~user_x == nil, {~user_x = (0)});
 		if(~name_array == nil, {~name_array = [];});
 
-		~bandmodetext3 = StaticText(~bandmodeview, Rect(~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/160, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
-		~bandmodetext3.background=~backgroundcolor;
-		~bandmodetext3.stringColor_(~stringcolor);
-		~bandmodetext3.string = ~name_array.at(~user_x).value.asString;
-		~bandmodetext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+		~user_view_button = Button.new(~bandmodeview, Rect(~firstviewboundsWIDTH/160, ~firstviewboundsHEIGHT/160, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Change View",~stringcolor,~backgroundcolor],["Change View",~stringcolor,~backgroundcolor]]).action_({arg button;
 
-		~next_user_button = Button.new(~bandmodeview, Rect(~firstviewboundsWIDTH/2, ~firstviewboundsHEIGHT/160, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Next User",~stringcolor,~backgroundcolor]]).action_({arg button;
+			if(button.value == 0, {
+				g = File((~ddbot_root)++"/program_files/other_program_files/bandmode_userview.scd", "w");
+				g.write("1");
+				g.close;
 
-			~user_x = ~user_x + 1;
-			if(~user_x >= (~name_array.size), {~user_x = 0});
-			~bandmodetext3.string = ~name_array.at(~user_x).asString;
+				if(~next_user_button != nil, {~next_user_button.close;});
+
+				if(~bandmodetext3 != nil, {~bandmodetext3.close;});
+				~bandmodetext3 = StaticText(~bandmodeview, Rect(~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/160, ~firstviewboundsWIDTH/1.3, ~firstviewboundsHEIGHT/21));
+				~bandmodetext3.background=~backgroundcolor;
+				~bandmodetext3.stringColor_(~stringcolor);
+				~bandmodetext3.string = ~name_array.asString;
+				~bandmodetext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/52);
+
+			}, {
+				g = File((~ddbot_root)++"/program_files/other_program_files/bandmode_userview.scd", "w");
+				g.write("0");
+				g.close;
+
+				if(~bandmodetext3 != nil, {~bandmodetext3.close;});
+					~bandmodetext3 = StaticText(~bandmodeview, Rect(~firstviewboundsWIDTH/3, ~firstviewboundsHEIGHT/160, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
+					~bandmodetext3.background=~backgroundcolor;
+					~bandmodetext3.stringColor_(~stringcolor);
+					~bandmodetext3.string = ~name_array.at(~user_x).value.asString;
+					~bandmodetext3.font = Font(~default_font, size: ~firstviewboundsWIDTH/52);
+
+				~next_user_button = Button.new(~bandmodeview, Rect(~firstviewboundsWIDTH/6, ~firstviewboundsHEIGHT/160, ~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/21)).states_([["Next User",~stringcolor,~backgroundcolor]]).action_({arg button;
+
+					~user_x = ~user_x + 1;
+					if(~user_x >= (~name_array.size), {~user_x = 0});
+					~bandmodetext3.string = ~name_array.at(~user_x).value.asString;
+				});
+				~next_user_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/52);
+			});
 		});
-		~next_user_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
+		~user_view_button.font = Font(~default_font, size: ~firstviewboundsWIDTH/52);
 
-		~band_mode_func.value;
+		if(File.readAllString((~ddbot_root)++"/program_files/other_program_files/bandmode_userview.scd", r).interpret == 0, {
 
+			~user_view_button.valueAction = 1;
+			~user_view_button.value = 1;
+		}, {
+			~user_view_button.valueAction = 0;
+			~user_view_button.value = 0;
+		});
 	});
+
 
 	~firstviewtext1 = StaticText(~firstview, Rect(~firstviewboundsWIDTH/2.75, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/4, ~firstviewboundsHEIGHT/21));
 	~firstviewtext1.background=~backgroundcolor;
@@ -115,7 +147,7 @@
 	~firstviewtext2.font = Font(~default_font, size: ~firstviewboundsWIDTH/48);
 
 	~bandmodebutton = Button.new(~firstview, Rect(~firstviewboundsWIDTH/7, ~firstviewboundsHEIGHT/43.7, ~firstviewboundsWIDTH/8, ~firstviewboundsHEIGHT/21)).states_([["Band Mode",~stringcolor,~backgroundcolor],["Band Mode",Color.black,Color.green]]).action_({arg button;
-		if(button.value == 0, {~bandmode_ON = 0}, {~bandmode_ON = 1});
+		if(button.value == 0, {~bandmode_ON = 0}, {~bandmode_ON = 1; ~band_mode_func.value;});
 		~assist_compose_page_func.value;
 	});
 	~bandmodebutton.string = "Band Mode";
@@ -184,8 +216,16 @@
 		}, {
 			g = File((~ddbot_root)++"/program_files/saved_projects/project_"++(z=((Date.getDate.format("%d_%m_%Y__%H_%M_%S").asString)))++"_trim.scd", "w");
 		});
+
+		~name_array_save = [];
+		~name_array.size.do(j = (-1);{
+			~name_array_save = ~name_array_save.add(~name_array.at(j=j+1).quote);
+		});
+
 		g.write(
-			"~synth_choice_1 = "++(~synth_choice_1.asString.quote;)++
+			"~name_array = "++(~name_array_save.asString;)++
+			";\n~user_x = "++(~user_x.asString;)++
+			";\n~synth_choice_1 = "++(~synth_choice_1.asString.quote;)++
 			";\n~synth_choice_2 = "++(~synth_choice_2.asString.quote;)++
 			";\n~synth_choice_3 = "++(~synth_choice_3.asString.quote;)++
 			";\n~composition_process_setting = "++(~composition_process_setting.asInteger.asString)++

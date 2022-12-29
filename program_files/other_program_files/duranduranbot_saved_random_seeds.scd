@@ -520,3 +520,113 @@ Wed Jun 24 13:52:35 2020
 random seed 1 - 10579467
 random seed 2 - 71845340
 random seed 3 - 14679606
+
+Mon Dec 26 22:43:48 2022
+random seed 1 - 15147070
+random seed 2 - 59229585
+random seed 3 - 53927670
+
+Mon Dec 26 22:45:47 2022
+random seed 1 - 10927048
+random seed 2 - 43945367
+random seed 3 - 62778703
+
+Tue Dec 27 11:26:49 2022
+random seed 1 - 83562613
+random seed 2 - 14633974
+random seed 3 - 11150445
+
+Tue Dec 27 11:29:44 2022
+random seed 1 - 92415965
+random seed 2 - 29901451
+random seed 3 - 17234400
+
+Tue Dec 27 15:23:52 2022
+random seed 1 - 74628521
+random seed 2 - 20811733
+random seed 3 - 3650111
+
+Tue Dec 27 15:25:02 2022
+random seed 1 - 94551325
+random seed 2 - 71432468
+random seed 3 - 53174925
+
+Tue Dec 27 15:28:08 2022
+random seed 1 - 55838161
+random seed 2 - 32493279
+random seed 3 - 52963456
+
+Tue Dec 27 16:05:12 2022
+random seed 1 - 45401300
+random seed 2 - 44425058
+random seed 3 - 416911
+
+Tue Dec 27 18:03:47 2022
+random seed 1 - 93103961
+random seed 2 - 11990531
+random seed 3 - 45711970
+
+Tue Dec 27 18:05:10 2022
+random seed 1 - 30334084
+random seed 2 - 7358622
+random seed 3 - 33805811
+
+Tue Dec 27 18:17:11 2022
+random seed 1 - 99657550
+random seed 2 - 59356708
+random seed 3 - 69077899
+
+Tue Dec 27 18:24:32 2022
+random seed 1 - 86881412
+random seed 2 - 21454925
+random seed 3 - 8257944
+
+Tue Dec 27 18:25:49 2022
+random seed 1 - 59689675
+random seed 2 - 48272019
+random seed 3 - 92653448
+
+Tue Dec 27 20:26:29 2022
+random seed 1 - 17710888
+random seed 2 - 14202441
+random seed 3 - 58649402
+
+Tue Dec 27 20:30:13 2022
+random seed 1 - 24248253
+random seed 2 - 90800048
+random seed 3 - 68892293
+
+Thu Dec 29 11:21:04 2022
+random seed 1 - 72373109
+random seed 2 - 25335637
+random seed 3 - 41003884
+
+Thu Dec 29 12:47:14 2022
+random seed 1 - 48688322
+random seed 2 - 99521768
+random seed 3 - 49109303
+
+Thu Dec 29 12:49:26 2022
+random seed 1 - 42220485
+random seed 2 - 27144150
+random seed 3 - 25431969
+
+Thu Dec 29 12:59:25 2022
+random seed 1 - 14902840
+random seed 2 - 85631076
+random seed 3 - 68356478
+
+Thu Dec 29 13:20:13 2022
+random seed 1 - 97130812
+random seed 2 - 28854128
+random seed 3 - 21109328
+
+Thu Dec 29 13:23:15 2022
+random seed 1 - 60273640
+random seed 2 - 41626747
+random seed 3 - 47548003
+
+Thu Dec 29 13:24:10 2022
+random seed 1 - 20514696
+random seed 2 - 14959246
+random seed 3 - 60435782
