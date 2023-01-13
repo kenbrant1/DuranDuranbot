@@ -630,3 +630,23 @@ Thu Dec 29 13:24:10 2022
 random seed 1 - 20514696
 random seed 2 - 14959246
 random seed 3 - 60435782
+
+Thu Dec 29 15:20:36 2022
+random seed 1 - 65853364
+random seed 2 - 69811990
+random seed 3 - 79558499
+
+Thu Dec 29 15:45:50 2022
+random seed 1 - 70522802
+random seed 2 - 74107091
+random seed 3 - 38047661
+
+Fri Dec 30 21:01:41 2022
+random seed 1 - 1795828
+random seed 2 - 83856329
+random seed 3 - 23133197
+
+Thu Jan 12 21:32:46 2023
+random seed 1 - 52823617
+random seed 2 - 7551219
+random seed 3 - 43106441

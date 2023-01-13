@@ -44,7 +44,7 @@ https://github.com/kenbrant1
 Platform.case(
     \osx,       { },
     \linux,     { },
-    \windows,   { Server.killAll; }
+    \windows,   { /*Server.killAll;*/ }
 );
 
 ~ddbot_root = Document.current.dir;

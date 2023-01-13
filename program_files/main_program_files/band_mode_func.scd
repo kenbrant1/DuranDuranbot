@@ -31,7 +31,7 @@ if(~bandmodeview1 != nil, {~bandmodeview1.close;});
 		~bandmodetextfield.string = "".asString;
 	};
 
-	~clear_users_button = Button.new(~bandmodeview1, Rect(0, ~firstviewboundsWIDTH/12, ~bandmodeview1WIDTH/3.8, ~bandmodeview1WIDTH/21)).states_([["Clear Users",~stringcolor,~backgroundcolor]]).action_({arg button;
+	~clear_users_button = Button.new(~bandmodeview1, Rect(~firstviewboundsWIDTH/2.9, ~firstviewboundsHEIGHT/12, ~bandmodeview1WIDTH/3.8, ~bandmodeview1WIDTH/21)).states_([["Clear Users",~stringcolor,~backgroundcolor]]).action_({arg button;
 
 		~name_array = [];
 		~user_x = 0;
